@@ -1,0 +1,12 @@
+backend/vendor/
+backend/node_modules/
+frontend/node_modules/
+backend/.env
+.env
+.DS_Store
+Thumbs.db
+*.log
+*.cache
+frontend/dist/
+backend/storage/*.key
+backend/storage/logs/

@@ -1,7 +1,7 @@
 # CONTINUACAO.md - Handoff do Projeto MotoCare
 
 ## Estado Atual
-O repositório foi iniciado do zero e a etapa de governança SDD foi concluída. O scaffold base do backend e do frontend já existe e o frontend foi validado com build de produção.
+O scaffold base, a governança SDD e a configuração local foram concluídos. O backend está conectado ao MySQL do XAMPP com as migrations aplicadas, e o frontend foi validado com build de produção.
 
 ## O que foi feito
 
@@ -50,13 +50,15 @@ O repositório foi iniciado do zero e a etapa de governança SDD foi concluída.
 - O build de produção do frontend passou com sucesso usando `npm run build`.
 
 ### Validação
+- Dependências restauradas com `composer install` e `npm install`.
+- Banco `motocare` criado no MySQL local do XAMPP e migrations executadas com sucesso.
+- Suíte Laravel validada com 2 testes passando.
+- Build de produção do frontend validado novamente.
 - O backend foi gerado com Laravel 12.x porque a versão mais recente exigia PHP 8.3, incompatível com o ambiente atual.
 - Houve bloqueio temporário de extração no Windows durante a instalação inicial do Composer, mas o projeto foi concluído e o frontend ficou validado.
 - Foi removido o aviso de import não utilizado no modelo [backend/app/Models/User.php](backend/app/Models/User.php).
 
 ## Pendências para continuar depois
-- Criar o banco `motocare` no MySQL do XAMPP, se ainda não existir.
-- Executar as migrations do backend com `php artisan migrate` dentro de [backend](backend).
 - Implementar autenticação com Laravel Sanctum.
 - Criar controllers, models e endpoints REST para:
   - usuários

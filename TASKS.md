@@ -2,7 +2,8 @@
 
 ## T0 [Must Have]
 - Scaffold da aplicação: Laravel em `/backend`, Vue 3 PWA em `/frontend` e migrations MySQL no XAMPP.
-- Status: em progresso.
+- Status: concluído.
+- Ambiente local configurado com dependências instaladas, chave Laravel gerada e banco `motocare` criado/migrado.
 
 ## T1 [US01 - Must Have]
 - Alertas automatizados de Troca de Óleo e Revisões.

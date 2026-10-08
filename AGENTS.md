@@ -8,14 +8,17 @@ MotoCare é um Progressive Web App (PWA) para acompanhamento de manutenção pre
 
 ## Stack Tecnológica
 - Frontend: Vue.js 3 com Vite, Axios, Service Workers e suporte a PWA.
-- Backend: PHP 8.x com Laravel 10+ como API RESTful desacoplada.
+- Backend: PHP 8.2+ com Laravel 12.x (versão definida no `backend/composer.json`) como API RESTful desacoplada.
 - Banco de dados: MySQL 8.0 com InnoDB e integridade referencial.
 - Notificações: Firebase Cloud Messaging (FCM).
 - Ambiente local do banco: XAMPP em 127.0.0.1:3306, usuário root, senha vazia.
 
 ## Comandos Padrão de Execução
+- Instalação em outro computador: seguir o [README.md](README.md), usando `composer install` no backend e `npm ci` no frontend.
 - Backend: `cd backend && php artisan serve`
 - Frontend: `cd frontend && npm run dev`
+- Scheduler da T1, em outro terminal dentro de `backend`: `php artisan schedule:work`.
+- Dependências devem ser restauradas a partir de `backend/composer.lock` e `frontend/package-lock.json`; o gerenciador padrão do frontend é npm.
 
 ## Configuração do Backend
 O arquivo `backend/.env` deve ser configurado para o MySQL do XAMPP com os seguintes valores mínimos:
@@ -41,3 +44,7 @@ O arquivo `backend/.env` deve ser configurado para o MySQL do XAMPP com os segui
 - Antes de mudar estrutura de dados, validar impacto nas migrations e na SPEC.
 - Preservar separação clara entre frontend e backend.
 - Priorizar entregas incrementais, rastreáveis e testáveis.
+- Antes de retomar uma tarefa, ler `CONTINUACAO.md`, `TASKS.md`, `SPEC.md` e `MEMORY.md`.
+- Ao entregar uma tarefa, registrar estado e validações em `TASKS.md`, `CONTINUACAO.md` e `MEMORY.md`. Atualizar `SPEC.md` quando houver mudança de regra ou contrato; atualizar o DER e as migrations quando houver mudança estrutural.
+- As telas atuais são demonstrativas. Sua existência não significa que T2 ou T3 estejam implementadas.
+- Não versionar `.env`, credenciais Firebase, dependências instaladas, caches, logs ou arquivos de build. Versionar os exemplos de configuração e os lockfiles.

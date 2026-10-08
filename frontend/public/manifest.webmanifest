@@ -3,7 +3,7 @@
   "short_name": "MotoCare",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#08111f",
-  "theme_color": "#0f172a",
+  "background_color": "#f5f5f5",
+  "theme_color": "#0f0f0f",
   "icons": []
 }

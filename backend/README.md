@@ -1,34 +1,19 @@
 # API MotoCare
 
-Backend Laravel 12/PHP 8.2+, com MySQL local do XAMPP. A configuração completa para instalar em outro computador está no [README da raiz](../README.md).
+Laravel 12/PHP 8.2+, MySQL/XAMPP e API JSON. Instalação completa no [README da raiz](../README.md).
 
-## Comandos
+Na pasta backend, com dependências e .env/APP_KEY configurados:
 
-Dentro de `backend`, com dependências instaladas, `.env` configurado e banco criado:
-
-```powershell
+~~~powershell
 php artisan migrate
+php artisan push:configurar
 php artisan serve --host=127.0.0.1 --port=8000
-```
+~~~
 
-Em outro terminal, para verificar alertas continuamente:
+Em outro terminal: php artisan schedule:work. Verificação avulsa: php artisan alertas:verificar. Testes: php artisan test.
 
-```powershell
-php artisan schedule:work
-```
+T1 usa alertas por km/data e Web Push com chaves VAPID locais, sem configurar Firebase. [ALERTAS.md](ALERTAS.md) explica ativação, estados e limites. T2 contém CRUD real de manutenção, com sessão/CSRF e isolamento por conta/moto. Conta/perfil/garagem dão suporte às duas tarefas. T3/financeiro e relatórios continuam adiados, com API desativada por padrão e código preservado.
 
-Validação:
+Apenas o frontend Vue serve telas; não criar Blade. Preservar .env/APP_KEY e chaves privadas em atualizações e mantê-los fora do versionamento.
 
-```powershell
-php artisan test
-```
-
-## Estado
-
-- A T1 contém models de moto/alerta, verificador aos 90% do limite, scheduler e envio FCM HTTP v1.
-- [ALERTAS.md](ALERTAS.md) descreve configuração, estados, tentativas e limitações do push.
-- A raiz da API responde JSON; não existem endpoints de manutenção, usuário ou autenticação prontos.
-- A tabela `manutencoes` já está nas migrations. A implementação funcional do histórico é a T2.
-- As telas Vue são servidas exclusivamente pelo projeto `frontend`; não usar Blade para implementar funcionalidades.
-
-Leia o [handoff](../CONTINUACAO.md), a [SPEC](../SPEC.md) e o [backlog](../TASKS.md) antes de continuar.
+Ler [CONTINUACAO](../CONTINUACAO.md), [SPEC](../SPEC.md), [TASKS](../TASKS.md) e [MEMORY](../MEMORY.md) antes de retomar.

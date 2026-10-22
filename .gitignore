@@ -21,3 +21,12 @@ backend/storage/logs/
 backend/composer.phar
 frontend/pnpm-lock.yaml
 frontend/pnpm-workspace.yaml
+
+# Pacotes locais de entrega (fontes versionados separadamente).
+/entrega/
+
+# Ferramentas, diagnósticos e logs temporários locais.
+/tmp/
+
+# Chaves Web Push privadas geradas localmente
+/backend/storage/app/private/webpush-vapid.json

@@ -10,7 +10,7 @@ MotoCare é um Progressive Web App (PWA) para acompanhamento de manutenção pre
 - Frontend: Vue.js 3 com Vite, Axios, Service Workers e suporte a PWA.
 - Backend: PHP 8.2+ com Laravel 12.x (versão definida no `backend/composer.json`) como API RESTful desacoplada.
 - Banco de dados: MySQL 8.0 com InnoDB e integridade referencial.
-- Notificações: Firebase Cloud Messaging (FCM).
+- Notificações: Web Push padrão com VAPID gerado localmente, sem conta/SDK Firebase (decisão do usuário em 19/10/2026).
 - Ambiente local do banco: XAMPP em 127.0.0.1:3306, usuário root, senha vazia.
 
 ## Comandos Padrão de Execução
@@ -46,5 +46,5 @@ O arquivo `backend/.env` deve ser configurado para o MySQL do XAMPP com os segui
 - Priorizar entregas incrementais, rastreáveis e testáveis.
 - Antes de retomar uma tarefa, ler `CONTINUACAO.md`, `TASKS.md`, `SPEC.md` e `MEMORY.md`.
 - Ao entregar uma tarefa, registrar estado e validações em `TASKS.md`, `CONTINUACAO.md` e `MEMORY.md`. Atualizar `SPEC.md` quando houver mudança de regra ou contrato; atualizar o DER e as migrations quando houver mudança estrutural.
-- As telas atuais são demonstrativas. Sua existência não significa que T2 ou T3 estejam implementadas.
-- Não versionar `.env`, credenciais Firebase, dependências instaladas, caches, logs ou arquivos de build. Versionar os exemplos de configuração e os lockfiles.
+- Não inferir implementação pela existência de uma tela: confirmar integração, persistência e validações em TASKS.md. A entrega integrada de 19/10/2026 substitui os dados demonstrativos nas telas.
+- Não versionar `.env`, chaves privadas e credenciais, dependências instaladas, caches, logs ou arquivos de build. Versionar os exemplos de configuração e os lockfiles.

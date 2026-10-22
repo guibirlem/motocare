@@ -1,62 +1,32 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import MotorcycleIcon from './components/MotorcycleIcon.vue'
-import { maintenanceRecords, motorcycles, navigationItems } from './data/demo'
-
-const route = useRoute()
-const searchQuery = ref('')
-const searchFocused = ref(false)
-const menuOpen = ref(false)
-const searchItems = [
-  ...navigationItems.map((item) => ({ ...item, description: 'Página do MotoCare' })),
-  ...motorcycles.map((moto) => ({ label: moto.name, path: '/garagem', description: 'Moto — ' + moto.plate + ' · ' + moto.year })),
-  ...maintenanceRecords.map((record) => ({ label: record.type, path: '/manutencoes', description: 'Manutenção — ' + record.motorcycle })),
-]
-const searchResults = computed(() => {
-  const query = searchQuery.value.trim().toLocaleLowerCase('pt-BR')
-  return query ? searchItems.filter((item) => (item.label + ' ' + item.description).toLocaleLowerCase('pt-BR').includes(query)).slice(0, 6) : []
-})
-watch(() => route.path, () => {
-  menuOpen.value = false
-  searchQuery.value = ''
-  searchFocused.value = false
-})
+import AccountGate from './components/AccountGate.vue'
+import TaskStatus from './components/TaskStatus.vue'
+import ThemeToggle from './components/ThemeToggle.vue'
+import { workspace as s, startSession, signOut, refreshMotos } from './services/workspace'
+import { useTask } from './composables/useTask'
+import { offlineMessage } from './services/api'
+const route=useRoute(), menuOpen=ref(false), search=ref('')
+const {busy,error,notice,run}=useTask()
+const items=[{path:'/',label:'Dashboard',icon:'◈'},{path:'/manutencoes',label:'Manutenções',icon:'🔩'},{path:'/garagem',label:'Garagem',icon:'🏍'},{path:'/configuracoes',label:'Configurações',icon:'⚙️'},{path:'/alertas',label:'Alertas',icon:'⚠️'}]
+const results=computed(()=>search.value.trim()?items.filter(i=>i.label.toLocaleLowerCase('pt-BR').includes(search.value.toLocaleLowerCase('pt-BR'))):[])
+watch(()=>route.path,()=>{menuOpen.value=false;search.value=''})
+onMounted(()=>{if(!s.offline)run(startSession)})
+watch(()=>s.offline,(offline,wasOffline)=>{if(wasOffline&&!offline)run(startSession)})
+function retryConnection(){s.offline=!navigator.onLine;if(!s.offline)run(startSession)}
+const onNotification=event=>{if(s.user)notice.value=event.detail}
+window.addEventListener('motocare-notification',onNotification)
+onUnmounted(()=>window.removeEventListener('motocare-notification',onNotification))
 </script>
-
 <template>
-  <div class="app-shell">
-    <header class="app-header">
-      <RouterLink class="app-brand" to="/" aria-label="MotoCare — Dashboard">
-        <span class="brand-mark"><MotorcycleIcon :size="20" /></span>
-        <span>MotoCare</span>
-      </RouterLink>
-      <div class="header-search">
-        <div class="search-control" @focusin="searchFocused = true" @focusout="searchFocused = $event.currentTarget.contains($event.relatedTarget)">
-          <svg aria-hidden="true" viewBox="0 0 14 14" fill="none"><circle cx="5.5" cy="5.5" r="4.5" stroke="currentColor" stroke-width="1.5" /><path d="m9 9 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" /></svg>
-          <input v-model="searchQuery" type="search" placeholder="Buscar manutenções, motos..." aria-label="Buscar páginas, manutenções e motos" @keydown.esc="searchFocused = false" />
-          <div v-if="searchFocused && searchQuery.trim()" class="search-results">
-            <RouterLink v-for="item in searchResults" :key="item.path + '-' + item.label" :to="item.path"><strong>{{ item.label }}</strong><span>{{ item.description }}</span></RouterLink>
-            <p v-if="!searchResults.length">Nenhum resultado para “{{ searchQuery }}”</p>
-          </div>
-        </div>
-      </div>
-      <RouterLink class="header-user" to="/configuracoes" aria-label="Conta de Lucas Silva"><span class="user-avatar">L</span><span>Lucas Silva</span></RouterLink>
-      <button class="mobile-menu-button" type="button" :aria-expanded="menuOpen" aria-controls="main-navigation" @click="menuOpen = !menuOpen">{{ menuOpen ? 'Fechar' : 'Menu' }}</button>
-    </header>
-    <div class="app-body">
-      <aside class="app-sidebar" :class="{ 'sidebar-open': menuOpen }">
-        <nav id="main-navigation" class="sidebar-navigation" aria-label="Navegação principal">
-          <p class="sidebar-label">Menu</p>
-          <RouterLink v-for="item in navigationItems" :key="item.path" :to="item.path" exact-active-class="sidebar-active"><span class="nav-icon" aria-hidden="true">{{ item.icon }}</span><span>{{ item.label }}</span></RouterLink>
-        </nav>
-        <div class="sidebar-footer">MotoCare v1.0</div>
-      </aside>
-      <main id="main-content" class="app-main">
-        <div class="page-breadcrumb"><span aria-hidden="true"></span>{{ route.meta.title }}</div>
-        <RouterView />
-        <p class="demo-caption">Protótipo demonstrativo · Dados de exemplo</p>
-      </main>
-    </div>
+  <div v-if="s.offline || !s.user" class="appearance-toolbar"><ThemeToggle/></div>
+  <section v-if="s.offline" class="auth-layout"><h1>MotoCare</h1><h2>Modo offline</h2><p role="status">{{offlineMessage}}</p><p>Quando a conexão voltar, o aplicativo tentará carregar novamente.</p><button class="button button-lime" :disabled="busy" @click="retryConnection">Verificar conexão</button></section>
+  <div v-else-if="!s.ready && !s.user" class="auth-layout"><TaskStatus :busy="busy" :error="error"/><button v-if="!busy" class="button button-lime" @click="run(startSession)">Tentar novamente</button></div>
+  <div v-else-if="!s.user"><TaskStatus :error="error" :notice="s.sessionNotice"/><AccountGate/></div>
+  <div v-else class="app-shell">
+    <header class="app-header"><RouterLink class="app-brand" to="/"><span class="brand-mark"><MotorcycleIcon :size="20"/></span>MotoCare</RouterLink><div class="header-search"><div class="search-control"><input v-model="search" type="search" placeholder="Buscar página…" aria-label="Buscar página"/><div v-if="search" class="search-results"><RouterLink v-for="item in results" :key="item.path" :to="item.path">{{item.label}}</RouterLink><p v-if="!results.length">Nenhuma página encontrada.</p></div></div></div><RouterLink class="header-user" to="/configuracoes"><span class="user-avatar">{{s.user.nome.slice(0,1).toUpperCase()}}</span><span>{{s.user.nome}}</span></RouterLink><ThemeToggle/><button class="mobile-menu-button" :aria-expanded="menuOpen" aria-controls="main-navigation" @click="menuOpen=!menuOpen">Menu</button></header>
+    <div class="app-body"><aside class="app-sidebar" :class="{'sidebar-open':menuOpen}"><nav id="main-navigation" class="sidebar-navigation" aria-label="Principal"><p class="sidebar-label">Menu</p><RouterLink v-for="item in items" :key="item.path" :to="item.path" exact-active-class="sidebar-active"><span class="nav-icon">{{item.icon}}</span>{{item.label}}</RouterLink></nav><button class="button sidebar-logout" :disabled="busy" @click="run(signOut)">Sair da conta</button><div class="sidebar-footer">MotoCare</div></aside><main class="app-main"><div class="page-breadcrumb">{{route.meta.title}}</div><TaskStatus :error="error" :notice="notice"/><div class="toolbar workspace-selector"><label class="field">Moto selecionada<select v-model="s.motoId"><option v-if="!s.motos.length" value="">Nenhuma moto cadastrada</option><option v-for="m in s.motos" :key="m.id" :value="m.id">{{m.marca}} {{m.modelo}} · {{m.placa}}</option></select></label><RouterLink class="button button-ghost" to="/garagem">Gerenciar garagem</RouterLink><button class="button button-ghost" :disabled="busy" @click="run(refreshMotos)">Atualizar motos</button></div><RouterView :key="route.path+'-'+s.user.id+'-'+s.motoId"/></main></div>
   </div>
 </template>

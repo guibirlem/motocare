@@ -1,47 +1,109 @@
-# TASKS.md - Backlog Atômico da Sprint 1
+# Tarefas - T1/T2 e retomada futura da T3
 
-## T0 [Must Have]
+## Publicação e entrega consolidada - 22/10/2026
 
-- Scaffold Laravel em `/backend`, Vue 3/Vite com base PWA em `/frontend` e migrations do domínio.
-- Status: concluído no ambiente original.
-- Reinstalação em outro computador: [README.md](README.md), usando MySQL do XAMPP, Composer e npm.
+- [x] Fontes T1/T2, revisão de negócio/segurança, documentos de entrega/retomada e PDF atual reunidos para a atualização de `master` em [guibirlem/motocare](https://github.com/guibirlem/motocare).
+- [x] Mensagem solicitada pelo usuário: `update task1 e task2 funcionando`; histórico anterior preservado, sem force push. O SHA desta edição deve ser consultado no [histórico](https://github.com/guibirlem/motocare/commits/master/).
+- [x] PDF atualizado para oito páginas, renderizadas e conferidas; texto, links e marcadores verificados. Inclui arquitetura, DER com km_base, backlog, atas e evidências atuais.
+- [x] Auditoria dos arquivos elegíveis sem credenciais/chaves privadas; dependências, caches, logs e builds excluídos. Pacote local e checksum recompostos.
+- Esta etapa publica resultados já validados: 45 testes backend/391 verificações e 28 frontend/build. Não houve mudança de aplicação, schema, configuração privada ou novo envio push nesta publicação. T3 continua desativada.
 
-## T1 [US01 - Must Have]
+## Revisão de negócio e segurança - 22/10/2026
 
-- Alertas automatizados de Troca de Óleo e Revisões.
-- Notificação push quando `km_atual` atingir 90% do limite.
-- Status: backend implementado e validado; frontend demonstrativo entregue no escopo solicitado.
-- Disponíveis: scheduler a cada minuto, FCM HTTP v1, prevenção de envio simultâneo, preservação de alertas pendentes em falhas e testes automatizados.
-- Rota visual: `/alertas`, acessível pelo menu e Dashboard.
-- Push real no cliente ainda depende de credenciais Firebase, permissão de notificações e registro de token. Autenticação e captura de token no frontend permanecem pendentes.
-- Operação: [backend/ALERTAS.md](backend/ALERTAS.md).
+- [x] Regra escolhida: manutenção concluída atualiza KM para maior, transação/bloqueio, sem regressão por histórico/pendência/edição/exclusão; concluído futuro rejeitado e UI sincronizada.
+- [x] Reconciliações autorizadas: Kawasaki Ninja 66.777→66.779 km e Moto Duas rodas 0→122 km; banco sem divergências de KM/datas/KM ausente após ajuste.
+- [x] Regra escolhida: 90% do intervalo entre referência e próximo limite; campo km_base, migration aditiva aplicada, DER/SPEC, formulário/progresso/scheduler e backfill conservador dos alertas antigos atualizados. Fronteira 71.278/71.279 e ausência de repetição testadas; zero referências pendentes inválidas no banco.
+- [x] Corrigir respostas tardias de sessão/garagem, senhas truncadas/NUL, formato de senha atual, normalização de placa, exposição de erros e limitação de tentativas em perfil/senha. Opcionais do financeiro preservado ajustados sem ativá-lo.
+- [x] Atualizar Vite/plugin/transitivas, auditar dependências (npm/Composer sem avisos conhecidos), bloquear caminhos privados e aplicar cabeçalhos de segurança; checar fontes/build sem APP_KEY/chave privada VAPID ou padrões de credenciais.
+- [x] 45 testes backend/391 verificações, 28 frontend, build, Pint alterados e Composer validate; smoke HTTP/MySQL e HTTPS, limpeza das fixtures e relatório [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Pint global: apenas formatação legada de quatro migrations não alteradas.
+- [x] Atualizar continuidade/memória/contratos/DER/manifesto e pacote/checksum. Sem novo envio push/scheduler contínuo, sem rotação de chaves ou publicação remota. T3 segue desativada.
 
-## T2 [US02 - Must Have] — próxima entrega
+## Preparação de continuidade - 22/10/2026
 
-- Histórico de manutenções e peças de desgaste.
-- Cobrir óleo, kit relação, pneus e freios.
-- Status: implementação funcional pendente. A tabela e a tela demonstrativa já existem.
-- Base visual: `frontend/src/views/MaintenanceView.vue`, rota `/manutencoes` (alias `/historico`).
-- Base de dados: migration `2026_09_24_000002_create_manutencoes_table.php`; não recriar a tabela sem necessidade.
-- Entrega esperada:
-  - Model e relacionamentos de manutenção.
-  - Endpoints JSON e validação para registrar e consultar o histórico vinculado à motocicleta.
-  - Acesso restrito aos registros do próprio usuário, com autenticação a definir.
-  - Campos de serviço, descrição, valor, status, data e quilometragem conforme SPEC.
-  - Integração da tela com persistência real, incluindo estados de carregamento, vazio e erro.
-  - Testes de persistência e vínculo/isolamento por usuário; regressão dos alertas da T1 e build do frontend aprovados.
-- Registrar o contrato final na SPEC e atualizar migrations/DER somente se houver mudança estrutural.
+- [x] Inventário de código financeiro, rotas, feature, migrations e testes conferido por leitura.
+- [x] Roteiro [RETOMADA_T3.md](RETOMADA_T3.md) com ordem de retomada, arquivos e critérios de aceite.
+- [x] CONTINUACAO, ENTREGA, README, SPEC e MEMORY alinhados; pacote de continuidade com manifesto/checksum preparado.
+- A preparação é documental. T3 continua desativada; testes da aplicação não foram reexecutados nesta sessão.
 
-## T3 [US03 - Must Have]
+## Documento único de entrega - 22/10/2026
 
-- Registro e resumo financeiro mensal de gastos.
-- Cobrir combustível e reparos.
-- Status: implementação funcional pendente. A tela `/gastos` é demonstrativa.
+- [x] PDF consolidado em `output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf`: links Git/histórico, arquitetura, DER, backlog e atas retrospectivas baseadas nos registros.
+- [x] Oito páginas da edição atual renderizadas e conferidas visualmente; extração de texto, links e marcadores verificados. Não houve nova execução das suítes da aplicação.
+- [x] Atualização GitHub desta edição com a mensagem `update task1 e task2 funcionando`, sobre a base `7f5b9cb` de 08/10; consulta prévia e histórico preservados. Notificações T1 e revisão mobile/PWA já confirmadas em 22/10.
 
-## Telas do protótipo
+Estado funcional validado em 19/10/2026; documentação atualizada em 22/10/2026. T3/financeiro/relatórios adiados. Por decisão do usuário, Web Push padrão substitui Firebase.
 
-- Referência: [Figma publicado](https://open-thumb-85089078.figma.site).
-- Dashboard, Manutenções, Gastos, Relatórios, Garagem, Configurações e Alertas com rotas navegáveis.
-- Busca e filtros locais disponíveis para explorar os exemplos.
-- Formulários, exportação, conta e dados das telas não estão integrados ao backend.
-- A presença de uma tela não conclui a tarefa funcional correspondente.
+## T1 — Alertas
+
+- [x] 22/10: scheduler real no iPhone em segundo plano confirmado pelo usuário às 15:47:51; 899 km pendente, 900/1.000 km notificado/média, repetição e verificação zero envios/zero falhas. Usado SQLite descartável com migrations existentes/transporte real para preservar alerta elegível no MySQL; cenário removido e dados originais conferidos intactos.
+- [x] 22/10: recebimento real confirmado pelo usuário em primeiro plano e com Chrome minimizado (teste e alerta de óleo do scheduler às 14:59).
+- [x] 22/10: HTTP 429 em português com Retry-After e botão com contagem regressiva; 20 testes frontend/build e 8 testes WebPush/74 verificações aprovados. Backend completo anterior: 29 testes/246 verificações com OPENSSL_CONF.
+- [x] 22/10: execução local com acesso de saída ao serviço de push; fixtures removidas.
+
+- [x] CRUD de alertas próprios de óleo/revisão por limite absoluto de km ou data.
+- [x] Scheduler por minuto, fronteira inclusiva de 90%, locks e tentativas posteriores em falha/ausência de inscrição.
+- [x] Conclusão explícita; sem reativar alertas notificados/concluídos.
+- [x] Cliente Push API/Service Worker e envio VAPID criptografado com minishlink/web-push; SDK/configuração Firebase removidos.
+- [x] Chaves geradas localmente por php artisan push:configurar, sem conta externa; configuração pronta nesta máquina.
+- [x] Inscrição criptografada, única entre contas, oculta nas respostas; logout/desativação, expiração e troca de sessão tratados.
+- [x] Teste autenticado, com CSRF e limite de três tentativas/minuto, restrito à inscrição atual e sem alterar alertas.
+- [x] 22/10: teste real com página aberta confirmado pelo usuário na central de notificações do Windows; processamento também observado na mensagem do Service Worker na interface.
+- [x] 22/10: cenário real isolado: 899/1.000 km pendente/zero envios; 900 km via `schedule:run` passou a notificado/média; repetição zero envios. Fixtures removidas.
+- [x] Usuário confirmou “Sim, chegou esse alerta de óleo” com Chrome minimizado após schedule:run das 14:59. Confirmação do cenário em segundo plano concluída; banner flutuante e Chrome encerrado não foram validados separadamente.
+
+## T2 — Histórico
+
+- [x] CRUD de óleo, kit relação, pneus e freios, com validação de campos/status/data/km/valor.
+- [x] Isolamento por usuário/moto; valor retornado como string decimal.
+- [x] Listagem/filtros/totais de concluídos, estados de carregamento/vazio/erro e confirmação de exclusão.
+- [x] PUT substitui opcionais omitidos; manutenção concluída pode avançar odômetro sem reduzi-lo. Alertas são concluídos/reprogramados explicitamente.
+- [x] CRUD completo dos quatro serviços reconferido por HTTP no MySQL local; fixtures removidas.
+
+## Suporte
+
+- [x] 22/10: modo noturno/claro em computador e celular, inclusive login/carregamento/offline; seletor no cabeçalho, compacto/acessível no mobile, preferência local restaurada e padrão do sistema quando não escolhida. Paleta de formulários/cards/tabelas/avisos e impressão clara ajustadas.
+- [x] 22 testes frontend/build aprovados e verificação pontual de persistência, alternância, prioridade sobre sistema e armazenamento bloqueado. Build novo servido no local e no HTTPS autorizado; página/JS/CSS/precache/SW HTTP 200.
+- [x] Aceite visual específico do modo noturno: após orientação de atualizar/reabrir, usuário confirmou “Sim, tema escuro funcionando”. Confirmação manual do usuário; sem alegar inspeção visual automática.
+
+- [x] 22/10: corrigir mensagem genérica offline no iPhone/navegador: tela global antes do login, orientação de conexão, bloqueio de novas requisições offline e tentativa de recarga ao evento online. Sem gravações offline/replay/cache de dados pessoais.
+- [x] 22 testes frontend e build aprovados; JS/precache novos publicados no preview local e no túnel HTTPS existente, com HTTP 200.
+- [x] Aceite manual no iPhone: usuário confirmou “Modo offline”, orientação e botão “Verificar conexão”; ao reconectar, confirmou “Sim, voltou a carregar”.
+- Reteste concluído: após a frase antiga na primeira repetição, fechar completamente pela multitarefa e reabrir online permitiu carregar a versão atual. Build index-uO4CJ1w0.js conferido por HTTPS e comportamento confirmado no aparelho.
+
+- [x] 22/10: preparar acesso móvel separado, sem debug, cookies Secure/HttpOnly e allowlist de hostname; validações HTTP locais aprovadas. Roteiro em ACESSO_CELULAR.md; cloudflared oficial/checksum conferido.
+- [x] Aprovação explícita recebida em 22/10 para Cloudflare/trycloudflare.com; túnel temporário aberto. URL atual em ACESSO_CELULAR.md; recusa inicial resolvida pela autorização do usuário.
+- [x] HTTPS externo: página/assets/manifest/workers/ícones/CSRF 200, cookies Secure/HttpOnly/no-store; smoke de cadastro/login/sessão/logout, privacidade e CSRF 419 aprovado. Conta descartável removida.
+- [x] Revisão geral de apresentação/formulários no iPhone: usuário conferiu Dashboard, Manutenções, Garagem, Alertas e Configurações e confirmou todas as telas/formulários normais. Abertura pelo app instalado, push pelo botão e ciclo offline/reconexão confirmados.
+- [x] Alerta do scheduler no iPhone em segundo plano recebido e confirmado pelo usuário; detalhes do isolamento e evidências em CONTINUACAO. Sem scheduler contínuo iniciado.
+- [x] 22/10: teste de notificação real no iPhone confirmado, inclusive pelo botão do app, após corrigir WEBPUSH_SUBJECT do processo móvel (403 BadJwtToken → 201). Chaves e inscrição preservadas.
+- Scheduler móvel precisa herdar o mesmo contato VAPID HTTPS. Aceites de push pelo botão e offline não substituem o teste específico desse scheduler no iPhone.
+
+- [x] 22/10: recuperar execução local após frontend/API parados; novo build e HTTP 200 de página, JS, CSS e API via proxy. Conferência visual dessa recuperação não disponível (native pipe indisponível).
+
+- [x] Conta/perfil/senha, sessões compartilhadas/CSRF, garagem/odômetro e Dashboard usando T1/T2 diretamente.
+- [x] PWA, cache exclusivo de shell público e execução npm start reproduzível.
+- [x] Migration Web Push aplicada; SPEC/DER/README/continuação e exemplos atualizados; chaves privadas fora do pacote.
+- [x] Revisão mobile/PWA no iPhone concluída no cenário conferido: app instalado, telas/formulários, offline/reconexão e notificações pelo botão/scheduler. Conferência visual pelo usuário; automação visual interrompida por impossibilidade de identificar URL do Chrome com segurança.
+
+## Adiado
+
+- [ ] T3: despesas/abastecimentos, financeiro, relatórios/exportações.
+- Código/schema históricos preservados; sem navegação ativa e APIs retornando 404 por padrão (FEATURE_FINANCEIRO=false). Não reativar durante correções de T1/T2 nem reverter migrations para ocultar telas.
+
+### Backlog de retomada T3 (a executar futuramente)
+
+- [ ] T3.0: incorporar fontes atuais, validar ambiente/migrations/testes e definir alcance de relatórios/exportações.
+- [ ] T3.1: revisar API preservada, validações financeiras, centavos/arredondamento, opcionais em PUT, filtros e isolamento; corrigir lacunas comprovadas.
+- [ ] T3.2: integrar Gastos na interface (rotas/menu/estado real), CRUD combustível/reparo, troca de moto, filtros e estados de tela; preservar RecordsView da T2.
+- [ ] T3.3: se incluídos, integrar relatórios, resumo mensal, CSV e impressão/PDF e conferir totais/datas/acesso.
+- [ ] T3.4: definir ativação e navegação coerentes com a feature, sem quebrar Dashboard/T1/T2 quando desligada.
+- [ ] T3.5: suítes, build, smoke HTTP/MySQL, revisão desktop/móvel e exportações; registrar evidências atuais e limpar fixtures descartáveis.
+- [ ] T3.6: atualizar documentação, pacote/checksum e entrega acadêmica conforme escopo; publicar fontes com histórico preservado.
+
+Implementação antiga e testes preservados não encerram este checklist de revalidação/integração. Roteiro detalhado: [RETOMADA_T3.md](RETOMADA_T3.md).
+
+## Evidências
+
+29 testes backend/246 verificações, 19 testes frontend, build, Pint e Composer aprovados. Smoke autenticado no MySQL confirmou Web Push configurado, inscrição/remoção sem expor dados privados, CRUD de quatro serviços, alerta/logout e financeiro 404. Não houve envio real ao endpoint sintético. Em 22/10 houve envio ao navegador real e confirmação do usuário em primeiro plano, segundo plano e pelo scheduler. Não confundir com os mocks históricos.
+
+Pacote atual para continuidade: entrega/MotoCare-Retomada-T3-2026-10-22.zip. O pacote de 19/10 permanece histórico. Publicação desta edição pelo Git instalado; o conector havia retornado 403, contornado por autenticação Git disponível. Ver [ENTREGA.md](ENTREGA.md).

@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Alerta;
-use App\Services\FcmService;
+use App\Services\WebPushService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -13,17 +13,20 @@ class CheckMaintenanceAlerts extends Command
 {
     protected $signature = 'alertas:verificar';
 
-    protected $description = 'Envia alertas de óleo e revisão ao atingir 90% do limite de km';
+    protected $description = 'Envia alertas ao atingir 90% do intervalo de km ou a data limite';
 
-    public function handle(FcmService $fcm): int
+    public function handle(WebPushService $push): int
     {
         $failures = 0;
         $sent = 0;
         Alerta::where('status', 'pendente')
             ->whereIn('tipo_alerta', ['troca_oleo', 'revisao'])
-            ->where('km_limite', '>', 0)
-            ->whereHas('motocicleta', fn ($query) => $query->whereRaw('km_atual * 10 >= alertas.km_limite * 9'))
-            ->chunkById(100, function ($alertas) use ($fcm, &$failures, &$sent) {
+            ->where(function ($query) {
+                $query->where(function ($kmQuery) {
+                    $kmQuery->where('km_limite', '>', 0)->whereHas('motocicleta', fn ($motoQuery) => $motoQuery->whereRaw('km_atual * 10 >= alertas.km_limite * 9 + COALESCE(alertas.km_base, 0)'));
+                })->orWhereDate('data_limite', '<=', today()->toDateString());
+            })
+            ->chunkById(100, function ($alertas) use ($push, &$failures, &$sent) {
                 foreach ($alertas as $alerta) {
                     $lock = Cache::lock('alerta.send.'.$alerta->id, 120);
                     if (! $lock->get()) {
@@ -32,19 +35,21 @@ class CheckMaintenanceAlerts extends Command
                     try {
                         $alerta->refresh()->load('motocicleta.usuario');
                         $moto = $alerta->motocicleta;
-                        if ($alerta->status !== 'pendente' || $moto->km_atual * 10 < $alerta->km_limite * 9) {
+                        $kmDue = $alerta->km_limite > 0 && $moto->km_atual * 10 >= $alerta->km_limite * 9 + ($alerta->km_base ?? 0);
+                        $dateDue = $alerta->data_limite && $alerta->data_limite->lte(today());
+                        if ($alerta->status !== 'pendente' || (! $kmDue && ! $dateDue)) {
                             continue;
                         }
-                        $token = $moto->usuario->fcm_token;
-                        if (! $token) {
-                            $this->warn("Alerta {$alerta->id}: usuário sem token FCM; permanece pendente.");
+                        $subscription = $moto->usuario->push_subscription;
+                        if (! $subscription) {
+                            $this->warn("Alerta {$alerta->id}: navegador sem inscrição push; permanece pendente.");
 
                             continue;
                         }
-                        $fcm->send($alerta, $token);
+                        $push->send($alerta, $subscription);
                         $alerta->update([
                             'status' => 'notificado',
-                            'nivel_urgencia' => $moto->km_atual >= $alerta->km_limite ? 'alta' : 'media',
+                            'nivel_urgencia' => (($alerta->km_limite > 0 && $moto->km_atual >= $alerta->km_limite) || $dateDue) ? 'alta' : 'media',
                         ]);
                         $sent++;
                     } catch (Throwable $exception) {

@@ -1,64 +1,20 @@
 <script setup>
+import { computed, onMounted, ref } from 'vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import MetricCard from '../components/MetricCard.vue'
-import StatusBadge from '../components/StatusBadge.vue'
-import { formatKm, maintenanceAlerts } from '../data/demo'
-
-const alerts = maintenanceAlerts.map((alert) => ({
-  ...alert,
-  percentage: Math.round(alert.currentKm / alert.limitKm * 100),
-  remainingKm: alert.limitKm - alert.currentKm,
-  triggerKm: alert.limitKm * 0.9,
-}))
+import TaskStatus from '../components/TaskStatus.vue'
+import { api } from '../services/api'
+import { workspace as s } from '../services/workspace'
+import { formatDate, formatKm, today, alertThresholdKm, alertProgress } from '../services/format'
+import { useTask } from '../composables/useTask'
+const {busy,error,notice,run}=useTask(), rows=ref([]), form=ref(null), editId=ref(null), showCompleted=ref(false)
+const path='/motocicletas/'+s.motoId+'/alertas', moto=computed(()=>s.motos.find(m=>m.id===Number(s.motoId))), visible=computed(()=>rows.value.filter(r=>showCompleted.value||r.status!=='concluido'))
+const due=r=>(r.km_limite>0&&moto.value?.km_atual>=alertThresholdKm(r))||(r.data_limite&&r.data_limite<=today())
+async function load(){rows.value=(await api.get(path)).data}
+function open(r=null){editId.value=r?.id||null;form.value=r?{...r}:{tipo_alerta:'troca_oleo',km_limite:'',km_base:moto.value?.km_atual||0,data_limite:''}}
+async function save(){await run(async()=>{const body={tipo_alerta:form.value.tipo_alerta,km_limite:form.value.km_limite||null,km_base:form.value.km_limite?(form.value.km_base===''?null:form.value.km_base):null,data_limite:form.value.data_limite||null};if(editId.value)await api.put(path+'/'+editId.value,body);else await api.post(path,body);form.value=null;await load()},'Alerta salvo.')}
+async function complete(r){await run(async()=>{await api.put(path+'/'+r.id,{status:'concluido'});await load()},'Alerta concluído. Cadastre o próximo limite quando desejar.')}
+async function remove(r){if(!window.confirm('Excluir este alerta?'))return;await run(async()=>{await api.delete(path+'/'+r.id);await load()},'Alerta excluído.')}
+onMounted(()=>{if(s.motoId)run(load)})
 </script>
-
-<template>
-  <div class="page-stack">
-    <section aria-labelledby="alerts-title">
-      <SectionTitle id="alerts-title">Alertas de Manutenção</SectionTitle>
-      <div class="metrics-grid metrics-three">
-        <MetricCard icon="⚠️" label="Alertas pendentes" :value="alerts.length" sub="óleo e revisões" accent />
-        <MetricCard icon="🔧" label="Limite ultrapassado" :value="1" sub="programe sua revisão" />
-        <MetricCard icon="🔔" label="Aviso automático" value="90%" sub="da quilometragem limite" />
-      </div>
-    </section>
-    <div class="alerts-columns">
-      <section aria-labelledby="maintenance-alerts-title">
-        <SectionTitle id="maintenance-alerts-title">Cuidados Pendentes</SectionTitle>
-        <div class="maintenance-alert-list">
-          <article v-for="alert in alerts" :key="alert.id" class="panel maintenance-alert" :class="{ 'maintenance-alert-overdue': alert.remainingKm <= 0 }">
-            <div class="alert-card-heading">
-              <div class="alert-card-name"><span aria-hidden="true">{{ alert.icon }}</span><div><h3>{{ alert.title }}</h3><p>{{ alert.motorcycle }}</p></div></div>
-              <StatusBadge :tone="alert.tone">{{ alert.status }}</StatusBadge>
-            </div>
-            <div class="alert-progress-label"><span>Quilometragem até o serviço</span><strong>{{ alert.percentage }}%</strong></div>
-            <div class="alert-progress" role="img" :aria-label="alert.percentage + '% do limite atingido'"><span :style="{ width: Math.min(alert.percentage, 100) + '%' }"></span><i aria-hidden="true"></i></div>
-            <div class="alert-km-labels"><span>Atual: <strong>{{ formatKm(alert.currentKm) }} km</strong></span><span>Limite: <strong>{{ formatKm(alert.limitKm) }} km</strong></span></div>
-            <div class="alert-card-footer">
-              <strong v-if="alert.remainingKm > 0">Vence em {{ formatKm(alert.remainingKm) }} km</strong>
-              <strong v-else>{{ formatKm(-alert.remainingKm) }} km além do limite</strong>
-              <span>Aviso a partir de {{ formatKm(alert.triggerKm) }} km</span>
-            </div>
-          </article>
-        </div>
-      </section>
-      <aside class="alerts-information">
-        <section class="panel notification-panel">
-          <h3>🔔 Notificação de Alerta</h3>
-          <p>Ao atingir 90% da quilometragem limite, receba um lembrete para planejar a manutenção.</p>
-          <div class="notification-example">
-            <div><span>MOTOCARE</span><span>Exemplo</span></div>
-            <strong>Troca de Óleo</strong>
-            <p>Honda CB 500F — Vence em 200 km. Programe o próximo cuidado da sua moto.</p>
-          </div>
-          <span class="field-hint">Prévia demonstrativa da notificação</span>
-        </section>
-        <section class="panel alerts-guide">
-          <h3>Como Funcionam os Alertas</h3>
-          <ol><li><span>1</span>Acompanhe a quilometragem.</li><li><span>2</span>Receba o aviso aos 90% do limite.</li><li><span>3</span>Programe o serviço antes de vencer.</li></ol>
-          <RouterLink class="button button-lime" to="/manutencoes">Ver Manutenções</RouterLink>
-        </section>
-      </aside>
-    </div>
-  </div>
-</template>
+<template><div class="page-stack"><SectionTitle>Alertas de Manutenção</SectionTitle><TaskStatus :busy="busy" :error="error" :notice="notice"/><p v-if="!s.motoId">Cadastre uma moto na Garagem para configurar alertas.</p><template v-else><div class="metrics-grid metrics-three"><MetricCard icon="⚠️" label="Ativos" :value="rows.filter(r=>r.status!=='concluido').length" accent/><MetricCard icon="🔔" label="Atenção" :value="rows.filter(r=>r.status!=='concluido'&&due(r)).length"/><MetricCard icon="🏍" label="Odômetro atual" :value="formatKm(moto?.km_atual||0)+' km'"/></div><div class="toolbar"><button class="button button-lime" :disabled="busy" @click="open()">+ Novo alerta</button><button class="button button-ghost" :disabled="busy" @click="run(load)">Atualizar</button><label><input v-model="showCompleted" type="checkbox"/> Mostrar concluídos</label></div><form v-if="form" class="demo-form" @submit.prevent="save"><h3>{{editId?'Editar':'Novo'}} alerta</h3><fieldset :disabled="busy"><div class="form-grid"><label class="field">Serviço<select v-model="form.tipo_alerta"><option value="troca_oleo">Troca de óleo</option><option value="revisao">Revisão</option></select></label><label class="field">Limite absoluto do odômetro<input v-model="form.km_limite" type="number" min="1" max="4294967295" :required="!form.data_limite"/></label><label v-if="form.km_limite" class="field">KM de referência do último serviço<input v-model="form.km_base" type="number" min="0" :max="Math.min(Number(form.km_limite)-1,Number(moto?.km_atual||0))" required/></label><label class="field">Ou data limite<input v-model="form.data_limite" type="date" :required="!form.km_limite"/></label></div><p class="field-hint">Aviso ao percorrer 90% do intervalo entre o KM de referência e o próximo limite, ou na data informada. Confira o KM do último serviço; o valor inicial é o odômetro atual.</p><div class="form-actions"><button class="button button-black">Salvar</button><button type="button" class="button button-ghost" @click="form=null">Cancelar</button></div></fieldset></form><div class="maintenance-alert-list"><article v-for="r in visible" :key="r.id" class="panel maintenance-alert" :class="{'maintenance-alert-overdue':due(r)&&r.status!=='concluido'}"><div class="alert-card-heading"><h3>{{r.tipo_alerta==='troca_oleo'?'Troca de óleo':'Revisão'}}</h3><span class="status-badge" :class="due(r)&&r.status!=='concluido'?'status-red':'status-green'">{{r.status==='notificado'?'Notificado':r.status==='concluido'?'Concluído':due(r)?'Atenção':'Programado'}}</span></div><p v-if="r.km_limite">Limite: {{formatKm(r.km_limite)}} km · aviso a partir de {{formatKm(alertThresholdKm(r))}} km</p><p v-if="r.km_limite">Referência: {{formatKm(r.km_base||0)}} km · intervalo de {{formatKm(r.km_limite-(r.km_base||0))}} km</p><p v-if="r.data_limite">Data limite: {{formatDate(r.data_limite)}}</p><div v-if="r.km_limite" class="alert-progress" aria-hidden="true"><span :style="{width:alertProgress(r,moto.km_atual)+'%'}"></span></div><div class="form-actions"><button v-if="r.status==='pendente'" class="button button-ghost" :disabled="busy" @click="open(r)">Editar</button><button v-if="r.status!=='concluido'" class="button button-lime" :disabled="busy" @click="complete(r)">Marcar serviço concluído</button><button class="button button-danger" :disabled="busy" @click="remove(r)">Excluir</button></div></article><p v-if="!busy&&!visible.length">Nenhum alerta neste filtro.</p></div><p class="field-hint">O serviço concluído não gera outro alerta automaticamente. Registre a manutenção no histórico e cadastre o próximo limite. <RouterLink to="/configuracoes">Ative notificações em Configurações.</RouterLink></p></template></div></template>

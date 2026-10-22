@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,7 +25,8 @@ class User extends Authenticatable
         'email',
         'password',
         'telefone',
-        'fcm_token',
+        'push_subscription',
+        'push_endpoint_hash',
     ];
 
     /**
@@ -35,6 +37,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'fcm_token',
+        'push_subscription',
+        'push_endpoint_hash',
     ];
 
     /**
@@ -46,6 +51,12 @@ class User extends Authenticatable
     {
         return [
             'password' => 'hashed',
+            'push_subscription' => 'encrypted:array',
         ];
+    }
+
+    public function motocicletas(): HasMany
+    {
+        return $this->hasMany(Motocicleta::class, 'usuario_id');
     }
 }

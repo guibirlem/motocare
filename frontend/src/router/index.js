@@ -2,8 +2,6 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AlertsView from '../views/AlertsView.vue'
 import MaintenanceView from '../views/MaintenanceView.vue'
-import ExpensesView from '../views/ExpensesView.vue'
-import ReportsView from '../views/ReportsView.vue'
 import GarageView from '../views/GarageView.vue'
 import SettingsView from '../views/SettingsView.vue'
 
@@ -11,8 +9,6 @@ const routes = [
   { path: '/', alias: '/dashboard', name: 'home', component: HomeView, meta: { title: 'Dashboard' } },
   { path: '/alertas', name: 'alerts', component: AlertsView, meta: { title: 'Alertas' } },
   { path: '/manutencoes', alias: '/historico', name: 'maintenance', component: MaintenanceView, meta: { title: 'Manutenções' } },
-  { path: '/gastos', name: 'expenses', component: ExpensesView, meta: { title: 'Gastos' } },
-  { path: '/relatorios', name: 'reports', component: ReportsView, meta: { title: 'Relatórios' } },
   { path: '/garagem', name: 'garage', component: GarageView, meta: { title: 'Garagem' } },
   { path: '/configuracoes', name: 'settings', component: SettingsView, meta: { title: 'Configurações' } },
   { path: '/:pathMatch(.*)*', redirect: '/' },

@@ -1,43 +1,15 @@
 <script setup>
 import { ref } from 'vue'
 import SectionTitle from '../components/SectionTitle.vue'
+import TaskStatus from '../components/TaskStatus.vue'
 import MotorcycleIcon from '../components/MotorcycleIcon.vue'
-import { formatKm, motorcycles } from '../data/demo'
-
-const selectedMotorcycle = ref(null)
-const formOpen = ref(false)
-const notice = ref('')
-function openEditor(motorcycle = null) {
-  selectedMotorcycle.value = motorcycle
-  formOpen.value = true
-  notice.value = ''
-}
+import { api } from '../services/api'
+import { workspace as s, refreshMotos } from '../services/workspace'
+import { formatKm } from '../services/format'
+import { useTask } from '../composables/useTask'
+const {busy,error,notice,run}=useTask(), form=ref(null), editId=ref(null)
+function open(m=null){editId.value=m?.id||null;form.value=m?{...m}:{marca:'',modelo:'',ano:new Date().getFullYear(),placa:'',km_atual:0}}
+async function save(){await run(async()=>{const body={...form.value,placa:form.value.placa.toUpperCase().replace(/[-\s]/g,'')};if(editId.value)await api.put('/motocicletas/'+editId.value,body);else await api.post('/motocicletas',body);form.value=null;await refreshMotos()},'Moto salva.')}
+async function remove(m){if(!window.confirm('Excluir '+m.modelo+' e todo o histórico de manutenções, despesas e alertas? Esta ação não pode ser desfeita.'))return;await run(async()=>{await api.delete('/motocicletas/'+m.id);await refreshMotos()},'Moto excluída.')}
 </script>
-
-<template>
-  <div class="page-stack page-stack-compact">
-    <SectionTitle>Minha Garagem</SectionTitle>
-    <div class="garage-grid">
-      <article v-for="moto in motorcycles" :key="moto.id" class="motorcycle-card">
-        <div class="motorcycle-art" :class="{ 'motorcycle-art-lime': moto.accent }"><MotorcycleIcon /></div>
-        <div class="motorcycle-card-content">
-          <h3>{{ moto.name }}</h3>
-          <dl><div><dt>Placa</dt><dd>{{ moto.plate }}</dd></div><div><dt>Ano</dt><dd>{{ moto.year }}</dd></div><div><dt>KM</dt><dd>{{ formatKm(moto.currentKm) }} km</dd></div></dl>
-          <div class="motorcycle-card-actions"><button class="button button-small button-lime" type="button" :aria-label="'Detalhes de ' + moto.name" @click="selectedMotorcycle = moto; formOpen = false">Detalhes</button><button class="button button-small button-ghost" type="button" :aria-label="'Editar ' + moto.name" @click="openEditor(moto)">Editar</button></div>
-        </div>
-      </article>
-      <button class="add-motorcycle" type="button" @click="openEditor()"><span aria-hidden="true">+</span><strong>Adicionar Moto</strong></button>
-    </div>
-    <section v-if="selectedMotorcycle && !formOpen" class="panel motorcycle-details-panel">
-      <h3 class="panel-heading">{{ selectedMotorcycle.name }}</h3><p class="muted">{{ selectedMotorcycle.plate }} · {{ selectedMotorcycle.year }} · {{ formatKm(selectedMotorcycle.currentKm) }} km</p>
-      <div class="form-actions"><RouterLink class="button button-lime" to="/alertas">Ver Alertas</RouterLink><RouterLink class="button button-ghost" to="/manutencoes">Ver Manutenções</RouterLink><button class="button button-ghost" type="button" @click="selectedMotorcycle = null">Fechar</button></div>
-    </section>
-    <form v-if="formOpen" class="demo-form" :key="selectedMotorcycle?.id ?? 'new'" @submit.prevent="notice = 'Demonstração: nenhum dado da moto foi alterado.'">
-      <h3 class="form-heading">{{ selectedMotorcycle ? 'Editar Moto' : 'Adicionar Moto' }}</h3>
-      <div class="form-grid"><label class="field">Modelo<input :value="selectedMotorcycle?.name" placeholder="Ex: Honda CB 500F" required /></label><label class="field">Placa<input :value="selectedMotorcycle?.plate" placeholder="Ex: ABC-1D23" /></label><label class="field">Ano<input :value="selectedMotorcycle?.year" inputmode="numeric" placeholder="Ex: 2021" /></label><label class="field">KM Atual<input :value="selectedMotorcycle?.currentKm" inputmode="numeric" placeholder="Ex: 28.400" /></label></div>
-      <div class="form-actions"><button class="button button-black" type="submit">Salvar</button><button class="button button-ghost" type="button" @click="formOpen = false; selectedMotorcycle = null">Cancelar</button></div>
-      <p class="field-hint">Formulário demonstrativo. As alterações não são salvas.</p>
-    </form>
-    <p v-if="notice" class="demo-notice" role="status">{{ notice }}</p>
-  </div>
-</template>
+<template><div class="page-stack"><SectionTitle>Minha Garagem</SectionTitle><TaskStatus :busy="busy" :error="error" :notice="notice"/><div class="garage-grid"><article v-for="m in s.motos" :key="m.id" class="motorcycle-card"><div class="motorcycle-art motorcycle-art-lime"><MotorcycleIcon/></div><div class="motorcycle-card-content"><h3>{{m.marca}} {{m.modelo}}</h3><p>{{m.placa}} · {{m.ano}}</p><p>{{formatKm(m.km_atual)}} km</p><div class="form-actions"><button class="button button-lime" :disabled="busy" @click="open(m)">Editar / KM</button><button class="button button-danger" :disabled="busy" @click="remove(m)">Excluir</button></div></div></article><button class="add-motorcycle" :disabled="busy" @click="open()"><span>+</span>Adicionar moto</button></div><form v-if="form" class="demo-form" @submit.prevent="save"><h3>{{editId?'Editar moto':'Nova moto'}}</h3><fieldset :disabled="busy"><div class="form-grid"><label class="field">Marca<input v-model="form.marca" required maxlength="255"/></label><label class="field">Modelo<input v-model="form.modelo" required maxlength="255"/></label><label class="field">Ano<input v-model="form.ano" type="number" min="1900" max="2100" required/></label><label class="field">Placa<input v-model="form.placa" required maxlength="8" placeholder="ABC1D23"/></label><label class="field">Quilometragem atual<input v-model="form.km_atual" type="number" min="0" max="4294967295" required/></label></div><p class="field-hint">Atualize o odômetro para acompanhar seus alertas. A quilometragem não pode diminuir.</p><div class="form-actions"><button class="button button-black">Salvar</button><button class="button button-ghost" type="button" @click="form=null">Cancelar</button></div></fieldset></form></div></template>

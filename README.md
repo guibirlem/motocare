@@ -1,144 +1,139 @@
 # MotoCare
 
-PWA para acompanhar manutenção preventiva, alertas e gastos de motocicletas. Frontend Vue 3/Vite separado da API Laravel 12, com banco MySQL local no XAMPP.
+PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: T1 (alertas) e T2 (histórico de manutenções), com conta e garagem. T3/financeiro e relatórios ficam para outra etapa.
 
-## Estado da entrega
+## Entrega e histórico
 
-- T0: estrutura e migrations do domínio disponíveis.
-- T1: verificador de alertas aos 90% do limite, scheduler, envio FCM HTTP v1 e testes automatizados no backend. Push real depende de credenciais Firebase e token do dispositivo.
-- Frontend: telas demonstrativas inspiradas no [protótipo publicado](https://open-thumb-85089078.figma.site), com rotas e navegação. Os formulários não persistem dados; autenticação e consumo da API ainda não foram implementados.
-- T2: próxima tarefa, implementar o histórico real de manutenções e peças de desgaste. Consulte o [handoff](CONTINUACAO.md) antes de começar.
-- T3: resumo financeiro real ainda pendente.
+- [Repositório e fontes](https://github.com/guibirlem/motocare) e [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).
+- Edição de 22/10/2026, mensagem de commit: `update task1 e task2 funcionando`, com histórico anterior preservado.
+- [PDF único da Parte 2](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf): código, arquitetura, DER, backlog, atas e evidências em oito páginas.
+- [Entrega](ENTREGA.md), [continuidade](CONTINUACAO.md) e [retomada da T3](RETOMADA_T3.md).
 
-## Preparar outro computador
+## O que está entregue
 
-Instale Git, PHP 8.2 ou superior compatível com o lockfile, Composer 2 e Node.js 22 com npm. Para o banco local, inicie o MySQL no XAMPP. O PHP precisa das extensões exigidas pelo Composer; os testes também usam `pdo_sqlite`, e a integração FCM usa `openssl`.
+Revisão de negócio/segurança de 22/10: manutenção feita atualiza o odômetro se o KM for maior, sem regressão por histórico/edição/exclusão; concluído futuro é rejeitado. Alertas usam 90% do intervalo entre KM de referência e próximo limite (66.779→71.779 avisa em 71.279), por escolha do usuário. Atualizar com `php artisan migrate` para incluir km_base, preservando .env/chaves. Vite/transitivas corrigidos, dependências sem avisos conhecidos, proteção de sessão/erros/segredos revisada. Evidências e limites em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md): 45 testes backend/391 verificações, 28 frontend/build e smoke HTTP/MySQL aprovados.
 
-No Windows, configure o PHP no PATH (por exemplo, `C:\xampp\php`) para usar os comandos abaixo. `php --version`, `composer --version`, `node --version` e `npm --version` devem responder no terminal. Não é necessário copiar dependências ou executáveis do computador anterior.
+Modo noturno disponível no computador e no celular, inclusive login e tela offline. Use o seletor no cabeçalho (lua/sol no celular); a escolha fica salva neste navegador. Sem escolha anterior, o app segue a aparência do sistema ao abrir. No iPhone já instalado, carregar com internet após fechar completamente pela multitarefa para receber esta versão; no computador, Ctrl+F5. Usuário confirmou “Sim, tema escuro funcionando”; aceite visual manual e testes/build aprovados.
 
-### 1. Obter o projeto
+Documentação de continuidade atualizada em 22/10/2026: para fazer a próxima etapa, começar por [CONTINUACAO.md](CONTINUACAO.md) e [RETOMADA_T3.md](RETOMADA_T3.md). O financeiro preservado precisa ser revisado e integrado; esta preparação não o ativa. Pacote atual: `entrega/MotoCare-Retomada-T3-2026-10-22.zip`, com manifesto e checksum. A atualização Git desta edição incorpora a integração e a revisão de 22/10 sobre `7f5b9cb` (08/10). Para iniciar em outro computador, clonar/puxar a versão atual antes de criar a branch da T3. O pacote ZIP, manifesto e checksum são cópias locais auxiliares; os fontes e o PDF estão no Git.
 
-```powershell
-git clone https://github.com/guibirlem/motocare.git
-cd motocare
-```
+- Conta com cadastro, login/logout, perfil e alteração de senha; isolamento por usuário.
+- Garagem com cadastro, edição, exclusão confirmada e atualização de odômetro.
+- T1: alertas de óleo/revisão aos 90% do intervalo entre referência e próximo limite ou na data; scheduler e Web Push com VAPID local.
+- T2: histórico real de óleo, kit relação, pneus e freios, com edição, exclusão e filtros.
+- T3 adiada: código anterior de despesas/resumo preservado; API financeira desativada por padrão (FEATURE_FINANCEIRO=false).
+- Relatórios/exportações adiados; telas retiradas da navegação e do roteador.
+- PWA com ícones e cache do shell público; APIs e dados pessoais não entram no cache offline. Offline não permite consultar/gravar dados da conta.
 
-O repositório do projeto é [guibirlem/motocare](https://github.com/guibirlem/motocare), cuja branch padrão atual é `master`. A pasta correta contém `backend`, `frontend` e este README. Para a T2, crie a branch de trabalho a partir da versão atualizada dessa branch.
+Correção offline de 22/10: o shell abre uma tela “Modo offline”, inclusive antes do login, com orientação para reconectar; o cliente bloqueia novas chamadas quando o navegador indica ausência de rede e não enfileira gravações. O evento online tenta carregar novamente. Carregar a nova versão com internet antes de testar sem Wi-Fi/dados móveis. Testes frontend: 22 aprovados e build aprovado; usuário confirmou mensagem e retorno online no iPhone após fechar completamente o app e reabrir atualizado.
 
-### 2. Criar o banco local
+Notificações T1 confirmadas pelo usuário em 22/10: primeiro plano, Chrome minimizado e alerta real pelo scheduler. Revisão mobile/PWA concluída no iPhone: abertura pelo app instalado, telas/formulários, offline/reconexão e push pelo botão/scheduler em segundo plano. Fontes e documentação desta edição consolidados na atualização Git indicada acima. Não é necessário configurar Firebase. Detalhes em [CONTINUACAO.md](CONTINUACAO.md).
 
-Com o MySQL do XAMPP iniciado, use o phpMyAdmin ou outro cliente SQL para executar [backend/database/create-local-database.sql](backend/database/create-local-database.sql). O script cria o banco `motocare` se ele ainda não existir. As tabelas serão criadas pelas migrations.
+## Instalar em outro computador
 
-O padrão de desenvolvimento é `127.0.0.1:3306`, usuário `root`, senha vazia. Nenhum banco ou registro do outro computador é necessário para instalar; as telas usam exemplos locais e os testes criam dados próprios.
+Para testes no celular, seguir [ACESSO_CELULAR.md](ACESSO_CELULAR.md). O usuário autorizou o túnel Cloudflare em 22/10; endereço temporário atual registrado no roteiro. HTTPS público, assets/PWA, sessão/login/CSRF e cookies seguros validados, com conta descartável removida. Exige computador e processos móveis ligados. Instalação/abertura e funcionamento dos fluxos conferidos no iPhone aprovados pelo usuário.
 
-### 3. Instalar e iniciar o backend
+Notificações no iPhone confirmadas em 22/10 pelo botão e pelo scheduler real às 15:47:51, em segundo plano: corrigido contato VAPID com WEBPUSH_SUBJECT HTTPS no processo móvel após rejeição Apple 403/BadJwtToken. O scheduler deve receber o mesmo contato. Teste isolado com banco SQLite descartável/migrations existentes para preservar alerta elegível no MySQL; cenário removido e originais preservados. Sem scheduler contínuo iniciado: manter `php artisan schedule:work` ativo para uso diário.
 
-Na raiz do projeto, usando PowerShell:
+Instale Git, PHP 8.2+ e extensões exigidas pelo Composer (incluindo pdo_mysql, pdo_sqlite para testes, openssl, curl, mbstring e zip), Composer 2, Node.js 22 com npm e XAMPP/MySQL. Coloque PHP, Composer e Node no PATH. Não copie dependências instaladas ou .env de outra máquina.
 
-```powershell
-cd backend
+Use os fontes atualizados desta entrega. A pasta original é uma cópia sem .git; a publicação foi preparada em clone separado. O estado da entrega está em CONTINUACAO.md. Ao trabalhar pelo Git, preserve o histórico de [guibirlem/motocare](https://github.com/guibirlem/motocare) e crie uma branch de trabalho a partir da versão recebida.
+
+### Backend
+
+Inicie MySQL no XAMPP e crie o banco com [create-local-database.sql](backend/database/create-local-database.sql). Padrão: 127.0.0.1:3306, banco motocare, root, senha vazia.
+
+Na pasta backend:
+
+~~~powershell
 if (-not (Test-Path .env)) { Copy-Item .env.example .env }
 composer install
+# Somente na primeira instalação, se APP_KEY ainda estiver vazia:
 php artisan key:generate
 php artisan migrate
+php artisan push:configurar
 php artisan serve --host=127.0.0.1 --port=8000
-```
+~~~
 
-O `.env.example` já contém a configuração do MySQL local. Ajuste o `.env` se seu banco tiver outra porta, usuário ou senha. Cada computador deve gerar sua própria `APP_KEY`; não copie o `.env` de outra pessoa. O comando `key:generate` acima é para a primeira instalação; preserve a chave existente nas próximas atualizações.
+Preserve APP_KEY e o .env existentes em atualizações. Confira as configurações DB_* do .env. As migrations de despesas e inscrição Web Push são aditivas e mantêm os registros anteriores; não use migrate:fresh em banco com dados. Raiz da API: http://127.0.0.1:8000, resposta JSON.
 
-API de verificação: [http://127.0.0.1:8000](http://127.0.0.1:8000), com resposta JSON. Não há endpoints de manutenção ou autenticação prontos nesta entrega.
+### Frontend
 
-### 4. Instalar e iniciar o frontend
+Em outro terminal, na pasta frontend:
 
-Abra outro terminal na raiz do projeto:
-
-```powershell
-cd frontend
+~~~powershell
 npm ci
-npm run dev -- --host 127.0.0.1 --port 5173
-```
+npm start
+~~~
 
-Abra [http://127.0.0.1:5173](http://127.0.0.1:5173). Use npm e mantenha `package-lock.json`; não misture gerenciadores de dependências.
+Abra [MotoCare](http://127.0.0.1:5173). Esse comando compila e serve o build com proxy /api para o backend local. Foi criado para evitar a falha do esbuild ao carregar configuração/otimizar dependências neste ambiente. Após editar fontes, encerre com Ctrl+C e execute npm start novamente.
+
+Para desenvolvimento com recarga automática, use npm run dev em um ambiente onde a otimização do Vite funcione. O proxy de dev também aponta para 127.0.0.1:8000. Não é necessário .env no frontend.
+
+~~~powershell
+npm run build
+npm run preview
+~~~
+
+O build/preview usa a API programática do Vite e a configuração existente, sem depender do runtime interno do assistente. Porta do preview: 5173, com strictPort (encerre o processo anterior para liberar a porta). Se houver tela antiga, use Ctrl+F5. O shell é atualizado por versão do build.
+
+### Primeiro uso
+
+Crie sua conta, abra Garagem e cadastre sua moto. Selecione a moto no topo; depois registre manutenções e alertas. Atualize o odômetro na Garagem para verificar os limites. Não há conta ou senha padrão, nem dados demonstrativos inseridos.
 
 | Tela | Rota |
 | --- | --- |
-| Dashboard | `/` ou `/dashboard` |
-| Alertas da T1 | `/alertas` |
-| Manutenções | `/manutencoes` ou `/historico` |
-| Gastos | `/gastos` |
-| Relatórios | `/relatorios` |
-| Garagem | `/garagem` |
-| Configurações | `/configuracoes` |
+| Dashboard | / ou /dashboard |
+| Histórico | /manutencoes ou /historico |
+| Garagem | /garagem |
+| Conta e notificações | /configuracoes |
+| Alertas | /alertas |
 
-`frontend/.env.example` reserva `VITE_API_URL` para a futura integração. Atualmente a interface não consulta essa variável nem a API; não é necessário criar um `.env` no frontend para visualizar as telas.
+O Dashboard consulta diretamente o histórico e os alertas. O total de manutenções soma apenas serviços concluídos. Manutenção feita pode avançar o odômetro, nunca reduzi-lo. Conclua o alerta e cadastre o próximo limite explicitamente; informe o KM de referência do serviço para calcular o intervalo de aviso.
 
-### 5. Executar alertas da T1, se necessário
+### Scheduler e notificações
 
-Em outro terminal dentro de `backend`:
+Validação real em 22/10: teste e alerta de óleo do scheduler recebidos com Chrome minimizado, além do primeiro plano, confirmados pelo usuário. Limite inclusivo de 90% e ausência de reenvio conferidos no MySQL; fixtures removidas. O teste da interface continua limitado a três tentativas/minuto, com Retry-After em português e espera regressiva. API precisa de acesso externo ao serviço de push; não desabilitar TLS nem remover o limite. Reiniciar servidores se as portas 5173/8000 recusarem conexão; após novo build, Ctrl+F5. Foi executado schedule:run avulso; para uso diário manter o scheduler abaixo.
 
-```powershell
+Em outro terminal na pasta backend:
+
+~~~powershell
 php artisan schedule:work
-```
+~~~
 
-Verificação manual: `php artisan alertas:verificar`. Consulte [backend/ALERTAS.md](backend/ALERTAS.md) para configurar Firebase e tokens. Credenciais não são necessárias para desenvolver o histórico da T2 ou executar os testes com FCM simulado.
+Verificação manual: php artisan alertas:verificar. O comando php artisan push:configurar gera as chaves locais uma única vez, sem conta externa; preserva chaves existentes. Em Configurações, ative este navegador e use Enviar teste de notificação para conferir recebimento. Operação em [ALERTAS.md](backend/ALERTAS.md). Preserve APP_KEY e storage/app/private/webpush-vapid.json em atualizações; não publique chaves privadas. Em produção: HTTPS, cookies seguros, reverse proxy /api na mesma origem e WEBPUSH_SUBJECT com seu contato válido.
 
-## Validar alterações
+## Testes
 
-Dentro de `backend`:
+Na pasta backend:
 
-```powershell
-php artisan test
-```
-
-Os testes usam SQLite em memória, sem modificar o MySQL local. Se o teste de FCM não conseguir gerar a chave OpenSSL no XAMPP, ajuste o caminho da configuração existente na sua instalação antes de executar os testes:
-
-```powershell
+~~~powershell
+# Se necessário no XAMPP:
 $env:OPENSSL_CONF = 'C:/xampp/php/extras/ssl/openssl.cnf'
 php artisan test
-```
+~~~
 
-Dentro de `frontend`:
+Na pasta frontend:
 
-```powershell
+~~~powershell
+npm test
 npm run build
-```
+~~~
 
-Últimas validações da implementação: backend com 6 testes e 27 verificações; frontend com build aprovado e sete rotas principais respondendo HTTP 200. A verificação visual automatizada no navegador não foi concluída.
+Validação do escopo T1/T2 em 19/10/2026: 29 testes backend/246 verificações, 19 testes frontend e build aprovados. Smoke HTTP no MySQL confirmou configuração Web Push pronta, inscrição/remoção, CRUD dos quatro tipos de serviço, ciclo de alerta e financeiro desativado (404); dados de teste removidos. Testes financeiros históricos habilitam a funcionalidade apenas no próprio caso, para preservar o trabalho futuro. Testes frontend cobrem push/ativação/logout e cálculos/CSV/cache; isso não significa que financeiro está ativo.
 
-## Continuar a T2
+## Publicação e continuidade
 
-Leia [CONTINUACAO.md](CONTINUACAO.md), [AGENTS.md](AGENTS.md), [SPEC.md](SPEC.md) e [TASKS.md](TASKS.md). A tabela `manutencoes` já existe nas migrations, mas não há model, controller ou API de manutenções. A tela [MaintenanceView.vue](frontend/src/views/MaintenanceView.vue) e os dados em [demo.js](frontend/src/data/demo.js) são o ponto de partida visual.
+Versionar fontes, documentação, migrations, exemplos e lockfiles. Não versionar .env, chaves privadas, dependências instaladas, caches, logs ou dist. Preservar o histórico remoto, sem force push. A integração GitHub recusou gravação com403; esta edição foi publicada pelo Git instalado, contornando esse bloqueio. Conteúdo e procedimento de atualização em [ENTREGA.md](ENTREGA.md).
 
-Crie sua branch de trabalho antes de implementar:
+- [AGENTS.md](AGENTS.md): regras do projeto.
+- [SPEC.md](SPEC.md): regras e contrato da API.
+- [DER.md](DER.md): entidades e relações.
+- [TASKS.md](TASKS.md): tarefas e validações.
+- [CONTINUACAO.md](CONTINUACAO.md): estado atual e operação.
+- [MEMORY.md](MEMORY.md): histórico das entregas.
+- [RETOMADA_T3.md](RETOMADA_T3.md): mapa do financeiro preservado, sequência futura e critérios de aceite.
 
-```powershell
-git switch -c feature/t2-historico-manutencoes
-```
+Arquivo acadêmico consolidado: [PDF da entrega T1/T2](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), retrato de 22/10/2026. Atualizar sua edição quando uma nova entrega incluir a T3; ele não substitui o roteiro técnico atual.
 
-Não use `migrate:fresh` no banco compartilhado para preparar a T2; `php artisan migrate` aplica as migrations pendentes sem apagar as tabelas existentes.
-
-## Publicar este projeto no Git
-
-O envio do código fica a cargo do responsável pelo repositório. Caso esta pasta ainda não tenha `.git`, na raiz:
-
-```powershell
-git init -b main
-git add .
-git status --short
-git diff --cached --stat
-git commit -m "feat: implementa T1 e prototipo navegavel MotoCare"
-git remote add origin <URL-DO-REPOSITORIO>
-git push -u origin main
-```
-
-Esses comandos são para um repositório remoto vazio. Se ele já tiver histórico, faça o envio a partir de um clone desse repositório; preserve os commits existentes. Se esta pasta já for um clone, não repita `git init` ou `git remote add`.
-
-Versione o código, migrations, documentação, `.env.example`, `backend/composer.lock` e `frontend/package-lock.json`. O `.gitignore` exclui os arquivos locais, incluindo `.env`, credenciais de conta de serviço, `vendor`, `node_modules`, caches, logs, builds, o Composer local e os arquivos auxiliares de pnpm. Ele não remove arquivos que já estejam rastreados; confira `git status` e os arquivos preparados antes do commit.
-
-## Documentação
-
-- [AGENTS.md](AGENTS.md): regras do projeto e da colaboração.
-- [SPEC.md](SPEC.md): regras de negócio, entidades e DER.
-- [TASKS.md](TASKS.md): backlog e estados reais das tarefas.
-- [CONTINUACAO.md](CONTINUACAO.md): contexto e orientações para a próxima pessoa.
-- [MEMORY.md](MEMORY.md): registro das entregas e validações.
+Para confirmar a T1 no navegador: Configurações → Ativar notificações → permitir → Enviar teste de notificação. As chaves locais já foram geradas nesta máquina. Testes automatizados e HTTP não comprovam recebimento real.

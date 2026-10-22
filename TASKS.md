@@ -1,10 +1,17 @@
 # Tarefas - T1/T2 e retomada futura da T3
 
+## PDF consolidado após a publicação - 22/10/2026
+
+- [x] Conferir master pelo GitHub: commit funcional 5d554ed, mensagem `update task1 e task2 funcionando`.
+- [x] Gerar nova edição de nove páginas com referência clicável ao commit, ata da publicação e detalhamento de segurança/continuidade, além dos quatro artefatos solicitados.
+- [x] Renderizar e inspecionar as nove páginas; verificar texto, quatro links, nove marcadores e paginação. Pacote/checksum locais atualizados; sem mudança funcional ou nova execução das suítes.
+
+
 ## Publicação e entrega consolidada - 22/10/2026
 
 - [x] Fontes T1/T2, revisão de negócio/segurança, documentos de entrega/retomada e PDF atual reunidos para a atualização de `master` em [guibirlem/motocare](https://github.com/guibirlem/motocare).
 - [x] Mensagem solicitada pelo usuário: `update task1 e task2 funcionando`; histórico anterior preservado, sem force push. O SHA desta edição deve ser consultado no [histórico](https://github.com/guibirlem/motocare/commits/master/).
-- [x] PDF atualizado para oito páginas, renderizadas e conferidas; texto, links e marcadores verificados. Inclui arquitetura, DER com km_base, backlog, atas e evidências atuais.
+- [x] PDF atualizado para nove páginas, renderizadas e conferidas; texto, links e marcadores verificados. Inclui arquitetura, DER com km_base, backlog, atas e evidências atuais.
 - [x] Auditoria dos arquivos elegíveis sem credenciais/chaves privadas; dependências, caches, logs e builds excluídos. Pacote local e checksum recompostos.
 - Esta etapa publica resultados já validados: 45 testes backend/391 verificações e 28 frontend/build. Não houve mudança de aplicação, schema, configuração privada ou novo envio push nesta publicação. T3 continua desativada.
 
@@ -28,7 +35,7 @@
 ## Documento único de entrega - 22/10/2026
 
 - [x] PDF consolidado em `output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf`: links Git/histórico, arquitetura, DER, backlog e atas retrospectivas baseadas nos registros.
-- [x] Oito páginas da edição atual renderizadas e conferidas visualmente; extração de texto, links e marcadores verificados. Não houve nova execução das suítes da aplicação.
+- [x] Nove páginas da edição atual renderizadas e conferidas visualmente; extração de texto, links e marcadores verificados. Não houve nova execução das suítes da aplicação.
 - [x] Atualização GitHub desta edição com a mensagem `update task1 e task2 funcionando`, sobre a base `7f5b9cb` de 08/10; consulta prévia e histórico preservados. Notificações T1 e revisão mobile/PWA já confirmadas em 22/10.
 
 Estado funcional validado em 19/10/2026; documentação atualizada em 22/10/2026. T3/financeiro/relatórios adiados. Por decisão do usuário, Web Push padrão substitui Firebase.

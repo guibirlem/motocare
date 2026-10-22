@@ -1,10 +1,15 @@
 # Continuação do MotoCare - retomada futura da T3
 
+## PDF final após publicação - 22/10/2026
+
+Nova consolidação do [arquivo único](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), agora com nove páginas e quatro links. Referência funcional fixa: [5d554ed](https://github.com/guibirlem/motocare/commit/5d554ed7b5ee68c903c86a2bc6b6d062d7e58def), confirmado em master. Inclui ata de publicação, proteções de segurança e orientação de continuidade, além de arquitetura/DER/backlog/atas e aceites já registrados. Todas as nove páginas foram renderizadas e inspecionadas; texto, links, marcadores e paginação conferidos. Substitui PDFs anteriores de seis/oito páginas. Atualização documental; regras/schema/chaves/feature e validações funcionais não mudam.
+
+
 ## Entrega e publicação atualizadas - 22/10/2026
 
 Esta edição consolida os fontes em [guibirlem/motocare](https://github.com/guibirlem/motocare), branch `master`, na atualização com mensagem `update task1 e task2 funcionando`. O commit preserva o histórico anterior; conferir seu SHA no [histórico público](https://github.com/guibirlem/motocare/commits/master/). O erro 403 do conector foi contornado pelo Git instalado, com autenticação de escrita conferida. Não usar a antiga base 7f5b9cb isoladamente para retomar.
 
-O [PDF único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf) foi substituído por edição atual de oito páginas: repositório/commits, arquitetura, DER com km_base, backlog e atas retrospectivas, incluindo os aceites reais e a revisão de negócio/segurança. Todas as páginas foram renderizadas e inspecionadas; texto/links conferidos. Pacote de continuidade local e checksum atualizados. Registros históricos abaixo mantêm o estado observado em cada etapa; menções antigas a PDF histórico/publicação pendente foram superadas por esta edição.
+O [PDF único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf) foi substituído por edição atual de nove páginas: repositório/commits, arquitetura, DER com km_base, backlog e atas retrospectivas, incluindo os aceites reais e a revisão de negócio/segurança. Todas as páginas foram renderizadas e inspecionadas; texto/links conferidos. Pacote de continuidade local e checksum atualizados. Registros históricos abaixo mantêm o estado observado em cada etapa; menções antigas a PDF histórico/publicação pendente foram superadas por esta edição.
 
 Nenhuma regra ou configuração privada mudou nesta preparação documental/publicação. As validações funcionais vigentes são 45 testes backend/391 verificações e 28 frontend/build, com limites em REVISAO_LOGICA_SEGURANCA.md. Financeiro/T3 continua false; para retomar, clonar/puxar a versão atual e seguir RETOMADA_T3.md. Não copiar .env, APP_KEY ou VAPID de outra máquina.
 
@@ -71,7 +76,7 @@ Pacote de continuidade: `entrega/MotoCare-Retomada-T3-2026-10-22.zip`, com manif
 
 ## Documento de entrega - 22/10/2026
 
-Atualizado `output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf`, agora com oito páginas reunindo código-fonte/histórico, arquitetura, DER com km_base, Sprint Backlog, atas retrospectivas e evidências atuais. Todas as páginas renderizadas e revisadas visualmente; texto, três links e marcadores conferidos. A edição anterior de seis páginas foi substituída. Atas não presumem reuniões ou calendário formal ausentes nos registros. O PDF atual inclui a validação real de notificações, revisão mobile/PWA, tema e regras/segurança posteriores.
+Atualizado `output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf`, agora com nove páginas reunindo código-fonte/histórico, arquitetura, DER com km_base, Sprint Backlog, atas retrospectivas e evidências atuais. Todas as páginas renderizadas e revisadas visualmente; texto, quatro links e marcadores conferidos. A edição anterior de seis páginas foi substituída. Atas não presumem reuniões ou calendário formal ausentes nos registros. O PDF atual inclui a validação real de notificações, revisão mobile/PWA, tema e regras/segurança posteriores.
 
 Base funcional de 19/10/2026: T1/T2 ativos e T3/financeiro/relatórios adiados. O usuário substituiu Firebase por Web Push padrão para simplificar a configuração.
 

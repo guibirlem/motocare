@@ -4,11 +4,13 @@
 
 Repositório público: [guibirlem/motocare](https://github.com/guibirlem/motocare). Branch de entrega: `master`. Atualização desta edição com a mensagem solicitada pelo usuário: **update task1 e task2 funcionando**. O SHA e os arquivos são verificáveis no [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).
 
+Código funcional de referência confirmado: [5d554ed](https://github.com/guibirlem/motocare/commit/5d554ed7b5ee68c903c86a2bc6b6d062d7e58def). O PDF consolidado após a publicação fixa esse commit, acrescenta a ata de publicação e detalha segurança/continuidade; as alterações desta consolidação são documentais.
+
 A base remota anterior era `7f5b9cb` de 08/10/2026. A edição atual incorpora fontes integrados de 19/10 e revisão/aceites de 22/10, preservando o histórico e sem force push. O conector GitHub retornou HTTP 403 na tentativa de gravação; publicação pelo Git instalado, com autenticação de escrita disponível. O registro histórico desse bloqueio não representa o estado desta edição.
 
 ## Arquivo único da Parte 2
 
-[MotoCare - Arquivo único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), edição atual de oito páginas:
+[MotoCare - Arquivo único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), edição atual de nove páginas:
 
 1. Código-fonte e links clicáveis do repositório/histórico.
 2. Arquitetura da solução Vue/PWA, API Laravel, MySQL, scheduler e Web Push.
@@ -17,7 +19,7 @@ A base remota anterior era `7f5b9cb` de 08/10/2026. A edição atual incorpora f
 5. Atas retrospectivas dos ciclos: realizado, decisões, bloqueios e encaminhamentos.
 6. Regras atuais, evidências e limites das validações.
 
-Todas as oito páginas foram renderizadas e conferidas; extração de texto, três links e marcadores verificados. Esta edição substitui o antigo PDF de seis páginas. As atas são consolidações dos registros de trabalho, sem inventar reuniões, participantes ou datas.
+Todas as nove páginas foram renderizadas e conferidas; extração de texto, quatro links e marcadores verificados. Esta edição substitui os PDFs anteriores de seis e oito páginas. As atas são consolidações dos registros de trabalho, sem inventar reuniões, participantes ou datas.
 
 ## Escopo e evidências
 

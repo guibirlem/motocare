@@ -6,7 +6,7 @@ PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: 
 
 - [Repositório e fontes](https://github.com/guibirlem/motocare) e [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).
 - Edição de 22/10/2026, mensagem de commit: `update task1 e task2 funcionando`, com histórico anterior preservado.
-- [PDF único da Parte 2](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf): código, arquitetura, DER, backlog, atas e evidências em oito páginas.
+- [PDF único da Parte 2](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf): código, arquitetura, DER, backlog, atas e evidências em nove páginas.
 - [Entrega](ENTREGA.md), [continuidade](CONTINUACAO.md) e [retomada da T3](RETOMADA_T3.md).
 
 ## O que está entregue

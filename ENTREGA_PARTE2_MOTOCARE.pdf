@@ -1,0 +1,164 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [4 0 R 6 0 R] /Count 2 >>
+endobj
+3 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+4 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 5 0 R >>
+endobj
+5 0 obj
+<< /Length 3143 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+(MotoCare ? Entrega Parte 2 \(Arquivo Único\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(1\) Código-fonte) Tj
+0 -14 Td
+(- Repositório GitHub: https://github.com/guibirlem/motocare) Tj
+0 -14 Td
+(- Histórico de commits: visível na aba de commits do repositório.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(2\) Arquitetura da Solução) Tj
+0 -14 Td
+(- Frontend: Vue.js 3 + Vite + Axios + Service Worker \(PWA\)) Tj
+0 -14 Td
+(- Backend: Laravel 12 \(PHP 8.2+\) como API REST \(JSON\)) Tj
+0 -14 Td
+(- Banco de dados: MySQL 8.0 \(InnoDB\)) Tj
+0 -14 Td
+(- Notificações: Firebase Cloud Messaging \(FCM\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Fluxo arquitetural:) Tj
+0 -14 Td
+(Usuário \(PWA Vue\) -> API Laravel -> MySQL) Tj
+0 -14 Td
+(                                -> FCM \(push de alertas\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(3\) DER \(Modelo de Dados\)) Tj
+0 -14 Td
+(Entidades principais:) Tj
+0 -14 Td
+(- usuarios\(id, nome, email, password, telefone, fcm_token\)) Tj
+0 -14 Td
+(- motocicletas\(id, usuario_id, marca, modelo, ano, placa, km_atual\)) Tj
+0 -14 Td
+(- manutencoes\(id, motocicleta_id, tipo_servico, descricao, valor, status, data, km_servico\)) Tj
+0 -14 Td
+(- despesas\(id, motocicleta_id, tipo_despesa, valor, litros, preco_litro, posto, data\)) Tj
+0 -14 Td
+(- alertas\(id, motocicleta_id, tipo_alerta, nivel_urgencia, km_limite, data_limite, status\)) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Relacionamentos:) Tj
+0 -14 Td
+(- usuarios 1:N motocicletas) Tj
+0 -14 Td
+(- motocicletas 1:N manutencoes) Tj
+0 -14 Td
+(- motocicletas 1:N despesas) Tj
+0 -14 Td
+(- motocicletas 1:N alertas) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(4\) Sprint Backlog \(resumo de TASKS.md\)) Tj
+0 -14 Td
+(- T0: scaffold Laravel/Vue, base PWA e migrations \(concluído\).) Tj
+0 -14 Td
+(- T1: alertas automatizados de troca de óleo/revisão, scheduler e FCM \(concluído no backend;) Tj
+0 -14 Td
+(  frontend ainda demonstrativo para push real\).) Tj
+0 -14 Td
+(- T2: histórico de manutenções com persistência/API e integração frontend \(pendente, próxima entrega\).) Tj
+0 -14 Td
+(- T3: controle financeiro mensal \(pendente; tela demonstrativa\).) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(5\) Atas das Sprints \(resumo\)) Tj
+0 -14 Td
+(Sprint T0:) Tj
+0 -14 Td
+(- Feito: estrutura inicial backend/frontend e modelo de dados base.) Tj
+0 -14 Td
+(- Decisões: separação frontend/backend e API somente JSON.) Tj
+0 -14 Td
+(- Bloqueios: sem bloqueios críticos registrados.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Sprint T1:) Tj
+0 -14 Td
+(- Feito: lógica de alertas por quilometragem \(90%\), scheduler e integração FCM HTTP v1 no backend.) Tj
+0 -14 Td
+(- Decisões: manter estados de alerta \(pendente/notificado/concluido\) e evitar envios simultâneos.) Tj
+0 -14 Td
+(- Bloqueios: push real depende de credenciais Firebase e token do dispositivo no frontend.) Tj
+0 -14 Td
+() Tj
+0 -14 Td
+(Sprint de Transição para T2:) Tj
+0 -14 Td
+(- Feito: documentação de handoff e base visual da tela de manutenções já existente.) Tj
+0 -14 Td
+(- Decisões: reutilizar migration de manutencoes já criada; preservar comportamento da T1.) Tj
+0 -14 Td
+(- Bloqueios: autenticação e isolamento por usuário ainda pendentes para liberar histórico real.) Tj
+0 -14 Td
+() Tj
+ET
+endstream
+endobj
+6 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R >> >> /Contents 7 0 R >>
+endobj
+7 0 obj
+<< /Length 164 >>
+stream
+BT
+/F1 10 Tf
+50 800 Td
+(Referências no repositório:) Tj
+0 -14 Td
+(- README.md) Tj
+0 -14 Td
+(- SPEC.md) Tj
+0 -14 Td
+(- TASKS.md) Tj
+0 -14 Td
+(- CONTINUACAO.md) Tj
+ET
+endstream
+endobj
+xref
+0 8
+0000000000 65535 f 
+0000000015 00000 n 
+0000000064 00000 n 
+0000000127 00000 n 
+0000000197 00000 n 
+0000000323 00000 n 
+0000003518 00000 n 
+0000003644 00000 n 
+trailer
+<< /Size 8 /Root 1 0 R >>
+startxref
+3859
+%%EOF

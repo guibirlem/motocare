@@ -11,6 +11,8 @@ import { useTask } from '../composables/useTask'
 const { busy, error, notice, run } = useTask()
 const records = ref([]), alerts = ref([])
 const insights = ref(null)
+const insightsBusy = ref(false)
+const refreshing = computed(() => busy.value || insightsBusy.value)
 const due = alert => (alert.km_limite > 0 && Number(s.motos.find(m => m.id === Number(s.motoId))?.km_atual || 0) >= alertThresholdKm(alert)) || (alert.data_limite && alert.data_limite <= today())
 const activeAlerts = computed(() => alerts.value.filter(a => a.status !== 'concluido').sort((a, b) => Number(!!due(b)) - Number(!!due(a))))
 const total = computed(() => records.value.filter(r => r.status === 'concluido').reduce((sum, r) => sum + Math.round(Number(r.valor) * 100), 0) / 100)
@@ -24,16 +26,22 @@ async function load() {
   if (failure) throw failure.reason
 }
 onMounted(() => run(load))
+async function refresh() {
+  if (refreshing.value) return
+  await Promise.all([run(load), insights.value?.reload()])
+}
 </script>
 <template>
-  <div class="page-stack">
-    <SectionTitle>Visão Geral</SectionTitle>
-    <TaskStatus :busy="busy" :error="error" :notice="notice" />
-    <button class="button button-ghost" :disabled="busy" @click="run(load); insights?.reload()">Atualizar</button>
-    <p v-if="!s.motos.length">Sua garagem está vazia. <RouterLink to="/garagem" class="button button-lime">Cadastrar primeira moto</RouterLink></p>
+  <div class="page-stack home-page" :aria-busy="refreshing">
+    <div class="page-heading">
+      <div><SectionTitle>Visão Geral</SectionTitle><p class="page-description">Acompanhe os gastos, o histórico e os próximos cuidados da sua moto.</p></div>
+      <button class="button button-ghost dashboard-refresh" :disabled="refreshing || !s.motoId" @click="refresh"><span aria-hidden="true">↻</span>{{ refreshing ? 'Atualizando…' : 'Atualizar' }}</button>
+    </div>
+    <TaskStatus :error="error" :notice="notice" />
+    <section v-if="!s.motos.length" class="panel garage-empty"><h3>Sua próxima viagem começa na garagem</h3><p>Cadastre sua primeira moto para acompanhar os gastos e organizar a manutenção.</p><RouterLink to="/garagem" class="button button-lime">Cadastrar primeira moto</RouterLink></section>
     <template v-else>
-      <p>Histórico e cuidados da moto selecionada.</p>
-      <section>
+      <DashboardInsights ref="insights" :records="records" @refresh="run(load)" @busy="insightsBusy = $event">
+      <template #after-metrics><section class="dashboard-care-section">
         <SectionTitle>Cuidados Pendentes</SectionTitle>
         <div class="dashboard-alerts">
           <article v-for="a in activeAlerts" :key="a.id" class="dashboard-alert" :class="{ 'dashboard-alert-overdue': due(a) }">
@@ -42,8 +50,8 @@ onMounted(() => run(load))
           </article>
           <p v-if="!busy && !activeAlerts.length">Nenhum alerta ativo. Configure seus próximos cuidados em Alertas.</p>
         </div>
-      </section>
-      <DashboardInsights ref="insights" :records="records" @refresh="run(load)" />
+      </section></template>
+      </DashboardInsights>
       <div class="metrics-grid metrics-four">
         <MetricCard icon="🏍" label="Motos na garagem" :value="s.motos.length" accent />
         <MetricCard icon="🔩" label="Manutenções" :value="records.length" />

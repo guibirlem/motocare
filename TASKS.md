@@ -1,5 +1,11 @@
 # Tarefas - T1/T2/T3
 
+## Formatação do frontend — 23/10/2026
+
+- [x] Corrigir faixa da Visão Geral/Atualizar e posicionar indicadores no início; alinhar Moto selecionada e ações.
+- [x] Complementar cabeçalho, rodapé navegável, menu mobile, espaçamentos/cards/quebras de texto, preservando identidade preto/verde e temas.
+- [x] Conferir espera/falha/recuperação do painel; 38 testes frontend/build e Chrome1920/1440/768/390/320px aprovados em SQLite isolado. Sem mudança de negócio/schema/dados reais. [Relatório](REVISAO_FRONTEND.md).
+
 ## Complementos responsivos e de motocicletas — 23/10/2026
 
 - [x] Mapear a base e preservar T1/T2/T3, rotas/categorias/tema/contratos anteriores. Detalhes em [VALIDACAO_COMPLEMENTOS.md](VALIDACAO_COMPLEMENTOS.md).

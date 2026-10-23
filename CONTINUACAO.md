@@ -1,5 +1,11 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Correção visual do painel e shell — 23/10/2026
+
+Solicitação de formatação atendida: Atualizar compacto ao lado do título, métricas antes dos cuidados, seletor/botões alinhados, cabeçalho/rodapé completos e menu mobile sem altura fixa. Painel conserva indicadores ao atualizar, aguarda suas consultas completas e oferece recuperação em erro. Estilo/temas/rotas/negócio preservados, sem mudança de API/schema/configuração privada. Evidências em [REVISAO_FRONTEND.md](REVISAO_FRONTEND.md).
+
+38 testes frontend/build e Chrome1920/1440/768/390/320px aprovados, claro/noturno, geometria, espera/falha503/recuperação e rodapé/menu. Como XAMPP/servidores de uso estavam desligados, revisão final usou SQLite/portas8010/5190 isolados, sem dados reais. Para uso iniciar XAMPP/API/frontend habituais e recarregar online; nenhum novo aceite Safari/push.
+
 ## Aceite visual da T3 no iPhone — 23/10/2026
 
 Em 23/10/2026, usuário respondeu “Abrem e estão normais” à pergunta sobre Gastos (incluindo Novo gasto) e Relatórios no Safari do iPhone, no acesso HTTPS da T3. Aceite visual desses fluxos registrado. A resposta não confirma novos cadastros, exportação/compartilhamento de CSV, impressão no aparelho ou os complementos de corrente, reserva e favoritos adicionados depois da pergunta. Sem nova execução de testes, envio push ou alteração de código/banco.

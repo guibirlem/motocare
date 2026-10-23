@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import MetricCard from './MetricCard.vue'
 import TaskStatus from './TaskStatus.vue'
 import FinanceCharts from './FinanceCharts.vue'
@@ -9,13 +9,17 @@ import { useTask } from '../composables/useTask'
 import { feedEntries } from '../services/insights'
 import { formatCurrency, formatDate, formatKm, serviceTypes, expenseTypes, today } from '../services/format'
 const props = defineProps({ records: { type: Array, default: () => [] } })
-const emit = defineEmits(['refresh'])
+const emit = defineEmits(['refresh', 'busy'])
 const { busy, error, notice, run } = useTask()
+watch(busy, value => emit('busy', value))
 const data = ref(null), category = ref(''), month = ref(today().slice(0, 7))
 const moto = computed(() => s.motos.find(row => row.id === Number(s.motoId)))
 const feed = computed(() => feedEntries(props.records, data.value?.despesas || [], category.value, month.value))
 const limit = ref(20)
-async function load() { data.value = null; data.value = (await api.get('/motocicletas/' + s.motoId + '/painel')).data }
+async function load() {
+  try { data.value = (await api.get('/motocicletas/' + s.motoId + '/painel')).data }
+  catch (error) { data.value = null; throw error }
+}
 async function rain() {
   await run(async () => {
     await api.post('/motocicletas/' + s.motoId + '/chuva-lavagem')
@@ -30,6 +34,7 @@ onMounted(() => run(load))
   <section class="daily-dashboard page-stack">
     <TaskStatus :busy="busy" :error="error" :notice="notice" />
     <button v-if="error" class="button button-ghost" :disabled="busy" @click="run(load)">Tentar carregar painel</button>
+    <div v-if="busy && !data" class="metrics-grid metrics-four" aria-hidden="true"><div v-for="index in (s.features.financeiro ? 4 : 2)" :key="index" class="metric-skeleton"><span></span><strong></strong><span></span></div></div>
     <template v-if="data">
       <div class="metrics-grid metrics-four">
         <MetricCard icon="🏍" label="Hodômetro atual" :value="formatKm(moto?.km_atual || 0) + ' km'" accent />
@@ -37,6 +42,7 @@ onMounted(() => run(load))
         <MetricCard v-if="s.features.financeiro" icon="⛽" label="Consumo médio geral" :value="data.consumo_medio == null ? '—' : formatKm(data.consumo_medio) + ' km/L'" sub="Média ponderada entre tanques cheios" />
         <MetricCard v-if="s.features.financeiro" icon="↗" label="Custo por quilômetro" :value="data.custo_km == null ? '—' : formatCurrency(data.custo_km) + '/km'" sub="Custos desde a primeira leitura registrada" />
       </div>
+      <slot name="after-metrics" />
       <div class="daily-care-grid">
         <section class="panel chain-panel"><h3>Kit relação e corrente</h3><p v-if="data.corrente.kit_instalado_em">Kit instalado em {{ formatDate(data.corrente.kit_instalado_em) }} · {{ formatKm(data.corrente.km_instalacao) }} km.</p><p v-else>Registre a troca do kit para iniciar a contagem.</p><p><strong>{{ data.corrente.ajustes_desde_troca ?? '—' }}</strong> ajustes de tensão desde a troca do kit.</p><p class="field-hint">Contador de histórico; o limite de desgaste exige inspeção. Lubrificação, ajuste e troca são serviços independentes.</p><button class="button button-lime" :disabled="busy" @click="rain">Peguei chuva / Lavei a moto</button><RouterLink class="button button-ghost" to="/alertas">Programar cuidado da corrente</RouterLink></section>
         <section v-if="s.features.financeiro" class="panel reserve-panel"><h3>Hodômetro parcial e reserva estimada</h3>
@@ -53,5 +59,6 @@ onMounted(() => run(load))
         <FinanceCharts v-if="s.features.financeiro" :statistics="[{ motocicleta_id: Number(s.motoId), ciclos: data.ciclos }]" :prices="data.precos_mensais" :categories="data.categorias" :motorcycles="s.motos" />
       </div>
     </template>
+    <slot v-else name="after-metrics" />
   </section>
 </template>

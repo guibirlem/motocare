@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\WorkspaceController;
 use App\Http\Middleware\EnsureFinanceEnabled;
 use Illuminate\Http\Request;
@@ -13,6 +14,11 @@ Route::prefix('api')->group(function () {
     Route::post('login', [HistoryController::class, 'login'])->middleware('throttle:5,1');
     Route::middleware(['auth', 'auth.session'])->group(function () {
         Route::get('features', fn () => response()->json(['financeiro' => (bool) config('features.financeiro')]));
+        Route::get('postos', [InsightsController::class, 'stations'])->middleware(EnsureFinanceEnabled::class);
+        Route::post('postos', [InsightsController::class, 'storeStation'])->middleware(EnsureFinanceEnabled::class);
+        Route::delete('postos/{posto}', [InsightsController::class, 'deleteStation'])->middleware(EnsureFinanceEnabled::class);
+        Route::get('motocicletas/{moto}/painel', [InsightsController::class, 'dashboard']);
+        Route::post('motocicletas/{moto}/chuva-lavagem', [InsightsController::class, 'rain']);
         Route::put('user', [WorkspaceController::class, 'profile'])->middleware('throttle:10,1,account-profile');
         Route::put('password', [WorkspaceController::class, 'password'])->middleware('throttle:10,1,account-password');
         Route::post('push-test', [WorkspaceController::class, 'testPush'])->middleware('throttle:3,1');

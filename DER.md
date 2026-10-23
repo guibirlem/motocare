@@ -6,6 +6,9 @@ O schema é definido pelas migrations em backend/database/migrations. Alteraçõ
 
 ~~~mermaid
 erDiagram
+    usuarios ||--o{ postos : favorita
+    postos ||--o{ posto_precos : memoriza
+    postos |o--o{ despesas : referencia
     usuarios ||--o{ motocicletas : possui
     motocicletas ||--o{ manutencoes : registra
     motocicletas ||--o{ despesas : registra
@@ -28,6 +31,8 @@ erDiagram
         smallint ano
         string placa UK
         integer km_atual
+        decimal capacidade_tanque "opcional"
+        decimal volume_reserva "opcional"
     }
     manutencoes {
         bigint id PK
@@ -38,6 +43,7 @@ erDiagram
         string status
         date data
         integer km_servico
+        string natureza "preventiva/corretiva opcional"
     }
     despesas {
         bigint id PK
@@ -48,6 +54,10 @@ erDiagram
         decimal litros
         decimal preco_litro
         string posto
+        bigint posto_id FK "opcional; SET NULL"
+        string combustivel "opcional"
+        integer km_abastecimento "opcional"
+        boolean tanque_cheio "opcional"
         date data
     }
     alertas {
@@ -55,12 +65,26 @@ erDiagram
         bigint motocicleta_id FK
         string tipo_alerta
         string nivel_urgencia
+        string origem "chuva_lavagem opcional"
         integer km_limite
         integer km_base "referência do intervalo"
         date data_limite
         string status
     }
+    postos {
+        bigint id PK
+        bigint usuario_id FK
+        string nome "único por conta"
+    }
+    posto_precos {
+        bigint id PK
+        bigint posto_id FK
+        string combustivel "único por posto"
+        decimal preco_litro
+    }
 ~~~
+
+23/10/2026 — complemento aditivo: `2026_10_23_000001_add_motorcycle_insights.php`. Todos os novos campos em tabelas existentes são opcionais, sem backfill. Postos/preços têm timestamps e unicidade composta; exclusão de usuário/posto remove preços, exclusão de favorito apenas anula a referência nos gastos, preservando seu texto e valores. Não executar rollback desta extensão em banco com novos registros.
 
 Todos os registros do domínio têm timestamps. FKs do domínio têm exclusão em cascata; excluir moto apaga seus históricos/alertas. Campos opcionais e precisão decimal: consultar [SPEC.md](SPEC.md). Tabelas auxiliares de sessão, cache, jobs e recuperação de senha seguem as migrations Laravel e não representam funcionalidades de recuperação de senha implementadas na interface.
 

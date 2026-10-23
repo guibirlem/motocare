@@ -1,5 +1,13 @@
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
+## Complementos posteriores à entrega inicial da T3
+
+Fontes atuais: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), sobre b3c70e9, preservando master e feature/t3-financeiro.
+
+Os fontes atuais acrescentam favoritos/preços, consumo, reserva, painel/feed/gráficos, serviços por eixo/corrente e atalho de chuva. [Contrato e validação](VALIDACAO_COMPLEMENTOS.md), [SPEC](SPEC.md) e [DER](DER.md). Migration aditiva aplicada preservando os campos/registros originais. Backend61/647 e frontend38/build, Chrome/HTTP/MySQL aprovados; aceite novo no iPhone físico pendente.
+
+O PDF e ZIP citados abaixo retratam a T3 anterior a estes complementos. Permanecem preservados; não usar seu DER antigo como substituto do DER.md atual. Não houve nova geração de PDF nesta solicitação de implementação.
+
 ## Código e histórico
 
 [Repositório](https://github.com/guibirlem/motocare), [branch T3](https://github.com/guibirlem/motocare/tree/feature/t3-financeiro) e [histórico da branch](https://github.com/guibirlem/motocare/commits/feature/t3-financeiro/). Commit desta integração identificado pela mensagem `feat: integra financeiro T3 e relatorios`. Não fazer merge automático em master; histórico T1/T2 preservado, base 5cdce58. A mensagem anterior `update task1 e task2 funcionando` e seu commit 5d554ed permanecem no histórico.

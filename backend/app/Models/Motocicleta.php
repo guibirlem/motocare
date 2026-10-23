@@ -10,6 +10,11 @@ class Motocicleta extends Model
 {
     protected $guarded = ['id'];
 
+    protected function casts(): array
+    {
+        return ['capacidade_tanque' => 'decimal:2', 'volume_reserva' => 'decimal:2'];
+    }
+
     public function usuario(): BelongsTo
     {
         return $this->belongsTo(User::class, 'usuario_id');

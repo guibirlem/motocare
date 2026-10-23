@@ -3,13 +3,16 @@ import { computed, onMounted, ref } from 'vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import MetricCard from '../components/MetricCard.vue'
 import TaskStatus from '../components/TaskStatus.vue'
+import DashboardInsights from '../components/DashboardInsights.vue'
 import { api } from '../services/api'
 import { workspace as s } from '../services/workspace'
-import { formatCurrency, formatDate, serviceTypes } from '../services/format'
+import { formatCurrency, formatDate, serviceTypes, alertTypes, alertThresholdKm, today } from '../services/format'
 import { useTask } from '../composables/useTask'
 const { busy, error, notice, run } = useTask()
 const records = ref([]), alerts = ref([])
-const activeAlerts = computed(() => alerts.value.filter(a => a.status !== 'concluido'))
+const insights = ref(null)
+const due = alert => (alert.km_limite > 0 && Number(s.motos.find(m => m.id === Number(s.motoId))?.km_atual || 0) >= alertThresholdKm(alert)) || (alert.data_limite && alert.data_limite <= today())
+const activeAlerts = computed(() => alerts.value.filter(a => a.status !== 'concluido').sort((a, b) => Number(!!due(b)) - Number(!!due(a))))
 const total = computed(() => records.value.filter(r => r.status === 'concluido').reduce((sum, r) => sum + Math.round(Number(r.valor) * 100), 0) / 100)
 async function load() {
   if (!s.motoId) { records.value = []; alerts.value = []; return }
@@ -26,26 +29,27 @@ onMounted(() => run(load))
   <div class="page-stack">
     <SectionTitle>Visão Geral</SectionTitle>
     <TaskStatus :busy="busy" :error="error" :notice="notice" />
-    <button class="button button-ghost" :disabled="busy" @click="run(load)">Atualizar</button>
+    <button class="button button-ghost" :disabled="busy" @click="run(load); insights?.reload()">Atualizar</button>
     <p v-if="!s.motos.length">Sua garagem está vazia. <RouterLink to="/garagem" class="button button-lime">Cadastrar primeira moto</RouterLink></p>
     <template v-else>
       <p>Histórico e cuidados da moto selecionada.</p>
+      <section>
+        <SectionTitle>Cuidados Pendentes</SectionTitle>
+        <div class="dashboard-alerts">
+          <article v-for="a in activeAlerts" :key="a.id" class="dashboard-alert" :class="{ 'dashboard-alert-overdue': due(a) }">
+            <div class="dashboard-alert-copy"><h3>{{alertTypes[a.tipo_alerta] || a.tipo_alerta}}</h3><p>{{a.km_limite ? 'Limite: ' + a.km_limite + ' km' : ''}} {{a.data_limite ? '· ' + formatDate(a.data_limite) : ''}} · {{a.status}}</p></div>
+            <RouterLink to="/alertas" class="button button-lime">Ver alerta</RouterLink>
+          </article>
+          <p v-if="!busy && !activeAlerts.length">Nenhum alerta ativo. Configure seus próximos cuidados em Alertas.</p>
+        </div>
+      </section>
+      <DashboardInsights ref="insights" :records="records" @refresh="run(load)" />
       <div class="metrics-grid metrics-four">
         <MetricCard icon="🏍" label="Motos na garagem" :value="s.motos.length" accent />
         <MetricCard icon="🔩" label="Manutenções" :value="records.length" />
         <MetricCard icon="💰" label="Manutenções concluídas" :value="formatCurrency(total)" />
         <MetricCard icon="⚠️" label="Alertas ativos" :value="activeAlerts.length" />
       </div>
-      <section>
-        <SectionTitle>Cuidados Pendentes</SectionTitle>
-        <div class="dashboard-alerts">
-          <article v-for="a in activeAlerts" :key="a.id" class="dashboard-alert">
-            <div class="dashboard-alert-copy"><h3>{{a.tipo_alerta === 'troca_oleo' ? 'Troca de óleo' : 'Revisão'}}</h3><p>{{a.km_limite ? 'Limite: ' + a.km_limite + ' km' : ''}} {{a.data_limite ? '· ' + formatDate(a.data_limite) : ''}} · {{a.status}}</p></div>
-            <RouterLink to="/alertas" class="button button-lime">Ver alerta</RouterLink>
-          </article>
-          <p v-if="!busy && !activeAlerts.length">Nenhum alerta ativo. Configure seus próximos cuidados em Alertas.</p>
-        </div>
-      </section>
       <section>
         <SectionTitle>Últimas Manutenções</SectionTitle>
         <div v-for="r in records.slice(0, 5)" :key="r.id" class="dashboard-alert"><div>{{formatDate(r.data)}} · {{serviceTypes[r.tipo_servico]}}</div><strong>{{r.status === 'concluido' ? 'Feito' : 'Pendente'}}</strong></div>

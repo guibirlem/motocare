@@ -1,5 +1,7 @@
 # API MotoCare
 
+Complemento de23/10 requer `php artisan migrate`: novos campos opcionais e tabelas de postos/preços, sem recriar dados. Serviços por eixo/corrente, painel e chuva/lavagem complementam as rotas existentes; natureza preventiva/corretiva opcional. Ver [SPEC](../SPEC.md), [DER](../DER.md) e [validação](../VALIDACAO_COMPLEMENTOS.md). Preservar .env/APP_KEY/VAPID. A ausência de migration mencionada abaixo refere-se à integração inicial da T3, antes desta extensão.
+
 Laravel 12/PHP 8.2+, MySQL/XAMPP e API JSON. Instalação completa no [README da raiz](../README.md).
 
 Na pasta backend, com dependências e .env/APP_KEY configurados:

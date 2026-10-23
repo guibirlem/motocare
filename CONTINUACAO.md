@@ -1,5 +1,19 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Complementos preservando a base — 23/10/2026
+
+Fontes desta extensão na branch dedicada `feature/complementos-motocicletas`, baseada em b3c70e9; master e feature/t3-financeiro preservadas, sem merge automático.
+
+Pedido atual implementado sobre T3 publicada em b3c70e9. Ler [VALIDACAO_COMPLEMENTOS.md](VALIDACAO_COMPLEMENTOS.md), SPEC e DER: favoritos/preços por combustível, consumo cheio/parcial, tanque/reserva, painel/feed/gráficos, FAB, serviços por eixo/corrente, contador e chuva/lavagem. Regras/rotas legadas preservadas, campos novos opcionais e históricos sem preenchimento por suposição.
+
+Migration `2026_10_23_000001_add_motorcycle_insights.php` aplicada no MySQL local. Contagens/hashes de todos os campos originais em usuários/motos/manutenções/despesas/alertas iguais antes/depois. Em outra instalação executar `php artisan migrate`, preservando .env/APP_KEY/VAPID; não usar migrate:fresh/rollback para atualizar.
+
+Backend61/647 e frontend38/build aprovados, Chrome isolado + HTTP/MySQL com contas descartáveis removidas. Cenário novo: consumo30km/L, reserva250/310km, odômetro1350, gasto353,50, contador1, memória de posto e atalho idempotente. Nenhum push real/scheduler contínuo; não usar alertas da conta para demonstração sem cenário controlado. Aceite novo no iPhone/Safari físico pendente.
+
+Atualizar online (Ctrl+F5 ou fechar completamente/reabrir PWA); cadastrar tanque/reserva na Garagem e favoritos/cheios/parciais com KM em Gastos. Média/autonomia exigem dados válidos, sem alterar históricos antigos. Registrar troca do kit/ajustes em Manutenções e programar lubrificação em Alertas. Chuva cria lembrete para hoje, não serviço realizado. Push segue dependente de scheduler/inscrição.
+
+PDF/ZIP acadêmicos anteriores abaixo não incluem esta extensão. Fontes, SPEC/DER e relatório novo são a referência; não reimplementar esses módulos na retomada.
+
 ## Acesso móvel da T3 - 23/10/2026
 
 Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.

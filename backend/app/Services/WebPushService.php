@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Alerta;
 use App\Models\User;
+use App\Support\MotorcycleServices;
 use Minishlink\WebPush\Subscription;
 use Minishlink\WebPush\WebPush;
 use RuntimeException;
@@ -13,7 +14,7 @@ class WebPushService
     public function send(Alerta $alerta, array $subscription): void
     {
         $moto = $alerta->motocicleta;
-        $service = $alerta->tipo_alerta === 'troca_oleo' ? 'Troca de óleo' : 'Revisão';
+        $service = MotorcycleServices::alerts()[$alerta->tipo_alerta] ?? 'Revisão';
         $limit = $alerta->km_limite ? " Limite: {$alerta->km_limite} km." : '';
         $date = $alerta->data_limite ? ' Data: '.$alerta->data_limite->format('d/m/Y').'.' : '';
         $this->deliver($moto->usuario, $subscription, ['title' => 'MotoCare: '.$service, 'body' => "{$moto->marca} {$moto->modelo}: {$moto->km_atual} km.{$limit}{$date}", 'tag' => 'motocare-alerta-'.$alerta->id, 'url' => '/alertas']);

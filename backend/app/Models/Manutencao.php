@@ -9,7 +9,7 @@ class Manutencao extends Model
 {
     protected $table = 'manutencoes';
 
-    protected $fillable = ['tipo_servico', 'descricao', 'valor', 'status', 'data', 'km_servico'];
+    protected $fillable = ['tipo_servico', 'descricao', 'valor', 'status', 'data', 'km_servico', 'natureza'];
 
     protected function casts(): array
     {

@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Alerta;
 use App\Services\WebPushService;
+use App\Support\MotorcycleServices;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
@@ -20,7 +21,7 @@ class CheckMaintenanceAlerts extends Command
         $failures = 0;
         $sent = 0;
         Alerta::where('status', 'pendente')
-            ->whereIn('tipo_alerta', ['troca_oleo', 'revisao'])
+            ->whereIn('tipo_alerta', array_keys(MotorcycleServices::alerts()))
             ->where(function ($query) {
                 $query->where(function ($kmQuery) {
                     $kmQuery->where('km_limite', '>', 0)->whereHas('motocicleta', fn ($motoQuery) => $motoQuery->whereRaw('km_atual * 10 >= alertas.km_limite * 9 + COALESCE(alertas.km_base, 0)'));

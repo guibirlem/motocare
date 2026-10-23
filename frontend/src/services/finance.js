@@ -1,4 +1,4 @@
-import { decimal, formatDate, serviceTypes } from './format.js'
+import { decimal, formatDate, serviceTypes, expenseTypes } from './format.js'
 import { buildCsv } from './csv.js'
 
 export function expensePayload(form) {
@@ -11,12 +11,16 @@ export function expensePayload(form) {
     litros: isFuel ? decimal(form.litros) : null,
     preco_litro: isFuel ? decimal(form.preco_litro) : null,
     posto: isFuel ? form.posto?.trim() || null : null,
+    ...('posto_id' in form ? { posto_id: isFuel ? form.posto_id || null : null } : {}),
+    ...('combustivel' in form ? { combustivel: isFuel ? form.combustivel || null : null } : {}),
+    ...('km_abastecimento' in form ? { km_abastecimento: isFuel && form.km_abastecimento !== '' ? form.km_abastecimento ?? null : null } : {}),
+    ...('tanque_cheio' in form ? { tanque_cheio: isFuel ? form.tanque_cheio ?? null : null } : {}),
   }
 }
 
 export function reportEntries(data) {
   return [
-    ...data.despesas.map(row => ({ ...row, key: `despesa-${row.id}`, category: row.tipo_despesa === 'combustivel' ? 'Combustível' : 'Reparo', status: 'Pago' })),
+    ...data.despesas.map(row => ({ ...row, key: `despesa-${row.id}`, category: expenseTypes[row.tipo_despesa] || row.tipo_despesa, status: 'Pago' })),
     ...data.manutencoes.map(row => ({ ...row, key: `manutencao-${row.id}`, category: serviceTypes[row.tipo_servico], status: row.status === 'concluido' ? 'Feito' : 'Pendente' })),
   ].sort((a, b) => b.data.localeCompare(a.data) || b.id - a.id || a.key.localeCompare(b.key))
 }

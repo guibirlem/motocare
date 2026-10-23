@@ -34,7 +34,7 @@ class MaintenanceAlertsTest extends TestCase
         $below = $this->createAlert(899);
         $oil = $this->createAlert(900);
         $revision = $this->createAlert(1100, ['tipo_alerta' => 'revisao']);
-        $ignored = $this->createAlert(1000, ['tipo_alerta' => 'pneus']);
+        $ignored = $this->createAlert(1000, ['tipo_alerta' => 'tipo_desconhecido']);
         $done = $this->createAlert(1000, ['status' => 'concluido']);
         $noLimit = $this->createAlert(1000, ['km_limite' => null]);
         $zero = $this->createAlert(1000, ['km_limite' => 0]);

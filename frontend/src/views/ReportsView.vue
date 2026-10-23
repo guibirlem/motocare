@@ -3,6 +3,7 @@ import { computed, ref, watch } from 'vue'
 import SectionTitle from '../components/SectionTitle.vue'
 import MetricCard from '../components/MetricCard.vue'
 import TaskStatus from '../components/TaskStatus.vue'
+import FinanceCharts from '../components/FinanceCharts.vue'
 import { api } from '../services/api'
 import { workspace as s } from '../services/workspace'
 import { formatCurrency, formatDate, reportParams, today } from '../services/format'
@@ -73,10 +74,11 @@ function print() { window.print() }
       </div>
       <p class="field-hint">Pendentes aparecem nos lançamentos, mas não entram nos totais. Registre cada gasto apenas uma vez, em despesas ou manutenções.</p>
       <h3>Resumo por mês</h3>
+      <FinanceCharts :statistics="data.estatisticas || []" :prices="data.precos_mensais || []" :categories="data.categorias || {}" :motorcycles="data.motocicletas" />
       <div class="table-scroll"><table class="data-table report-monthly">
         <caption class="sr-only">Resumo financeiro mensal</caption>
-        <thead><tr><th>Mês</th><th>Combustível</th><th>Reparos</th><th>Manutenções</th><th>Total</th></tr></thead>
-        <tbody><tr v-for="row in data.mensal" :key="row.mes"><td>{{ row.mes }}</td><td>{{ formatCurrency(row.combustivel) }}</td><td>{{ formatCurrency(row.reparos) }}</td><td>{{ formatCurrency(row.manutencoes) }}</td><td>{{ formatCurrency(row.total) }}</td></tr></tbody>
+        <thead><tr><th>Mês</th><th>Combustível</th><th>Reparos</th><th>Manutenções</th><th>Demais despesas</th><th>Total</th></tr></thead>
+        <tbody><tr v-for="row in data.mensal" :key="row.mes"><td>{{ row.mes }}</td><td>{{ formatCurrency(row.combustivel) }}</td><td>{{ formatCurrency(row.reparos) }}</td><td>{{ formatCurrency(row.manutencoes) }}</td><td>{{ formatCurrency(row.outras_despesas) }}</td><td>{{ formatCurrency(row.total) }}</td></tr></tbody>
       </table></div>
       <h3>Lançamentos</h3>
       <div class="table-scroll"><table class="data-table report-entries">

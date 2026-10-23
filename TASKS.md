@@ -1,5 +1,19 @@
 # Tarefas - T1/T2/T3
 
+## Complementos responsivos e de motocicletas — 23/10/2026
+
+- [x] Mapear a base e preservar T1/T2/T3, rotas/categorias/tema/contratos anteriores. Detalhes em [VALIDACAO_COMPLEMENTOS.md](VALIDACAO_COMPLEMENTOS.md).
+- [x] Migration aditiva com campos opcionais, SPEC/DER e MySQL atualizados; hashes dos campos/registros originais preservados, sem backfill.
+- [x] Favoritos por conta/combustível, memória de preços, cálculo cruzado, KM monotônico e consumo ponderado com parciais/lacunas tratados.
+- [x] Painel com indicadores, feed/filtros, gráficos ao lado no desktop e botão flutuante de registro rápido.
+- [x] Serviços por eixo/corrente, natureza preventiva/corretiva, contador desde a troca e chuva/lavagem sem duplicação. Alertas duplos/scheduler preservados.
+- [x] Parcial/reserva estimada, categorias financeiras e séries de consumo/preço nos relatórios; CSV/impressão mantidos.
+- [x] Backend61 testes/647 verificações, frontend38/build e Chrome/API/MySQL, regressão T3 e fluxos novos1600/390px/temas. Fixtures próprias removidas; sem push real/scheduler contínuo.
+- [x] Pint/Composer validate, auditoria de177 arquivos sem segredos e fontes em branch dedicada feature/complementos-motocicletas; master/T3 anteriores preservadas.
+- [ ] Aceite complementar desta extensão no iPhone/Safari físico. Mobile automatizado usa Chromium.
+
+PDF/ZIP acadêmicos da T3 descritos abaixo antecedem estes complementos e permanecem históricos.
+
 ## Acesso móvel da T3 - 23/10/2026
 
 Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.

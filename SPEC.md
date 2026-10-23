@@ -10,7 +10,8 @@
 ## Lembretes no dashboard — 23/10/2026
 
 - Acrescenta `abastecimento`, `seguro`, `ipva` e `licenciamento` ao tipo_alerta string, separados dos serviços de manutenção, sem migration nova. Seguro/IPVA/licenciamento exigem data_limite válida e proíbem km_limite/km_base preenchidos (null/vazio como ausência); abastecimento mantém KM/data e90% do intervalo ou data. Usuário informa os vencimentos; sem renovação automática ou dedução de prazo oficial.
-- Dashboard mostra ativos/prazos/restante e Sugeridos/Configurar. Sugestões excluem tipos ativos, voltam após concluir/excluir e reconhecem pneus genéricos legados. Atalhos abrem formulário existente; tipo ativo reutiliza pendente ou aponta notificado sem reativar. CRUD/novo alerta manual/filtro de concluídos preservados.
+- Dashboard e Alertas mostram o painel completo de ativos/prazos/restante e Sugeridos/Configurar. Sugestões excluem tipos ativos, voltam após concluir/excluir e reconhecem pneus genéricos legados. Atalhos abrem formulário existente; tipo ativo reutiliza pendente ou aponta notificado sem reativar. Ver lembrete foca os controles detalhados, inclusive por hash na própria tela Alertas; Ver todos aparece apenas no Dashboard. CRUD/novo alerta manual/filtro de concluídos preservados.
+- Painel segue a referência em lista vertical de sugestões, ícones por categoria e acentos roxos com variante noturna; controles Configurar de44px e quebra em telas muito estreitas. Pneus dianteiro e traseiro continuam independentes, sem criar categoria de rodízio. Não inventa KM, datas, pagamentos ou periodicidade anual: os vencimentos continuam informados pelo usuário.
 - Scheduler/Web Push incluem os tipos novos com locks/retries/aceite/não repetição atuais. Concluir não altera odômetro nem cria serviço/despesa/abastecimento/pagamento/novo vencimento. Erro de carga não se apresenta como lista vazia; offline preservado. [Validação e uso](VALIDACAO_LEMBRETES.md).
 
 ## Recuperação de senha — 23/10/2026

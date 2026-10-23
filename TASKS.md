@@ -1,5 +1,11 @@
 # Tarefas - T1/T2/T3
 
+## Painel completo no estilo da referência — 23/10/2026
+
+- [x] Alertas agora reúne ativos e sugestões no RemindersPanel existente; Dashboard preservado. Lista vertical de sugestões, relógio/acentos roxos com contraste noturno, ícones laranja/marrom/vermelho e botões Configurar de44px à direita (abaixo do texto em telas muito estreitas). Pneus dianteiro/traseiro continuam independentes.
+- [x] Ver lembrete foca os controles existentes também dentro da própria tela Alertas; removido Ver todos redundante nessa tela. Configuração/CRUD/90%/datas/scheduler/pendentes/concluídos preservados, sem duplicar registros ou alterar schema.
+- [x]55 testes frontend/build e Chrome/SQLite320/390/768/1024/1440px/dois temas aprovados: configurar/salvar/persistir/editar/concluir/excluir, foco/atalhos, abastecimento230km/56dias, lista vertical/botões/tema,503/offline. Capturas inspecionadas; fixtures removidas e QA encerrado. [Evidências](VALIDACAO_LEMBRETES.md). Sem dados reais/segredos/envios push/e-mail ou novo aceite Safari físico.
+
 ## Alinhamento da barra de Gastos — 23/10/2026
 
 - [x] Corrigir desalinhamento reproduzido: botões tinham35,5px, mês39,5px e select35px, centralizados com rótulos. CSS escopado em RecordsView alinha pela base e normaliza controles em44px; campos antes de Todo o histórico e quebra em grid em telas menores. Sem alterar eventos, filtros, CRUD ou estilos globais.

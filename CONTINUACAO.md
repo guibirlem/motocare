@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Lembretes completos e visual da referência — 23/10/2026
+
+Usuário informou que o painel da imagem ainda faltava. Base existente estava em grade e, em Alertas, só exibia sugestões. Complementado o mesmo componente: ativos+sugestões também em `/alertas`, lista vertical, ícones por categoria e acento roxo adaptado ao modo noturno. Dashboard preservado; pneus dianteiro/traseiro e regras reais mantidos, sem dados demonstrativos na interface. Ver lembrete foca os controles detalhados na própria tela; Ver todos aparece só no Dashboard.55 testes frontend/build e Chrome/SQLite320–1440px/temas/configuração/persistência/CRUD/foco/503/offline aprovados; capturas inspecionadas. [Detalhes](VALIDACAO_LEMBRETES.md). Sem backend/schema/dados reais/.env/chaves/push/SMTP alterados. Preview5173 atualizado; fixtures removidas/QA8010/5190 encerrado. Commit incremental e pacote correspondente na branch feature/correcao-acesso.
+
 ## Barra de Gastos alinhada — 23/10/2026
 
 RecordsView recebe classe records-toolbar e CSS escopado: alinhamento pela base, controles44px, campos agrupados antes de Todo o histórico e grid responsivo (mobile com campos em linhas completas). Eventos e regras existentes preservados, sem mudança global de CSS/API/schema. Build de uso5173 atualizado;55 testes frontend e Chrome/SQLite320–1920px/claro-escuro/geometria/filtros/mês/histórico/atualizar/formulário aprovados. Tela compartilhada de Manutenções conferida em320/768/1440px. Capturas em tmp/expenses-align-*, fixtures removidas e QA8010/5190 encerrado; serviços de uso preservados. Publicação incremental em feature/correcao-acesso; pacote correspondente atualizado. Sem novo teste de backend, push, e-mail ou Safari físico.

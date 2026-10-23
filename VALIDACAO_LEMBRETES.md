@@ -1,5 +1,13 @@
 # Painel de lembretes — 23/10/2026
 
+## Complemento visual e acesso em Alertas
+
+Após nova solicitação da mesma referência, o componente existente foi complementado: sugestões em lista vertical, relógio e botões roxos com variante legível no modo noturno, ícones circulares por categoria. Alertas passa a mostrar ativos e sugestões juntos; controles detalhados originais continuam abaixo e Ver lembrete os foca mesmo na própria tela. Ver todos é oculto nessa tela, mantendo o acesso do Dashboard. Pneus dianteiro/traseiro e todos os cálculos/contratos existentes permanecem.
+
+Validação desta revisão:55 testes frontend/build aprovados e Chrome/SQLite isolado320/390/768/1024/1440px, nos dois temas, com capturas inspecionadas. Configurar óleo → salvar → recarregar; IPVA por data → editar → concluir → voltar à sugestão → mostrar concluído → excluir; abastecimento230km/56dias, ordem de prioridade, atalhos/foco na mesma tela, limpeza de KM por tipo, lista vertical/controles44px/cores por tema,503/recuperação e offline/reconexão aprovados. Nenhuma exceção JavaScript; conta e sessões descartáveis removidas e servidores QA encerrados. Sem alteração de backend/schema/dados reais/configuração privada ou novo teste físico Safari/push/e-mail. Evidências temporárias em tmp/reminders-*.png e tmp/reminders-e2e-results.json; build de uso5173 atualizado. Publicação incremental na branch feature/correcao-acesso, preservando entregas anteriores.
+
+## Implementação e validações anteriores
+
 Referência enviada pelo usuário adaptada ao MotoCare: Dashboard com Lembretes/ativos, ícones, prazo por KM/data, quilômetros/dias restantes e Sugeridos com botão Configurar. Identidade verde/preto e temas preservados; cards arredondados, grade desktop e mobile, ícones SVG existentes e CSS escopado. Sem biblioteca ou assets externos.
 
 Sugestões: próximo abastecimento, troca de óleo, revisão, pneus dianteiro/traseiro, seguro, IPVA e licenciamento. Tipos ativos deixam as sugestões e voltam ao concluir/excluir; pneus genéricos legados são reconhecidos. Configurar abre o formulário existente em Alertas com tipo/foco; atalho para tipo ativo edita o pendente ou aponta o notificado, sem reativá-lo. Ver lembrete foca o registro correspondente. Alertas conserva CRUD, indicadores e filtro de concluídos, com sugestões quando o formulário está fechado.

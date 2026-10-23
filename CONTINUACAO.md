@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Acesso pela página inicial corrigido — 23/10/2026
+
+Entrar em `/` agora abre `/dashboard`: registros distintos no Vue Router eliminam a navegação duplicada do antigo alias, preservando HomeView, URLs, AccountGate e raiz autenticada. Destaque/aria-current do menu Dashboard preservados. Build de uso5173 atualizado; aba antiga pode exigir Ctrl+F5. 55 testes frontend/build e regressão Chrome local/SQLite aprovados; [evidências](VALIDACAO_ACESSO.md). Sem backend/schema/dados reais/configuração privada alterados. QA8010/5190 encerrado após testes, fixtures removidas; serviços de uso preservados. Fontes em `feature/correcao-acesso`, sobre427aada; branches e PDF anteriores preservados.
+
 ## Histórico no estilo da referência — 23/10/2026
 
 HistoryTimeline reutilizável no Dashboard/Gastos/Manutenções, com trilha/ícones/valores/datas, detalhes reais e resumos mensais. Tabela anterior acessível por botão; filtros/CRUD/favoritos/formulários/rotas preservados. Consumo por ciclo existente, associado ao novo campo opcional `ciclos[].abastecimento_id`; sem schema/migration/dependências novas. Pendentes fora do total, média ponderada, comparação só com mês anterior válido e totais completos mesmo com Mostrar mais. Ler [VALIDACAO_HISTORICO.md](VALIDACAO_HISTORICO.md) e SPEC.

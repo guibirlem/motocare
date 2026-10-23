@@ -1,5 +1,9 @@
 # Continuidade da T3 - Financeiro
 
+## Correção de acesso posterior — 23/10/2026
+
+Estado mais recente: `feature/correcao-acesso`, sobre427aada. Entrar na raiz agora navega para/dashboard, com registros distintos, HomeView/AccountGate/menu preservados. 55 testes frontend/build e Chrome local/SQLite aprovados; [validação](VALIDACAO_ACESSO.md). Sem backend/schema/dados reais alterados.
+
 Estado mais recente: `feature/historico-timeline` sobre728fd50, incluindo todas as etapas anteriores. Ler [VALIDACAO_HISTORICO.md](VALIDACAO_HISTORICO.md): histórico visual/tabela/resumos/consumo por ID,82backend/878 verificações e55frontend/build. Sem migration nova; API acrescenta ciclos.abastecimento_id, mantendo campos anteriores. SMTP Gmail separado/pendente de senha local.
 
 Complemento atual: `feature/lembretes` sobre89cffc1, incluindo todas as etapas anteriores. [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md): painel/atalhos/vencimentos integrados,81backend/867 verificações e49frontend/build. Sem migration nova; SMTP Gmail depende da senha de app no `.env` privado.

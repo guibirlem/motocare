@@ -1,5 +1,9 @@
 # MotoCare
 
+## Correção de acesso — 23/10/2026
+
+Bot?o Entrar da apresentação na raiz corrigido; `/dashboard` mantém login/cadastro e painel. Fontes atuais [feature/correcao-acesso](https://github.com/guibirlem/motocare/tree/feature/correcao-acesso), sobre427aada. [Valida??es e detalhes](VALIDACAO_ACESSO.md).
+
 Histórico agora em **linha do tempo** no Dashboard, Gastos e Manutenções, com ícones, valores/datas, consumo real e resumos mensais. Tabela/filtros/CRUD preservados. [Validação](VALIDACAO_HISTORICO.md):82backend/878 verificações,55frontend/build e Chrome/SQLite. Versão atual [feature/historico-timeline](https://github.com/guibirlem/motocare/tree/feature/historico-timeline), pacote local `entrega/MotoCare-Historico-2026-10-23.zip`; etapas/PDF abaixo históricos. Sem migration nova ou mudança de credenciais/Gmail.
 
 Novo painel **Lembretes** no Dashboard: prazos reais, sugestões e Configurar integrado a Alertas. Inclui abastecimento, seguro, IPVA e licenciamento, sem migration nova. [Validação](VALIDACAO_LEMBRETES.md):81backend/867 verificações,49frontend/build e Chrome/SQLite. Versão atual em [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes); pacote local `entrega/MotoCare-Lembretes-2026-10-23.zip`. SMTP Gmail ainda exige senha de app local. Etapas/PDF anteriores descritos abaixo são históricos.

@@ -1,5 +1,10 @@
 # Tarefas - T1/T2/T3
 
+## Correção do botão Entrar — 23/10/2026
+
+- [x] Reproduzir navegação ignorada de `/` para o alias `/dashboard`; separar registros mantendo HomeView, URLs e login/cadastro existentes. Preservar destaque/acessibilidade do menu Dashboard.
+- [x] 55 testes frontend/build e Chrome local390/1440px aprovados; regressão Chrome/SQLite320–1920px, cadastro/sessão/logout/rotas/temas/503/offline aprovada, fixtures removidas. [Evidências](VALIDACAO_ACESSO.md). Sem backend/schema/dados reais/segredos modificados.
+
 ## Histórico em linha do tempo — 23/10/2026
 
 - [x] Trilha/ícones/valores/datas/detalhes e resumos por mês no Dashboard, Gastos e Manutenções, com temas/mobile.

@@ -126,11 +126,11 @@ onMounted(() => { if (s.motoId) { run(load); quickOpen() } })
         <MetricCard icon="💰" :label="isExpense ? 'Despesas no filtro' : 'Total concluído'" :value="formatCurrency(total)" />
         <MetricCard icon="🏍" label="Escopo" value="Sua moto" :sub="isExpense ? (month || 'Todo o histórico') : 'Histórico completo'" />
       </div>
-      <div class="toolbar">
+      <div class="toolbar records-toolbar">
         <button class="button button-lime" :disabled="busy" @click="open()">+ {{ isExpense ? 'Novo gasto' : 'Registrar manutenção' }}</button>
         <label v-if="isExpense" class="field">Mês<input v-model="month" type="month" :disabled="busy" @change="changeMonth()" /></label>
-        <button v-if="isExpense" class="button button-ghost" :disabled="busy || !month" @click="changeMonth('')">Todo o histórico</button>
         <label class="field">Filtro<select v-model="filter" :disabled="busy"><option value="">Todos</option><template v-if="isExpense"><option v-for="(name, key) in expenseTypes" :key="key" :value="key">{{ key === 'reparo' ? 'Reparos' : name }}</option></template><template v-else><option value="concluido">Feito</option><option value="pendente">Pendente</option></template></select></label>
+        <button v-if="isExpense" class="button button-ghost" :disabled="busy || !month" @click="changeMonth('')">Todo o histórico</button>
         <button class="button button-ghost" :disabled="busy" @click="run(load)">Atualizar</button>
       </div>
       <form v-if="form" ref="formElement" class="demo-form record-edit-form" @submit.prevent="save">
@@ -190,6 +190,11 @@ onMounted(() => { if (s.motoId) { run(load); quickOpen() } })
 </template>
 
 <style scoped>
+.records-toolbar{align-items:flex-end}
+.records-toolbar > .field{flex:0 1 200px}
+.records-toolbar > .button,.records-toolbar > .field > input,.records-toolbar > .field > select{height:44px;min-height:44px}
+@media(max-width:1100px){.records-toolbar{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.records-toolbar > .button:first-child{grid-column:1/-1}.records-toolbar > .button{white-space:normal;height:auto;padding-inline:10px}.records-toolbar > .field{width:100%}}
+@media(max-width:600px){.records-toolbar > .field{grid-column:1/-1}}
 .record-edit-form{scroll-margin-top:110px}
 .record-view-switch{display:flex;gap:8px;flex-wrap:wrap}.record-view-switch .button{min-height:44px}.record-view-switch [aria-pressed=true]{background:var(--lime-pale);border-color:var(--lime-dark);box-shadow:inset 0 -2px var(--lime-dark)}
 .records-timeline-panel{padding:24px;background:var(--surface);border:1px solid var(--gray-200);border-radius:18px;min-width:0}

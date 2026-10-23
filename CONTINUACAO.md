@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Barra de Gastos alinhada — 23/10/2026
+
+RecordsView recebe classe records-toolbar e CSS escopado: alinhamento pela base, controles44px, campos agrupados antes de Todo o histórico e grid responsivo (mobile com campos em linhas completas). Eventos e regras existentes preservados, sem mudança global de CSS/API/schema. Build de uso5173 atualizado;55 testes frontend e Chrome/SQLite320–1920px/claro-escuro/geometria/filtros/mês/histórico/atualizar/formulário aprovados. Tela compartilhada de Manutenções conferida em320/768/1440px. Capturas em tmp/expenses-align-*, fixtures removidas e QA8010/5190 encerrado; serviços de uso preservados. Publicação incremental em feature/correcao-acesso; pacote correspondente atualizado. Sem novo teste de backend, push, e-mail ou Safari físico.
+
 ## Logo na aba — 23/10/2026
 
 `frontend/index.html` referencia a logo existente `/icons/icon-192.png` como favicon e apple-touch-icon. Sem novo asset/dependência, alteração de manifest/worker ou regras/dados. Build local5173 atualizado; Chrome isolado conferiu imagem200/192x192 na raiz e no login, com ícone já no precache. Recarregar a aba se ainda exibir o ícone antigo. Suítes anteriores não reexecutadas nesta mudança de metadados. Publicação permanece em `feature/correcao-acesso`.

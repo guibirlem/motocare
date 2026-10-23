@@ -1,5 +1,10 @@
 # Tarefas - T1/T2/T3
 
+## Alinhamento da barra de Gastos — 23/10/2026
+
+- [x] Corrigir desalinhamento reproduzido: botões tinham35,5px, mês39,5px e select35px, centralizados com rótulos. CSS escopado em RecordsView alinha pela base e normaliza controles em44px; campos antes de Todo o histórico e quebra em grid em telas menores. Sem alterar eventos, filtros, CRUD ou estilos globais.
+- [x] Build e55 testes frontend aprovados; Chrome/SQLite320/390/600/768/1024/1100/1280/1440/1920px nos dois temas, geometria/sem cortes, mês/categoria/histórico/atualizar/abrir-cancelar formulário aprovados. Manutenções compartilhada conferida em320/768/1440px. Capturas desktop/mobile inspecionadas; fixtures/sessões removidas. Sem backend/schema/dados reais/segredos alterados ou novo teste físico Safari.
+
 ## Logo na aba do navegador — 23/10/2026
 
 - [x] Usar a logo PNG192 existente como favicon e apple-touch-icon, preservando manifest, ícones PWA e cache público atuais. Build aprovado; Chrome isolado confirmou PNG200/192x192 nas páginas inicial e login e presença no precache. Sem mudança de lógica, dados ou credenciais.

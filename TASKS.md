@@ -1,5 +1,9 @@
 # Tarefas - T1/T2/T3
 
+## Logo na aba do navegador — 23/10/2026
+
+- [x] Usar a logo PNG192 existente como favicon e apple-touch-icon, preservando manifest, ícones PWA e cache público atuais. Build aprovado; Chrome isolado confirmou PNG200/192x192 nas páginas inicial e login e presença no precache. Sem mudança de lógica, dados ou credenciais.
+
 ## Correção do botão Entrar — 23/10/2026
 
 - [x] Reproduzir navegação ignorada de `/` para o alias `/dashboard`; separar registros mantendo HomeView, URLs e login/cadastro existentes. Preservar destaque/acessibilidade do menu Dashboard.

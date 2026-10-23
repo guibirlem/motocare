@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Logo na aba — 23/10/2026
+
+`frontend/index.html` referencia a logo existente `/icons/icon-192.png` como favicon e apple-touch-icon. Sem novo asset/dependência, alteração de manifest/worker ou regras/dados. Build local5173 atualizado; Chrome isolado conferiu imagem200/192x192 na raiz e no login, com ícone já no precache. Recarregar a aba se ainda exibir o ícone antigo. Suítes anteriores não reexecutadas nesta mudança de metadados. Publicação permanece em `feature/correcao-acesso`.
+
 ## Acesso pela página inicial corrigido — 23/10/2026
 
 Entrar em `/` agora abre `/dashboard`: registros distintos no Vue Router eliminam a navegação duplicada do antigo alias, preservando HomeView, URLs, AccountGate e raiz autenticada. Destaque/aria-current do menu Dashboard preservados. Build de uso5173 atualizado; aba antiga pode exigir Ctrl+F5. 55 testes frontend/build e regressão Chrome local/SQLite aprovados; [evidências](VALIDACAO_ACESSO.md). Sem backend/schema/dados reais/configuração privada alterados. QA8010/5190 encerrado após testes, fixtures removidas; serviços de uso preservados. Fontes em `feature/correcao-acesso`, sobre427aada; branches e PDF anteriores preservados.

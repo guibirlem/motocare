@@ -1,5 +1,9 @@
 # Tarefas - T1/T2/T3
 
+## Botões verdes no padrão do site — 23/10/2026
+
+- [x] Configurar reutiliza button/button-lime, verde preenchido e cantos retos, preservando tamanho mínimo44px e adaptação mobile. Build aprovado; Chrome isolado/API simulada320/390/768/1440px, claro/escuro: cores iguais ao botão padrão, raio0, sem cortes e abertura da configuração de Seguro confirmados. Sem escrita na API/dados ou nova execução das suítes; demais aceites anteriores permanecem históricos.
+
 ## Painel completo no estilo da referência — 23/10/2026
 
 - [x] Alertas agora reúne ativos e sugestões no RemindersPanel existente; Dashboard preservado. Lista vertical de sugestões, relógio/acentos roxos com contraste noturno, ícones laranja/marrom/vermelho e botões Configurar de44px à direita (abaixo do texto em telas muito estreitas). Pneus dianteiro/traseiro continuam independentes.

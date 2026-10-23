@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Configurar verde e quadrado — 23/10/2026
+
+Por preferência explícita do usuário, botões Configurar agora usam as classes button/button-lime existentes, preenchimento verde e raio0. Mantidos controles44px, comportamento, cards e demais elementos. Build local5173 atualizado e Chrome isolado com API simulada320/390/768/1440px/dois temas confirmou cores padrão/cantos retos/sem cortes e abertura do formulário. Sem contas/dados/API reais alterados; suítes anteriores não reexecutadas nesta mudança visual. Publicação e pacote incrementais em feature/correcao-acesso.
+
 ## Lembretes completos e visual da referência — 23/10/2026
 
 Usuário informou que o painel da imagem ainda faltava. Base existente estava em grade e, em Alertas, só exibia sugestões. Complementado o mesmo componente: ativos+sugestões também em `/alertas`, lista vertical, ícones por categoria e acento roxo adaptado ao modo noturno. Dashboard preservado; pneus dianteiro/traseiro e regras reais mantidos, sem dados demonstrativos na interface. Ver lembrete foca os controles detalhados na própria tela; Ver todos aparece só no Dashboard.55 testes frontend/build e Chrome/SQLite320–1440px/temas/configuração/persistência/CRUD/foco/503/offline aprovados; capturas inspecionadas. [Detalhes](VALIDACAO_LEMBRETES.md). Sem backend/schema/dados reais/.env/chaves/push/SMTP alterados. Preview5173 atualizado; fixtures removidas/QA8010/5190 encerrado. Commit incremental e pacote correspondente na branch feature/correcao-acesso.

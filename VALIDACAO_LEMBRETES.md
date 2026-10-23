@@ -1,5 +1,7 @@
 # Painel de lembretes — 23/10/2026
 
+Preferência posterior do usuário: botões Configurar verdes preenchidos e com cantos retos, reutilizando button/button-lime do site, mantendo44px e disposição responsiva. Build aprovado; Chrome isolado em5173 com API simulada320/390/768/1440px/dois temas conferiu cores iguais ao botão padrão, raio0, altura/sem corte e abertura do formulário de Seguro. Capturas tmp/reminder-green-*.png inspecionadas. Mudança só visual, sem escrita na API/dados reais ou repetição das suítes anteriores; validações abaixo descrevem também as etapas históricas.
+
 ## Complemento visual e acesso em Alertas
 
 Após nova solicitação da mesma referência, o componente existente foi complementado: sugestões em lista vertical, relógio e botões roxos com variante legível no modo noturno, ícones circulares por categoria. Alertas passa a mostrar ativos e sugestões juntos; controles detalhados originais continuam abaixo e Ver lembrete os foca mesmo na própria tela. Ver todos é oculto nessa tela, mantendo o acesso do Dashboard. Pneus dianteiro/traseiro e todos os cálculos/contratos existentes permanecem.

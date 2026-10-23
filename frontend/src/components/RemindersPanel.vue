@@ -38,7 +38,7 @@ const iconClass = type => type === 'abastecimento' ? 'reminder-fuel' : isDateRem
         <div class="reminder-suggestion-list"><article v-for="item in suggestions" :key="item.type" class="reminder-suggestion">
           <span class="reminder-icon" :class="iconClass(item.type)"><AppIcon :name="item.icon"/></span>
           <div class="reminder-suggestion-copy"><h4>{{ item.label }}</h4><p>{{ item.hint }}</p></div>
-          <button class="reminder-configure" :disabled="loading" :aria-label="'Configurar ' + item.label" @click="$emit('configure', item.type)">Configurar</button>
+          <button class="button button-lime reminder-configure" :disabled="loading" :aria-label="'Configurar ' + item.label" @click="$emit('configure', item.type)">Configurar</button>
         </article></div>
       </div>
       <p v-else-if="suggestionsOnly" class="reminders-empty">Todos os lembretes sugeridos já estão configurados. Use Novo alerta para outros cuidados.</p>
@@ -77,8 +77,8 @@ const iconClass = type => type === 'abastecimento' ? 'reminder-fuel' : isDateRem
 .reminder-bottom a{font-size:12px;font-weight:700;min-height:32px;display:inline-flex;align-items:center;gap:6px;color:var(--text);text-underline-offset:4px}
 .reminder-suggestion{display:grid;grid-template-columns:34px minmax(0,1fr) auto;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--gray-200);border-radius:16px;min-height:70px;min-width:0}
 .reminder-suggestion-copy{min-width:0}.reminder-suggestion p{margin:0;font-size:13px;line-height:1.5;color:var(--gray-600)}
-.reminder-configure{min-height:44px;padding:9px 17px;border:1px solid var(--reminder-accent);border-radius:999px;background:transparent;color:var(--reminder-accent);font-size:12px;letter-spacing:.8px;font-weight:600;text-transform:uppercase;cursor:pointer;transition:background .15s}
-.reminder-configure:hover:not(:disabled){background:var(--reminder-accent-soft)}.reminder-configure:disabled{opacity:.55;cursor:wait}
+.reminder-configure{min-height:44px;border-radius:0;text-transform:uppercase}
+.reminder-configure:disabled{opacity:.55;cursor:wait}
 .reminders-footnote{font-size:12px;line-height:1.7;color:var(--gray-600);margin:18px 0 0}
 .reminders-message,.reminders-empty{font-size:14px;line-height:1.7;color:var(--gray-600);margin:12px 0;padding:16px;background:var(--gray-100);border-radius:10px}
 @media(max-width:480px){.reminders-heading{align-items:flex-start;gap:10px}.reminders-heading-copy{gap:9px}.reminders-symbol svg{width:23px;height:23px}.reminders-heading p{font-size:12px}.reminder-suggestion{grid-template-columns:30px minmax(0,1fr) auto;gap:8px 10px;padding:12px}.reminder-suggestion .reminder-icon{width:30px;height:30px}.reminder-configure{padding-inline:11px;font-size:11px;letter-spacing:.4px}.reminders-all{font-size:12px}.reminder-card{padding:14px}.reminder-suggestion h4{font-size:14px}.reminder-suggestion p{font-size:12px}}

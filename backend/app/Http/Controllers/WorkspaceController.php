@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Throwable;
@@ -232,10 +233,18 @@ class WorkspaceController extends Controller
     {
         $user = $request->user();
         $data = $request->validate(['nome' => ['required', 'string', 'max:255'], 'email' => ['required', 'email', 'max:255', Rule::unique('usuarios', 'email')->ignore($user->id)], 'telefone' => ['nullable', 'string', 'max:30']]);
-        if ($data['email'] !== $user->email) {
-            $request->validate(['current_password' => ['bail', 'required', 'string', 'max:255', 'current_password']]);
-        }
-        $user->update($data);
+        DB::transaction(function () use ($request, $user, $data) {
+            $locked = User::whereKey($user->id)->lockForUpdate()->firstOrFail();
+            abort_unless(hash_equals($user->password, $locked->password), 401);
+            if ($data['email'] !== $locked->email) {
+                $request->validate(['current_password' => ['bail', 'required', 'string', 'max:255', 'current_password']]);
+                Password::broker()->deleteToken($locked);
+            }
+            $user->update($data);
+            if ($data['email'] !== $locked->email) {
+                Password::broker()->deleteToken($user);
+            }
+        });
 
         return response()->json($user);
     }
@@ -243,7 +252,13 @@ class WorkspaceController extends Controller
     public function password(Request $request)
     {
         $data = $request->validate(['current_password' => ['bail', 'required', 'string', 'max:255', 'current_password'], 'password' => ['required', 'string', 'min:8', new NewPassword, 'confirmed', 'different:current_password']]);
-        $request->user()->update(['password' => $data['password']]);
+        DB::transaction(function () use ($request, $data) {
+            $user = $request->user();
+            $locked = User::whereKey($user->id)->lockForUpdate()->firstOrFail();
+            abort_unless(hash_equals($user->password, $locked->password), 401);
+            Password::broker()->deleteToken($locked);
+            $user->update(['password' => $data['password']]);
+        });
         $request->session()->regenerate();
         $request->session()->put('password_hash_web', $request->user()->password);
 

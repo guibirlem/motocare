@@ -1,5 +1,7 @@
 # MotoCare
 
+Recuperação de senha integrada ao login: solicitação por e-mail, link temporário de uso único e nova senha. **Envio externo aguarda configuração SMTP**; usuário ainda não possui provedor e pediu preparar a integração. [Configuração e validação](RECUPERACAO_SENHA.md):77 testes backend/771 verificações,43 frontend/build e Chrome com SMTP/SQLite isolados. Sem nova migration ou alteração de dados/configuração privada. Fontes atuais em [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), preservando as branches anteriores. Pacote local `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`; PDF acadêmico anterior histórico.
+
 Landing gratuita integrada: visitantes veem a apresentação na raiz; `/apresentacao` permite conferi-la também com a conta conectada. `/dashboard` mantém login/painel e `?cadastro=1` abre o cadastro existente. Sem mudanças no backend/banco. [Validação da landing](VALIDACAO_LANDING.md); fontes em [feature/landing-page](https://github.com/guibirlem/motocare/tree/feature/landing-page), preservando as entregas anteriores.
 
 Complementos de23/10: favoritos/preços por combustível, consumo entre cheios/parciais, estimativa de reserva, painel/feed/gráficos, registro rápido e serviços específicos de moto/corrente. [Validação e uso](VALIDACAO_COMPLEMENTOS.md). Atualizar com `php artisan migrate` para a migration aditiva, preservando dados/.env/chaves. PDF/ZIP acadêmicos da T3 abaixo antecedem esta extensão. Backend61/647 e frontend38/build aprovados; aceite novo Safari/iPhone físico pendente.
@@ -8,7 +10,8 @@ PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: 
 
 ## Entrega e histórico
 
-- Complementos atuais: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), com [validação e retomada](VALIDACAO_COMPLEMENTOS.md). Usar esta branch para continuar os recursos de uso diário descritos no início.
+- Versão atual: [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), incluindo landing e todos os complementos anteriores. Usar esta branch para continuar o projeto.
+- Entrega anterior de complementos: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), com [validação](VALIDACAO_COMPLEMENTOS.md), preservada como referência histórica.
 
 - [Repositório e fontes](https://github.com/guibirlem/motocare) e [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).
 - T3 em 23/10/2026 na branch [feature/t3-financeiro](https://github.com/guibirlem/motocare/tree/feature/t3-financeiro), preservando master e a entrega T1/T2. Ver [validação da T3](VALIDACAO_T3.md).

@@ -10,6 +10,8 @@ import { workspace } from '../services/workspace'
 import { routeEnabled } from '../services/navigation'
 
 const routes = [
+  { path: '/esqueci-senha', name: 'forgot-password', component: () => import('../views/PasswordRecoveryView.vue'), meta: { title: 'Recuperar senha', passwordRecovery: true } },
+  { path: '/redefinir-senha', name: 'reset-password', component: () => import('../views/PasswordRecoveryView.vue'), meta: { title: 'Nova senha', passwordRecovery: true } },
   { path: '/apresentacao', name: 'presentation', component: () => import('../views/LandingView.vue'), meta: { title: 'MotoCare', presentation: true } },
   { path: '/', alias: '/dashboard', name: 'home', component: HomeView, meta: { title: 'Dashboard' } },
   { path: '/alertas', name: 'alerts', component: AlertsView, meta: { title: 'Alertas' } },

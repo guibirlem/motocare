@@ -1,5 +1,9 @@
 # Acesso temporário pelo celular - preparado em 22/10/2026
 
+## Recuperação de senha — complemento de23/10
+
+Link no login e telas responsivas de recuperação integrados. E-mail externo ainda depende de SMTP que o usuário informou não possuir; [configuração](RECUPERACAO_SENHA.md). Ao preparar uma API móvel/túnel, definir também `FRONTEND_URL=https://hostname-atual` no processo, junto de APP_URL, para o link abrir na origem correta do iPhone. Não usar localhost no e-mail de acesso externo. Este complemento não reabre nem confirma os túneis históricos abaixo e não altera `.env`/chaves. Reset bem-sucedido encerra sessões e desliga a inscrição push antiga da conta; entrar e reativar notificações. Sem novo aceite Safari físico.
+
 ## Acesso móvel da T3 - 23/10/2026
 
 Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.

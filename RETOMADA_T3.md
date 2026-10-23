@@ -1,12 +1,14 @@
 # Continuidade da T3 - Financeiro
 
+Estado mais recente de23/10: preservar também a landing e a recuperação de senha, na branch `feature/recuperacao-senha` sobre80b7b7f. Ler primeiro CONTINUACAO e [RECUPERACAO_SENHA.md](RECUPERACAO_SENHA.md).77backend/771 verificações,43frontend/build e SMTP local isolado aprovados; SMTP externo ainda não configurado por escolha do usuário. Pacote atual `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`. As referências da T3 abaixo documentam a integração original, não a versão mais recente.
+
 Atualizado em 23/10/2026. A T3 foi retomada por solicitação do usuário e integrada com gastos, abastecimentos, relatórios, CSV e impressão/Salvar PDF. O antigo adiamento de 19/22 de outubro foi superado. Código na branch `feature/t3-financeiro`, sobre 5cdce58; manter master e histórico preservados. Resultados em [VALIDACAO_T3.md](VALIDACAO_T3.md).
 
 ## Antes de continuar
 
 1. Ler AGENTS, CONTINUACAO, TASKS, SPEC e MEMORY.
-2. Usar a branch atual da T3 ou o pacote local `entrega/MotoCare-T1-T2-T3-2026-10-23.zip`, com manifesto/checksum. Pacotes antigos não contêm esta integração.
-3. Restaurar dependências com composer install/npm ci pelos lockfiles. Conferir migrations; nenhuma nova migration foi necessária na T3 de 23/10. Nunca usar migrate:fresh no banco com dados.
+2. Usar a branch `feature/recuperacao-senha` ou o pacote local `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`, com manifesto/checksum. Incluem T1/T2/T3, complementos, landing e recuperação; pacotes antigos são históricos.
+3. Restaurar dependências com composer install/npm ci pelos lockfiles. Conferir migrations, incluindo `2026_10_23_000001_add_motorcycle_insights.php` dos complementos; recuperação não acrescenta schema. Nunca usar migrate:fresh no banco com dados.
 4. FEATURE_FINANCEIRO=true agora é o padrão e o exemplo. Se o ambiente herdou false no .env, habilitar explicitamente, limpar config cache se houver e reiniciar. Preservar credenciais, APP_KEY e VAPID existentes.
 5. Iniciar API 8000 e frontend 5173 pelo README. Scheduler é separado; só iniciar quando desejado, com contato VAPID válido. Testes de despesas não precisam disparar push.
 

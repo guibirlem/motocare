@@ -1,5 +1,13 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Recuperação de senha integrada — 23/10/2026
+
+Ler [RECUPERACAO_SENHA.md](RECUPERACAO_SENHA.md). Link no login, `/esqueci-senha` e `/redefinir-senha`, APIs JSON com CSRF/rate limits e broker existente (hash, 60 minutos, uso único). Sucesso revoga sessões/push da conta; alterações de senha/e-mail e reuso de endereço invalidam links anteriores. Sem schema/migration/dependência nova; negócio/rotas/T1/T2/T3/landing preservados.
+
+77 testes backend/771 verificações,43 frontend/build, Pint/Composer e Chrome320/390/768/1440px/temas com SQLite/SMTP local isolados aprovados; fixtures removidas. Nenhum e-mail externo/push real nem dados MySQL alterados. **Pendente operacional: SMTP real**, conforme usuário informou não possuir provedor. `.env` de uso preservado em mailer log, recusado para recuperação com503 para não expor segredo. Configurar SMTP/remetente e FRONTEND_URL da origem pública quando disponível; não pedir credenciais no chat. PDF anterior histórico. Continuidade na branch `feature/recuperacao-senha`, sobre80b7b7f, preservando as anteriores.
+
+Acesso local: frontend5173 preservado e API8000 iniciada; MySQL do XAMPP ficou indisponível na checagem final, reativar para usar contas. Não iniciar scheduler automaticamente. QA8010/5190 encerrado; sem túnel novo nesta tarefa.
+
 ## Landing gratuita integrada — 23/10/2026
 
 Nova apresentação pública em `/apresentacao` e raiz `/` de visitantes. Raiz autenticada continua no dashboard; `/dashboard` e demais rotas permanecem. CTAs usam o AccountGate existente: `/dashboard` para entrar, `/dashboard?cadastro=1` para abrir cadastro, `/relatorios` para relatórios. Conta conectada vai ao painel sem cadastro forçado. Ler [VALIDACAO_LANDING.md](VALIDACAO_LANDING.md) e SPEC antes de mexer nos acessos.

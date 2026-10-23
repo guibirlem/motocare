@@ -1,8 +1,14 @@
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
+## Complemento atual: recuperação de senha
+
+Fontes atuais na branch [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), sobre a landing80b7b7f, preservando master/T3/complementos/landing. Integração de recuperação com SMTP, páginas públicas e links temporários, sem schema ou dados privados modificados.77 testes backend/771 verificações,43 frontend/build e fluxo Chrome/SMTP local isolado aprovados. **Entrega externa de e-mail pendente de provedor SMTP**, conforme escolha do usuário. [Instruções e evidências](RECUPERACAO_SENHA.md).
+
+Pacote local atual `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`, manifesto `fontes-recuperacao-senha-2026-10-23.json` e checksum correspondente. Arquivos/PDF acadêmicos e branches citados nas seções seguintes são entregas anteriores preservadas.
+
 ## Complementos posteriores à entrega inicial da T3
 
-Fontes atuais: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), sobre b3c70e9, preservando master e feature/t3-financeiro.
+Fontes desta entrega anterior: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), sobre b3c70e9, preservando master e feature/t3-financeiro.
 
 Os fontes atuais acrescentam favoritos/preços, consumo, reserva, painel/feed/gráficos, serviços por eixo/corrente e atalho de chuva. [Contrato e validação](VALIDACAO_COMPLEMENTOS.md), [SPEC](SPEC.md) e [DER](DER.md). Migration aditiva aplicada preservando os campos/registros originais. Backend61/647 e frontend38/build, Chrome/HTTP/MySQL aprovados; aceite novo no iPhone físico pendente.
 

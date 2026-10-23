@@ -1,5 +1,14 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Recuperação de senha — 23/10/2026
+
+- Páginas públicas `/esqueci-senha` e `/redefinir-senha`; link somente no modo Entrar do AccountGate. Login/cadastro/landing/rotas privadas atuais preservados.
+- POST `/api/forgot-password` aceita email validado e exige CSRF; 202 genérico se transporte configurado, com ou sem conta. Broker limita nova mensagem a uma por minuto; API limita cinco pedidos/minuto/IP e três/hora/e-mail, sem distinção de caixa. Não altera senha/sessões por solicitação.503 uniforme quando SMTP/origem não configurados, sem token/log de link. Erro SMTP remove token e gera apenas aviso administrativo fixo; resposta genérica preservada.
+- POST `/api/reset-password` recebe email/token/password/password_confirmation; CSRF e dez tentativas/minuto/IP e dez/hora/e-mail.200 atualiza senha e consome token,422 entrada/link inválido/expirado,429 com Retry-After. Sem login automático. Regras de senha atuais preservadas (8 caracteres,72 bytes,no NUL, confirmação).
+- Reutiliza `password_reset_tokens` existente: hash,60 minutos, uso único; nova emissão invalida anterior. Linha do usuário bloqueada em transação no envio/reset. Sucesso revoga sessões database e push da conta; autenticação por hash existente preservada. Configurações de senha/e-mail invalidam links anteriores; nome/telefone não. Cadastro remove tokens órfãos de endereço reutilizado. Não altera dados do domínio ou de terceiros.
+- FRONTEND_URL é origem administrativa confiável (HTTPS público ou HTTP loopback), independente de headers do visitante. Segredo no fragmento do e-mail, retirado da URL na abertura e mantido só na memória da tela, sem armazenamento/cache. Recarga exige reabrir/solicitar link. Offline não enfileira envios.
+- SMTP síncrono/timeout10s, sem Blade ou dependências novas; mailer log/fallback recusado, array apenas nos testes. Ambiente atual sem SMTP por opção do usuário: integração pronta, entrega por provedor externo pendente. Sem alteração estrutural/migration. [Configuração, segurança e validação](RECUPERACAO_SENHA.md).
+
 ## Apresentação pública — 23/10/2026
 
 - Landing em `/apresentacao`, acessível com ou sem conta. Raiz `/` mostra apresentação para visitantes e mantém o dashboard para a sessão autenticada. Alias `/dashboard` e demais rotas preservados; visitante em rota do sistema continua no AccountGate existente.

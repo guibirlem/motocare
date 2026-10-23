@@ -1,5 +1,13 @@
 # Tarefas - T1/T2/T3
 
+## Recuperação de senha — 23/10/2026
+
+- [x] Esqueci minha senha no login, solicitação e nova senha com identidade/temas/mobile existentes.
+- [x] API JSON/CSRF, resposta genérica, limites por IP/e-mail, SMTP seguro e origem confiável do link; log mailer bloqueado.
+- [x] Token hash/60min/uso único, transação e bloqueio, revogação de sessões/push, invalidação por troca de senha/e-mail e cadastro de endereço reutilizado.
+- [x]77 backend/771 verificações,43 frontend/build, Pint/Composer e fluxo Chrome/SQLite/SMTP local descartável aprovados. Sem dados reais/schema/segredos modificados. [Evidências e configuração](RECUPERACAO_SENHA.md).
+- [ ] Configurar provedor SMTP/remetente/origem e confirmar recebimento em caixa postal real. Usuário pediu preparar integração e informou ainda não possuir SMTP; não marcar entrega externa como testada.
+
 ## Landing Page gratuita — 23/10/2026
 
 - [x] Referência Drivvo consultada e adaptada à identidade/recursos reais do MotoCare, sem preços/planos, avaliações ou depoimentos inventados.

@@ -11,6 +11,7 @@ use App\Support\TankConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -23,7 +24,13 @@ class HistoryController extends Controller
             'email' => ['required', 'email', 'max:255', 'unique:usuarios,email'],
             'password' => ['required', 'string', 'min:8', new NewPassword, 'confirmed'],
         ]);
-        $user = User::create($data);
+        $user = DB::transaction(function () use ($data) {
+            $user = User::create($data);
+            // Um endereço reutilizado não herda links de recuperação de uma conta anterior.
+            Password::broker()->deleteToken($user);
+
+            return $user;
+        });
         Auth::login($user);
         $request->session()->regenerate();
 

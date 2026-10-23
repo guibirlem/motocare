@@ -1,5 +1,12 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Apresentação pública — 23/10/2026
+
+- Landing em `/apresentacao`, acessível com ou sem conta. Raiz `/` mostra apresentação para visitantes e mantém o dashboard para a sessão autenticada. Alias `/dashboard` e demais rotas preservados; visitante em rota do sistema continua no AccountGate existente.
+- CTAs Entrar e acesso autenticado usam `/dashboard`. Começar Grátis usa `/dashboard?cadastro=1` para selecionar o cadastro no mesmo formulário atual, sem nova API ou rota de autenticação. Usuário conectado recebe destino `/dashboard` sem modo de cadastro. Link de relatórios usa `/relatorios` e conserva a autenticação/feature existentes.
+- Página apresenta funcionalidades, diferenciais de moto, relatórios e benefícios, com âncoras suaves, versão mobile e preferência de movimento reduzido. Modelo 100% gratuito, sem planos/tabelas de preços. Prévias têm dados fixos identificados como ilustrativos e não consultam dados privados.
+- Backend, schema, dados, contratos financeiros, permissões, sessão/CSRF, PWA/offline e temas preservados. Modo offline global continua anterior à apresentação; a página online independe do sucesso da API. CSS da landing é escopado e seu código é carregado sob demanda.
+
 ## Complementos de uso diário — 23/10/2026
 
 Extensão aditiva de T1/T2/T3. Migration `2026_10_23_000001_add_motorcycle_insights.php` cria postos/preços e acrescenta apenas campos opcionais, sem transformar registros antigos. Serviços legados pneus/freios continuam disponíveis, junto aos separados por eixo e aos de corrente, filtros, suspensão, arrefecimento, cabos e vela. `natureza` preventiva/corretiva é opcional; históricos sem classificação são apresentados separadamente.

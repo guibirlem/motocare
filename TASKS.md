@@ -1,5 +1,13 @@
 # Tarefas - T1/T2/T3
 
+## Landing Page gratuita — 23/10/2026
+
+- [x] Referência Drivvo consultada e adaptada à identidade/recursos reais do MotoCare, sem preços/planos, avaliações ou depoimentos inventados.
+- [x] Navbar/âncoras, hero com prévias próprias, funcionalidades, diferenciais de corrente/reserva, relatórios, três benefícios, chamada gratuita e footer.
+- [x] Integrar `/apresentacao`, raiz pública para visitantes e CTAs ao login/cadastro/dashboard existentes; preservar raiz autenticada e deep links.
+- [x]40 testes frontend/build, responsividade320–1920px/temas, CTAs com cadastro real, offline/reconexão, API indisponível e regressão T3 aprovados em SQLite isolado. Sem backend/schema/dados reais alterados. [Evidências](VALIDACAO_LANDING.md).
+- [x] Fontes em feature/landing-page, com branches anteriores preservadas. Aceite novo no iPhone físico não foi inferido.
+
 ## Formatação do frontend — 23/10/2026
 
 - [x] Corrigir faixa da Visão Geral/Atualizar e posicionar indicadores no início; alinhar Moto selecionada e ações.

@@ -1,5 +1,7 @@
 # MotoCare
 
+Landing gratuita integrada: visitantes veem a apresentação na raiz; `/apresentacao` permite conferi-la também com a conta conectada. `/dashboard` mantém login/painel e `?cadastro=1` abre o cadastro existente. Sem mudanças no backend/banco. [Validação da landing](VALIDACAO_LANDING.md); fontes em [feature/landing-page](https://github.com/guibirlem/motocare/tree/feature/landing-page), preservando as entregas anteriores.
+
 Complementos de23/10: favoritos/preços por combustível, consumo entre cheios/parciais, estimativa de reserva, painel/feed/gráficos, registro rápido e serviços específicos de moto/corrente. [Validação e uso](VALIDACAO_COMPLEMENTOS.md). Atualizar com `php artisan migrate` para a migration aditiva, preservando dados/.env/chaves. PDF/ZIP acadêmicos da T3 abaixo antecedem esta extensão. Backend61/647 e frontend38/build aprovados; aceite novo Safari/iPhone físico pendente.
 
 PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: T1 (alertas), T2 (histórico) e T3 (financeiro, abastecimentos, relatórios e exportações), com conta, garagem e PWA.

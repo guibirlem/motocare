@@ -10,6 +10,7 @@ import { workspace } from '../services/workspace'
 import { routeEnabled } from '../services/navigation'
 
 const routes = [
+  { path: '/apresentacao', name: 'presentation', component: () => import('../views/LandingView.vue'), meta: { title: 'MotoCare', presentation: true } },
   { path: '/', alias: '/dashboard', name: 'home', component: HomeView, meta: { title: 'Dashboard' } },
   { path: '/alertas', name: 'alerts', component: AlertsView, meta: { title: 'Alertas' } },
   { path: '/manutencoes', alias: '/historico', name: 'maintenance', component: MaintenanceView, meta: { title: 'Manutenções' } },

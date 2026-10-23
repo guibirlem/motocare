@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, defineAsyncComponent, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import MotorcycleIcon from './components/MotorcycleIcon.vue'
 import AccountGate from './components/AccountGate.vue'
@@ -7,11 +7,15 @@ import TaskStatus from './components/TaskStatus.vue'
 import ThemeToggle from './components/ThemeToggle.vue'
 import QuickActions from './components/QuickActions.vue'
 import AppFooter from './components/AppFooter.vue'
+const LandingView = defineAsyncComponent(() => import('./views/LandingView.vue'))
+import { isPresentation } from './services/presentation'
 import { workspace as s, startSession, signOut, refreshMotos } from './services/workspace'
 import { useTask } from './composables/useTask'
 import { offlineMessage } from './services/api'
 import { navigationItems, routeEnabled } from './services/navigation'
 const route=useRoute(), router=useRouter(), menuOpen=ref(false), search=ref('')
+const presentation=computed(()=>isPresentation(route,s.user))
+watch(()=>[presentation.value,route.fullPath],()=>{document.title=presentation.value?'MotoCare — Controle e manutenção da sua moto':route.meta.title+' · MotoCare'},{immediate:true})
 const {busy,error,notice,run}=useTask()
 const items=computed(()=>navigationItems(s.features))
 const results=computed(()=>search.value.trim()?items.value.filter(i=>i.label.toLocaleLowerCase('pt-BR').includes(search.value.toLocaleLowerCase('pt-BR'))):[])
@@ -25,8 +29,9 @@ window.addEventListener('motocare-notification',onNotification)
 onUnmounted(()=>window.removeEventListener('motocare-notification',onNotification))
 </script>
 <template>
-  <div v-if="s.offline || !s.user" class="appearance-toolbar"><ThemeToggle/></div>
+  <div v-if="s.offline || (!s.user && !presentation)" class="appearance-toolbar"><ThemeToggle/></div>
   <section v-if="s.offline" class="auth-layout"><h1>MotoCare</h1><h2>Modo offline</h2><p role="status">{{offlineMessage}}</p><p>Quando a conexão voltar, o aplicativo tentará carregar novamente.</p><button class="button button-lime" :disabled="busy" @click="retryConnection">Verificar conexão</button></section>
+  <LandingView v-else-if="presentation" />
   <div v-else-if="!s.ready && !s.user" class="auth-layout"><TaskStatus :busy="busy" :error="error"/><button v-if="!busy" class="button button-lime" @click="run(startSession)">Tentar novamente</button></div>
   <div v-else-if="!s.user"><TaskStatus :error="error" :notice="s.sessionNotice"/><AccountGate/></div>
   <div v-else class="app-shell">

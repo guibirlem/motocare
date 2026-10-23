@@ -1,5 +1,13 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Landing gratuita integrada — 23/10/2026
+
+Nova apresentação pública em `/apresentacao` e raiz `/` de visitantes. Raiz autenticada continua no dashboard; `/dashboard` e demais rotas permanecem. CTAs usam o AccountGate existente: `/dashboard` para entrar, `/dashboard?cadastro=1` para abrir cadastro, `/relatorios` para relatórios. Conta conectada vai ao painel sem cadastro forçado. Ler [VALIDACAO_LANDING.md](VALIDACAO_LANDING.md) e SPEC antes de mexer nos acessos.
+
+Página responsiva preto/verde/Arial, gratuita sem planos, com navbar/âncoras/tema, hero e mockups próprios ilustrativos, funcionalidades, corrente/chuva, reserva estimada, relatórios, benefícios, CTA final e rodapé. Componentes/CSS escopados, chunk sob demanda, nenhum pacote novo. Backend/schema/dados/.env/chaves/serviços anteriores intactos; nenhuma migration necessária.
+
+40 testes frontend/build aprovados; Chrome320/390/768/1024/1440/1920px/temas, âncoras, cadastro/login reais e regressão T3 aprovados em SQLite isolado, fixtures removidas. Página online funciona mesmo com API503, offline/reconexão e movimento reduzido preservados. Sem novo teste MySQL/iPhone físico/push. Fontes na branch `feature/landing-page` sobre d27002f, preservando branches anteriores. PDF acadêmico anterior não regenerado nesta adição.
+
 ## Correção visual do painel e shell — 23/10/2026
 
 Solicitação de formatação atendida: Atualizar compacto ao lado do título, métricas antes dos cuidados, seletor/botões alinhados, cabeçalho/rodapé completos e menu mobile sem altura fixa. Painel conserva indicadores ao atualizar, aguarda suas consultas completas e oferece recuperação em erro. Estilo/temas/rotas/negócio preservados, sem mudança de API/schema/configuração privada. Evidências em [REVISAO_FRONTEND.md](REVISAO_FRONTEND.md).

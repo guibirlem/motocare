@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Aceite visual da T3 no iPhone — 23/10/2026
+
+Em 23/10/2026, usuário respondeu “Abrem e estão normais” à pergunta sobre Gastos (incluindo Novo gasto) e Relatórios no Safari do iPhone, no acesso HTTPS da T3. Aceite visual desses fluxos registrado. A resposta não confirma novos cadastros, exportação/compartilhamento de CSV, impressão no aparelho ou os complementos de corrente, reserva e favoritos adicionados depois da pergunta. Sem nova execução de testes, envio push ou alteração de código/banco.
+
 ## Complementos preservando a base — 23/10/2026
 
 Fontes desta extensão na branch dedicada `feature/complementos-motocicletas`, baseada em b3c70e9; master e feature/t3-financeiro preservadas, sem merge automático.
@@ -18,7 +22,7 @@ PDF/ZIP acadêmicos anteriores abaixo não incluem esta extensão. Fontes, SPEC/
 
 Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
 
-HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite manual novo da T3 solicitado ao usuário e ainda não registrado.
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite visual da T3 recebido em 23/10: usuário confirmou “Abrem e estão normais” para Gastos/Novo gasto e Relatórios no iPhone/Safari. Exportações no aparelho e complementos posteriores não estão cobertos por essa resposta.
 
 ## T3 integrada e validada - 23/10/2026
 
@@ -30,7 +34,7 @@ Correções da retomada: motocicleta_id=0 não pode selecionar todas as motos; r
 
 Validação atual: 54 testes backend / 486 verificações e 34 frontend/build aprovados, Pint nos arquivos alterados e Composer validate. Chrome isolado em 1440x1000/390x844 com MySQL real: cadastro, garagem, combustível87,50 e arredondamento 1,52, trocas de tipo, reparos 0,10+0,20, duas motos, manutenção 100,01 com odômetro 1100 e pendente 500 fora dos totais, relatório 187,81/2,00/189,81 por escopo. CSV baixado e PDF impresso/renderizado conferidos. Isolamento404, CSRF 419, inválidos 422 e logout 401; nenhuma exceção JS no fluxo aprovado. Duas contas/sessões descartáveis removidas por rotina limitada às fixtures; nenhum dado da conta do usuário usado.
 
-Sem nova migration: schema de despesas/descrição existente e aplicado. SPEC/DER atualizados quanto ao estado/contrato, sem alterar T1/T2, chaves, push ou banco existente. Prévia local já serve o build da T3; atualizar com Ctrl+F5 ou fechar completamente/reabrir PWA online. Aceite específico do usuário no iPhone/Safari desta T3 ainda complementar; não confundir viewport móvel do Chromium com teste no aparelho. Nenhum push adicional ou scheduler contínuo iniciado.
+Sem nova migration: schema de despesas/descrição existente e aplicado. SPEC/DER atualizados quanto ao estado/contrato, sem alterar T1/T2, chaves, push ou banco existente. Prévia local já serve o build da T3; atualizar com Ctrl+F5 ou fechar completamente/reabrir PWA online. Aceite visual do usuário no iPhone/Safari recebido para Gastos/Novo gasto e Relatórios; não estender a confirmação a exportações ou complementos posteriores. Nenhum push adicional ou scheduler contínuo iniciado.
 
 ## Acesso móvel reaberto - 22/10/2026
 

@@ -34,6 +34,8 @@ Base preservada: T1/T2/T3 da branch `feature/t3-financeiro`, commit `b3c70e9ff93
 - Capturas em desktop1600px e mobile390px conferidas visualmente: cards, formulários, feed/gráficos, reserva/corrente e tema. Tabelas mantêm rolagem interna. Testes em Chromium não representam aceite novo no Safari/iPhone físico.
 - Pint dos arquivos PHP alterados e Composer validate --strict aprovados. Auditoria de177 arquivos (fontes elegíveis/build) sem APP_KEY, chave privada VAPID ou padrões de credenciais encontrados. Nenhuma dependência nova foi adicionada; `.env`, chaves e fontes de T1/T2/T3 preservados.
 
+Aceite assíncrono recebido em23/10 para a pergunta anterior da T3: usuário confirmou Gastos/Novo gasto e Relatórios normais no Safari do iPhone. Esse registro aprova a conferência visual perguntada, sem comprovar os recursos adicionais de favoritos, corrente e reserva ou novas exportações no aparelho.
+
 ## Fontes da extensão
 
 Branch dedicada [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), baseada em b3c70e9. Preservar master e feature/t3-financeiro; nenhuma integração automática entre branches faz parte desta extensão. O manifesto/pacote local de fontes dos complementos identifica o PDF incluído como retrato histórico anterior.

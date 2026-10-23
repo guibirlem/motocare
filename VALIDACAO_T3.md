@@ -41,8 +41,12 @@ Todas as contas/sessões/motos/registros descartáveis desta execução removido
 
 Túnel renovado para o acesso registrado em ACESSO_CELULAR.md. HTML/build/manifest 200, CSRF 200 com cookies Secure/HttpOnly/no-store, features anônimo 401 e caminho privado 404. Smoke real de cadastro/sessão, financeiro=true, combustível 1,52 e relatório 1,52, CSRF ausente 419 e logout seguido de 401 aprovado. Conta/sessões descartáveis removidas; APP_URL/WEBPUSH_SUBJECT e feature definidos só no processo móvel. Sem .env/chaves ou push alterados.
 
+## Aceite visual no iPhone — 23/10/2026
+
+Em 23/10/2026, usuário respondeu “Abrem e estão normais” à pergunta sobre Gastos (incluindo Novo gasto) e Relatórios no Safari do iPhone, no acesso HTTPS da T3. Aceite visual desses fluxos registrado. A resposta não confirma novos cadastros, exportação/compartilhamento de CSV, impressão no aparelho ou os complementos de corrente, reserva e favoritos adicionados depois da pergunta. Sem nova execução de testes, envio push ou alteração de código/banco.
+
 ## Reprodução e limites
 
 Backend: OPENSSL_CONF do XAMPP no terminal e php artisan test. Frontend: npm ci pelos lockfiles, npm test e npm run build. Instalar/iniciar conforme README. Roteiro de manutenção em RETOMADA_T3.md.
 
-O teste 390px usa Chromium, não Safari nem iPhone físico. Aceite complementar do usuário para esta T3 no iPhone/PWA, compartilhamento de CSV e impressão do aparelho ainda não registrado. Testes anteriores de push/instalação/offline reais de 22/10 não foram repetidos. Não houve teste de carga nem concorrência multiprocesso MySQL. Auditoria de dependências anterior está datada em REVISAO_LOGICA_SEGURANCA.md; esta T3 não acrescentou dependências ou chaves.
+O teste 390px usa Chromium, não Safari nem iPhone físico. Aceite visual do usuário registrado para Gastos/Novo gasto e Relatórios no Safari do iPhone. Compartilhamento de CSV, impressão do aparelho e aceite dos complementos posteriores permanecem sem confirmação específica. Testes anteriores de push/instalação/offline reais de 22/10 não foram repetidos. Não houve teste de carga nem concorrência multiprocesso MySQL. Auditoria de dependências anterior está datada em REVISAO_LOGICA_SEGURANCA.md; esta T3 não acrescentou dependências ou chaves.

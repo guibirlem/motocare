@@ -18,7 +18,7 @@ PDF/ZIP acadêmicos da T3 descritos abaixo antecedem estes complementos e perman
 
 Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
 
-HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite manual novo da T3 solicitado ao usuário e ainda não registrado.
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite visual da T3 recebido em 23/10: usuário confirmou “Abrem e estão normais” para Gastos/Novo gasto e Relatórios no iPhone/Safari. Exportações no aparelho e complementos posteriores não estão cobertos por essa resposta.
 
 ## T3 integrada - 23/10/2026
 
@@ -31,7 +31,7 @@ Solicitação de iniciar T3 substitui o adiamento anterior. Escopo adotado: gast
 - [x] T3.4: FEATURE_FINANCEIRO=true como padrão e no exemplo. GET autenticado /api/features sincroniza navegação com API; false mantém financeiro 404 e menu/rotas indisponíveis sem quebrar T1/T2. Configuração carregada antes de expor usuário no cliente e limpa ao sair.
 - [x] T3.5: 54 testes backend / 486 verificações e 34 frontend aprovados; build, Pint alterados e Composer validate. Chrome headless isolado + HTTP/MySQL aprovou CRUD, duas motos/contas, CSRF 419, isolamento 404, validação 422, logout 401, CSV e impressão. Telas1440px/390px, formulários/tabelas e tema conferidos; fixtures e sessões próprias removidas.
 - [x] T3.6: documentação/retomada/contratos atualizados, PDF acadêmico de dez páginas renderizado e conferido, manifesto/pacote/checksum e varredura sem segredos; entrega em `feature/t3-financeiro`, preservando master.
-- [ ] Aceite complementar do usuário da T3 no iPhone/Safari real. A revisão de 390px é Chromium; aceites anteriores do iPhone e push de 22/10 continuam válidos para a versão conferida naquela data, sem alegar novo envio/aceite em 23/10.
+- [x] Aceite visual da T3 no iPhone/Safari real: em23/10, usuário confirmou “Abrem e estão normais” para Gastos/Novo gasto e Relatórios. Não inclui CSV/impressão no aparelho ou complementos posteriores; nenhum novo push confirmado por esta resposta.
 
 Evidências e reprodução em [VALIDACAO_T3.md](VALIDACAO_T3.md). Sem novos dados estruturais/migrations, sem mudanças em .env/APP_KEY/VAPID e sem disparar notificações.
 

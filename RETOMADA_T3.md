@@ -37,6 +37,6 @@ Base atual: 54 testes backend / 486 verificações e 34 frontend/build aprovados
 
 No backend: OPENSSL_CONF do XAMPP no processo, depois php artisan test. No frontend: npm test e npm run build. Mantenha SQLite isolado para os testes Laravel.
 
-Complementar: usuário conferir esta T3 no iPhone/Safari instalado, incluindo CSV/compartilhamento e impressão do aparelho. A viewport móvel do Chromium não é um teste no iPhone físico. Aceites anteriores de T1/T2/push de 22/10 não foram repetidos nesta retomada. Não marcar conclusão manual nova por inferência.
+Aceite visual recebido em23/10: usuário confirmou “Abrem e estão normais” para Gastos/Novo gasto e Relatórios no Safari do iPhone. CSV/compartilhamento, impressão no aparelho, instalação PWA desta origem e os complementos posteriores ainda exigem confirmação específica. A viewport móvel do Chromium não substitui teste no aparelho; não ampliar o escopo desse aceite por inferência.
 
 Ao editar regras, atualizar SPEC e testes; se mudar estrutura, DER/migration. Ao entregar, atualizar TASKS/CONTINUACAO/MEMORY e pacote/PDF conforme escopo. Publicar em branch de trabalho; não reativar demostrações nem substituir histórico com force push.

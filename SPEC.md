@@ -1,14 +1,24 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Contrato de integração da T3 - 23/10/2026
+
+- Gastos em /gastos e relatórios em /relatorios; GET autenticado /api/features retorna `{ "financeiro": true|false }`. Cliente carrega esse valor antes de expor usuário/menu e limpa ao logout; respostas antigas de sessão não reativam módulos. Default true e exemplo true; false mantém despesas/relatórios 404 e navegação indisponível. Dashboard continua independente dessa API.
+- CRUD de despesas segue o contrato já preservado. PUT substitui opcionais omitidos por null; troca para reparo limpa litros/preço/posto. Interface calcula combustível em centavos e transforma vírgula decimal em ponto no payload. Reparo exige descrição; o custo de um serviço deve ser cadastrado uma única vez, em despesas ou manutenção. Não existe deduplicação automática entre cadastros manuais.
+- Filtro mes=AAAA-MM inclui o mês inteiro; sem mês mostra histórico completo. Ordenação por data/id descendentes. Total da tela de Gastos acompanha os registros do filtro de tipo selecionado.
+- Relatórios com início/fim inclusivos e até dez anos. motocicleta_id opcional, inteiro positivo; zero/negativo/fração/formato inválido 422, moto inexistente/alheia 404. Sem ID, inclui somente motos da conta. Meses vazios retornam zero; manutenção pendente pode aparecer nos lançamentos, mas nunca nos totais. Somas em centavos; JSON usa strings decimais.
+- Alterar filtros de relatório descarta o resultado anterior e desabilita exportação até nova consulta. Campos ficam bloqueados durante consulta; títulos/arquivo usam o período capturado no envio. Falha de consulta não mantém dados de outro período. Troca global de moto reinicia telas vinculadas à moto, mas não descarta formulário de conta/garagem.
+- CSV: BOM UTF-8, separador ponto e vírgula, casas decimais com vírgula, campos entre aspas e aspas escapadas; neutralizar prefixos de fórmula. Inclui status para distinguir pendências. Impressão/Salvar PDF executada pelo navegador, paleta clara, sem navegação/formulários, cabeçalhos repetidos e tabelas sem rolagem; não existe API de geração PDF nem view Blade.
+- Schema/migrations já aplicados permanecem iguais. Validações e limites em VALIDACAO_T3.md; teste de 390px usa Chromium e não comprova aceite novo em Safari/iPhone físico.
+
 ## Continuidade preparada em 22/10/2026
 
 Teste móvel: preview separado na porta loopback 5180, proxy /api para 8001, hostname exato permitido; backend móvel usa debug desativado e cookies Secure/HttpOnly no processo, mantendo sessão/CSRF/autorização. Nenhum contrato de dados alterado. Túnel Cloudflare autorizado explicitamente e aberto em 22/10; HTTPS público/login/sessão/CSRF validados com fixture descartável removida. Revisão mobile/PWA concluída no iPhone: usuário confirmou abertura pelo app instalado, telas/formulários, push pelo botão, ciclo offline/reconexão e alerta do scheduler em segundo plano. Operação e URL temporária em [ACESSO_CELULAR.md](ACESSO_CELULAR.md).
 
-A solicitação atual prepara a T3 para outro momento. Não altera contratos, schema nem a ativação financeira: T1/T2 continuam ativos, `FEATURE_FINANCEIRO=false`. O código financeiro documentado abaixo é preservado para revisão e integração futuras, não uma entrega ativa. Sequência e critérios de aceite em [RETOMADA_T3.md](RETOMADA_T3.md); checklist em [TASKS.md](TASKS.md). Confirmar o alcance de relatórios/exportações ao iniciar a próxima etapa.
+Em 22/10 a continuidade preparou a T3 sem ativá-la. A retomada de 23/10 abaixo substitui esse estado; roteiro e aceite atuais em [RETOMADA_T3.md](RETOMADA_T3.md), [TASKS.md](TASKS.md) e [VALIDACAO_T3.md](VALIDACAO_T3.md).
 
-## Escopo vigente — 19/10/2026
+## Escopo vigente — 23/10/2026
 
-Por orientação mais recente do usuário, a entrega ativa cobre somente T1 e T2, com conta/garagem/configurações como suporte. Financeiro (T3) e relatórios ficam adiados: sem rotas na interface e API desativada por padrão (FEATURE_FINANCEIRO=false). A implementação anterior e o schema foram preservados para retomada futura. Dashboard consulta manutenções/alertas diretamente, sem depender da T3. Os contratos financeiros abaixo documentam o trabalho guardado e não representam funcionalidades ativas.
+Por solicitação de iniciar a T3 em 23/10, a entrega ativa cobre T1, T2 e T3, incluindo gastos, abastecimentos, relatórios, CSV e impressão/Salvar PDF. FEATURE_FINANCEIRO=true é o padrão; false permite desligar financeiro/relatórios sem afetar Dashboard/T1/T2. Menu e rotas do cliente seguem a configuração autenticada da API. O adiamento de 19/10 foi superado; contratos financeiros abaixo estão ativos, sem mudança de schema nesta retomada.
 
 ## Contexto do Produto
 MotoCare é uma plataforma para motociclistas que precisam controlar manutenção preventiva, revisões, despesas com combustível e reparos, além de receber alertas automáticos para reduzir risco mecânico e ansiedade no uso diário.
@@ -103,7 +113,7 @@ Diagrama atualizado em [DER.md](DER.md).
 - API não retorna detalhes internos nos erros mesmo com debug ligado. Respostas de validação 422 mantêm campos/erros; demais erros preservam código HTTP/Retry-After e retornam mensagem saneada. API usa no-store/private/nosniff. Preview local/móvel aplica CSP/nosniff/referrer/frame e nega caminhos privados antes do fallback.
 - Respostas do frontend são vinculadas à sessão que as iniciou e descartadas após mudança/logout; atualização fora de ordem da garagem não substitui a mais nova. Tokens CSRF atrasados não substituem o da sessão atual. Formulários não reproduzem automaticamente gravações offline.
 - Placa é normalizada também na API, sem confiar no cliente. Locks de edição/exclusão de alertas usam o ID real encontrado por propriedade, inclusive se a URL tiver zeros à esquerda, para corresponder ao scheduler.
-- Revisão/limites e evidências em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Frontend depende de Vite6.4.5/plugin Vue5.2.4 com lockfile atualizado; não reverter ao Vite5 da entrega histórica.
+- Revisão/limites e evidências em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Frontend depende de Vite 6.4.5/plugin Vue5.2.4 com lockfile atualizado; não reverter ao Vite 5 da entrega histórica.
 
 ### Tema claro e noturno - 22/10/2026
 
@@ -157,6 +167,7 @@ API em `/api`, registrada por `routes/history.php` no grupo web para usar sessã
 | POST | /register | Cria conta e autentica (nome, email, password, password_confirmation) |
 | POST | /login | Autentica por email/password |
 | GET | /user | Usuário autenticado, sem senha |
+| GET | /features | Configuração autenticada: financeiro:boolean; sem segredos |
 | POST | /logout | Invalida sessão |
 | GET / POST | /motocicletas | Consulta motos próprias / cadastra moto |
 | GET / POST | /motocicletas/{moto}/manutencoes | Lista / cria manutenção |
@@ -202,6 +213,6 @@ API em `/api`, registrada por `routes/history.php` no grupo web para usar sessã
 
 A decisão mais recente remove Firebase/FCM da implementação ativa. A T1 passa a usar Push API/Service Worker e VAPID local com minishlink/web-push. Sem SDK externo, projeto ou conta Firebase. O navegador utiliza seu serviço de push e exige permissão/contexto seguro; isso não exige credenciais de serviço do MotoCare em outro provedor.
 
-Alteração estrutural aditiva em usuarios: push_subscription TEXT nullable (cast criptografado pela APP_KEY) e push_endpoint_hash CHAR(64) nullable UNIQUE. Uma inscrição por usuário, último navegador ativado. fcm_token permanece somente como coluna legada sem uso, oculta e sem atribuição pela API. DER e migration correspondentes atualizados. Não alterar T2 nem reativar T3.
+Alteração estrutural aditiva em usuarios: push_subscription TEXT nullable (cast criptografado pela APP_KEY) e push_endpoint_hash CHAR(64) nullable UNIQUE. Uma inscrição por usuário, último navegador ativado. fcm_token permanece somente como coluna legada sem uso, oculta e sem atribuição pela API. DER e migration correspondentes atualizados. Preservar T1/T2; o adiamento da T3 vigente naquela etapa foi substituído pela retomada autorizada de 23/10.
 
 Endpoints ativos: GET /api/push-config (configured/publicKey/subscriptionRegistered), PUT/DELETE /api/push-subscription e POST /api/push-test. Inscrição contém endpoint HTTPS e keys.p256dh/auth. Só aceitar domínios oficiais de push dos navegadores, sem portas customizadas, credenciais na URL, fragmentos ou redirecionamentos; evitar SSRF. Endpoint é capacidade privada, não retornar em /user. Logout remove vínculo. Teste só aceita o endpoint inscrito na conta. Assinaturas expiradas 404/410 são removidas condicionalmente e preservam alertas pendentes para reativação. Envio aceito não equivale a confirmação de recebimento.

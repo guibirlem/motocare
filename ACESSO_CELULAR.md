@@ -1,20 +1,32 @@
 # Acesso temporário pelo celular - preparado em 22/10/2026
 
+## Acesso móvel da T3 - 23/10/2026
+
+Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
+
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite manual novo da T3 solicitado ao usuário e ainda não registrado.
+
+## Reabertura do túnel - 22/10/2026
+
+Novo endereço verificado: **https://own-deeper-just-photo.trycloudflare.com**. O túnel antigo perdeu o registro no provedor e deixou de resolver DNS; substituído por solicitação do usuário. Somente processos móveis/túnel foram reiniciados. Portas locais8000/5173 e banco/chaves/.env preservados. API móvel usa APP_URL/WEBPUSH_SUBJECT do novo HTTPS no processo, com debug desligado e cookiesseguros. Nenhum scheduler contínuo ou novo envio push iniciado.
+
+Página com cabeçalhos de navegação, JS/CSS atual, manifest e workers200; API CSRF 200 com Secure/HttpOnly/no-store; user anônimo 401 e caminhos privados404. CSP/frame conferidos. Não houve novo smoke autenticado ou aceite no aparelho; confirmações anteriores continuam históricas. Como o hostname mudou, abrir este novo endereço no Safari; a instalação antiga permanece vinculada à origem anterior. Para push na nova origem, adicionar à Tela de Início e ativar notificações novamente.
+
 ## Situação
 
-Revisão de negócio/segurança posterior em 22/10: Vite6.4.5, cabeçalhos CSP/nosniff/referrer/frame e caminhos privados404; API preserva cookiesseguros/sessão/CSRF. Previews atuais local18208/móvel18524. Manutenção concluída pode avançar odômetro; alertas usam referência/intervalo, conforme [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Atualizar o app online após fechar completamente; os aceites visuais/push abaixo são anteriores e não foram repetidos manualmente nesta revisão. Testes/HTTP atuais constam do relatório.
+Revisão de negócio/segurança posterior em 22/10: Vite6.4.5, cabeçalhos CSP/nosniff/referrer/frame e caminhos privados404; API preserva cookiesseguros/sessão/CSRF. Previews atuais local18208/móvel7976. Manutenção concluída pode avançar odômetro; alertas usam referência/intervalo, conforme [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Atualizar o app online após fechar completamente; os aceites visuais/push abaixo são anteriores e não foram repetidos manualmente nesta revisão. Testes/HTTP atuais constam do relatório.
 
 Modo noturno adicionado em 22/10: lua/sol no cabeçalho do app; seletor também em login e offline. Escolha salva neste navegador/origem; sem escolha válida usa aparência do sistema ao abrir. Para receber a versão nova no iPhone, fechar completamente pela multitarefa e reabrir online. Usuário confirmou “Sim, tema escuro funcionando” após receber esse roteiro; aceite visual específico do tema concluído por confirmação manual. Revisão mobile/PWA anterior permanece registrada abaixo.
 
 **Túnel autorizado explicitamente pelo usuário e aberto em 22/10/2026.** A recusa automática inicial foi superada pela autorização “autorizo pode abrir o tunel” para o destino Cloudflare/trycloudflare.com e trânsito do aplicativo/API/login/sessão pelo provedor.
 
-Endereço temporário atual: **https://select-pond-spouse-diy.trycloudflare.com**. Funciona enquanto computador, MySQL, API móvel, preview móvel e cloudflared estiverem ativos. Não é uma URL permanente. Processos atuais: túnel PID 16344, API móvel PID 15812, preview móvel PID 18524; estado local em `tmp/mobile-access.json`. Conferir caminhos e processos antes de encerrá-los; PIDs podem mudar.
+Endereço temporário atual: **https://success-browsers-showtimes-leg.trycloudflare.com**. Funciona enquanto computador, MySQL, API móvel, preview móvel e cloudflared estiverem ativos. Não é uma URL permanente. Processos atuais: túnel PID 18324, API móvel PID 1764, preview móvel PID 11000; estado local em `tmp/mobile-access.json`. Conferir caminhos e processos antes de encerrá-los; PIDs podem mudar.
 
 Correção offline de 22/10: tela “Modo offline” aparece antes do login e orienta conectar para consultar/salvar. Nova versão deve ser carregada com internet antes de repetir teste sem Wi-Fi/dados móveis. Ao reconectar há tentativa de recarga da sessão; não existe replay de gravações. JS/precache conferidos por HTTPS e 22 testes frontend/build aprovados. Usuário confirmou a mensagem/botão no iPhone após fechar completamente pela multitarefa e reabrir online; confirmou também que voltou a carregar ao reconectar. Atualização do shell não exige desativar notificações, remover o app ou trocar as chaves.
 
 Correção iPhone de 22/10: Apple rejeitou o subject VAPID local com HTTP 403/BadJwtToken. Configurado `WEBPUSH_SUBJECT` no processo da API móvel para o endereço HTTPS atual acima, preservando chaves e inscrição. Apple passou a aceitar HTTP 201 e usuário confirmou recebimento no iPhone, inclusive pelo botão de teste. **Usar esse mesmo subject HTTPS no processo do scheduler ao testar alertas no iPhone**, pois um terminal novo que herde o valor local do .env voltará a receber a rejeição. Não é necessário gerar chaves ou inscrição novas.
 
-O usuário informou que usará iPhone. Este documento prepara um acesso de teste, não uma publicação de produção. Financeiro/T3 continua desativado. Banco/schema, .env, APP_KEY e chaves VAPID não foram alterados.
+O usuário informou que usará iPhone. Este documento prepara um acesso de teste, não uma publicação de produção. O adiamento financeiro de 22/10 foi superado; a T3 está ativa em 23/10. Banco/schema, .env, APP_KEY e chaves VAPID não foram alterados.
 
 ## Estrutura preparada
 

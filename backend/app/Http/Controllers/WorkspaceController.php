@@ -117,7 +117,7 @@ class WorkspaceController extends Controller
 
     public function reports(Request $request)
     {
-        $data = $request->validate(['inicio' => ['required', 'date_format:Y-m-d'], 'fim' => ['required', 'date_format:Y-m-d', 'after_or_equal:inicio'], 'motocicleta_id' => ['nullable', 'integer']]);
+        $data = $request->validate(['inicio' => ['required', 'date_format:Y-m-d'], 'fim' => ['required', 'date_format:Y-m-d', 'after_or_equal:inicio'], 'motocicleta_id' => ['nullable', 'integer', 'min:1']]);
         if (CarbonImmutable::parse($data['inicio'])->addYears(10)->lt(CarbonImmutable::parse($data['fim']))) {
             throw ValidationException::withMessages(['fim' => 'Selecione um período de até dez anos.']);
         }

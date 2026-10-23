@@ -1,4 +1,29 @@
-# Continuação do MotoCare - retomada futura da T3
+# Continuação do MotoCare - T1/T2/T3
+
+## Acesso móvel da T3 - 23/10/2026
+
+Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
+
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite manual novo da T3 solicitado ao usuário e ainda não registrado.
+
+## T3 integrada e validada - 23/10/2026
+
+A instrução de iniciar T3 substitui o adiamento anterior. Implementados Gastos/Abastecimentos, Relatórios, CSV e impressão/Salvar PDF; código em `feature/t3-financeiro`, baseado em 5cdce58. Não integrar automaticamente em master. Consultar [VALIDACAO_T3.md](VALIDACAO_T3.md), [RETOMADA_T3.md](RETOMADA_T3.md) e [ENTREGA.md](ENTREGA.md). Os registros de 22/10 abaixo são históricos.
+
+Ativação: config/features.php e .env.example usam FEATURE_FINANCEIRO=true. Nenhum .env privado foi editado nesta máquina; quem herdou false em outro ambiente deve habilitar explicitamente, limpar config cache se houver e reiniciar. GET autenticado /api/features retorna somente financeiro:boolean; sessão/carregamento/menu/rotas são coerentes com esse valor. false continua suportado, com APIs financeiras404 e T1/T2 ativos.
+
+Correções da retomada: motocicleta_id=0 não pode selecionar todas as motos; resultados de filtros anteriores não permanecem na tela após falha/alteração; relatório captura período/moto da consulta e desativa controles em voo. CSV usa vírgula decimal, BOM UTF-8, escape de texto e proteção contra fórmulas. Tabelas financeiras rolam em seu contêiner, sem arrastar a página inteira; impressão remove essas larguras mínimas. Garagem/Configurações não remontam por seleção de moto; primeira moto preserva confirmação de cadastro. Ícones decorativos do menu ocultos da leitura acessível.
+
+Validação atual: 54 testes backend / 486 verificações e 34 frontend/build aprovados, Pint nos arquivos alterados e Composer validate. Chrome isolado em 1440x1000/390x844 com MySQL real: cadastro, garagem, combustível87,50 e arredondamento 1,52, trocas de tipo, reparos 0,10+0,20, duas motos, manutenção 100,01 com odômetro 1100 e pendente 500 fora dos totais, relatório 187,81/2,00/189,81 por escopo. CSV baixado e PDF impresso/renderizado conferidos. Isolamento404, CSRF 419, inválidos 422 e logout 401; nenhuma exceção JS no fluxo aprovado. Duas contas/sessões descartáveis removidas por rotina limitada às fixtures; nenhum dado da conta do usuário usado.
+
+Sem nova migration: schema de despesas/descrição existente e aplicado. SPEC/DER atualizados quanto ao estado/contrato, sem alterar T1/T2, chaves, push ou banco existente. Prévia local já serve o build da T3; atualizar com Ctrl+F5 ou fechar completamente/reabrir PWA online. Aceite específico do usuário no iPhone/Safari desta T3 ainda complementar; não confundir viewport móvel do Chromium com teste no aparelho. Nenhum push adicional ou scheduler contínuo iniciado.
+
+## Acesso móvel reaberto - 22/10/2026
+
+- [x] Novo túnel autorizado pelo usuário e validado: https://own-deeper-just-photo.trycloudflare.com.
+- [x] Página/assets/PWA e CSRF 200; cookies Secure/HttpOnly/no-store; acesso anônimo privado 401 e caminhos de segredos 404. Servidores locais8000/5173 preservados.
+- [x] Estado local/roteiro móvel atualizados; apenas processos móveis reiniciados, com novo APP_URL/WEBPUSH_SUBJECT. Sem alteração de código/schema/.env/chaves, sem scheduler contínuo/push adicional ou novo aceite manual. A instalação antiga do iPhone usa a origem anterior; abrir/adicionar o novo endereço para testar notificações nesta origem.
+
 
 ## PDF final após publicação - 22/10/2026
 
@@ -11,7 +36,7 @@ Esta edição consolida os fontes em [guibirlem/motocare](https://github.com/gui
 
 O [PDF único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf) foi substituído por edição atual de nove páginas: repositório/commits, arquitetura, DER com km_base, backlog e atas retrospectivas, incluindo os aceites reais e a revisão de negócio/segurança. Todas as páginas foram renderizadas e inspecionadas; texto/links conferidos. Pacote de continuidade local e checksum atualizados. Registros históricos abaixo mantêm o estado observado em cada etapa; menções antigas a PDF histórico/publicação pendente foram superadas por esta edição.
 
-Nenhuma regra ou configuração privada mudou nesta preparação documental/publicação. As validações funcionais vigentes são 45 testes backend/391 verificações e 28 frontend/build, com limites em REVISAO_LOGICA_SEGURANCA.md. Financeiro/T3 continua false; para retomar, clonar/puxar a versão atual e seguir RETOMADA_T3.md. Não copiar .env, APP_KEY ou VAPID de outra máquina.
+Nenhuma regra ou configuração privada mudou nesta preparação documental/publicação. As validações funcionais vigentes são 45 testes backend / 391 verificações e 28 frontend/build, com limites em REVISAO_LOGICA_SEGURANCA.md. Financeiro/T3 continua false; para retomar, clonar/puxar a versão atual e seguir RETOMADA_T3.md. Não copiar .env, APP_KEY ou VAPID de outra máquina.
 
 ## Revisão de negócio e segurança - 22/10/2026
 
@@ -21,7 +46,7 @@ Usuário também escolheu 90% do intervalo, substituindo 90% do odômetro absolu
 
 Segurança: respostas antigas descartadas após logout/troca de sessão e refresh fora de ordem; senhas novas limitadas a 72 bytes sem NUL; campos de senha atual com formato inválido tratados como 422; perfil/senha com limites separados de dez tentativas/minuto. Erros da API sanitizados mesmo com debug, com Retry-After preservado; CSRF/isolamento/criptografia push conferidos. Preview com CSP/nosniff/referrer/frame e bloqueio explícito de caminhos privados. Vite atualizado para 6.4.5/plugin Vue 5.2.4 e transitivas corrigidas; npm audit/Composer audit sem avisos conhecidos. APP_KEY/chave privada VAPID/padrões de credenciais não encontrados nos fontes elegíveis/build; .env/chaves mantidos privados, sem rotação. Chave pública VAPID é necessária ao Web Push.
 
-Validações atuais: 45 testes backend/391 verificações, 28 frontend, build, Pint dos arquivos alterados e Composer validate aprovados. HTTP/MySQL com contas descartáveis aprovou odômetro/histórico/datas/referência de alerta, isolamento, CSRF e logout; fixtures removidas. Banco atual: zero divergências manutenção/odômetro, concluídas futuras/sem KM e referências pendentes inválidas. HTTPS autorizado confirmou assets/PWA 200, acesso anônimo privado 401, caminhos de segredos 404 e cookies móveis Secure/HttpOnly. Previews substituídos pelo Vite corrigido: local PID 18208 e móvel 18524; API/túnel preservados, estado em tmp/mobile-access.json. Pint global aponta só formatação de quatro migrations antigas não alteradas; relatório explicita limite. Aceites visuais/push anteriores não foram repetidos manualmente; nenhum scheduler contínuo iniciado. Fontes consolidados na publicação descrita acima; pacote/checksum atualizados; T3 desativada.
+Validações atuais: 45 testes backend / 391 verificações, 28 frontend, build, Pint dos arquivos alterados e Composer validate aprovados. HTTP/MySQL com contas descartáveis aprovou odômetro/histórico/datas/referência de alerta, isolamento, CSRF e logout; fixtures removidas. Banco atual: zero divergências manutenção/odômetro, concluídas futuras/sem KM e referências pendentes inválidas. HTTPS autorizado confirmou assets/PWA 200, acesso anônimo privado 401, caminhos de segredos 404 e cookies móveis Secure/HttpOnly. Previews substituídos pelo Vite corrigido: local PID 18208 e móvel 18524; API/túnel preservados, estado em tmp/mobile-access.json. Pint global aponta só formatação de quatro migrations antigas não alteradas; relatório explicita limite. Aceites visuais/push anteriores não foram repetidos manualmente; nenhum scheduler contínuo iniciado. Fontes consolidados na publicação descrita acima; pacote/checksum atualizados; T3 desativada.
 
 ## Modo noturno - 22/10/2026
 

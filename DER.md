@@ -64,6 +64,6 @@ erDiagram
 
 Todos os registros do domínio têm timestamps. FKs do domínio têm exclusão em cascata; excluir moto apaga seus históricos/alertas. Campos opcionais e precisão decimal: consultar [SPEC.md](SPEC.md). Tabelas auxiliares de sessão, cache, jobs e recuperação de senha seguem as migrations Laravel e não representam funcionalidades de recuperação de senha implementadas na interface.
 
-Escopo vigente após nova orientação de 19/10/2026: T1/T2 ativos; T3 adiada. A entidade despesas e a coluna descricao permanecem no schema, sem rollback ou exclusão de dados. Sua presença no DER não indica funcionalidade financeira ativa.
+Escopo vigente em 23/10/2026: T1/T2/T3 ativos, incluindo despesas e relatórios. A T3 reutiliza despesas e descricao já existentes; nenhuma migration nova, rollback ou exclusão de dados nesta retomada. FEATURE_FINANCEIRO=true por padrão; false permite desativação funcional sem mudar o schema. O adiamento de 19/10 foi superado pelo usuário.
 
 19/10/2026: Web Push substitui Firebase. Migration aditiva inclui push_subscription e push_endpoint_hash em usuarios. O campo fcm_token é legado sem uso; não há migração possível de token FCM para inscrição Push API e o usuário precisa ativar o navegador novamente.

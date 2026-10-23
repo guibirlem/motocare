@@ -12,6 +12,7 @@ Route::prefix('api')->group(function () {
     Route::post('register', [HistoryController::class, 'register'])->middleware('throttle:5,1');
     Route::post('login', [HistoryController::class, 'login'])->middleware('throttle:5,1');
     Route::middleware(['auth', 'auth.session'])->group(function () {
+        Route::get('features', fn () => response()->json(['financeiro' => (bool) config('features.financeiro')]));
         Route::put('user', [WorkspaceController::class, 'profile'])->middleware('throttle:10,1,account-profile');
         Route::put('password', [WorkspaceController::class, 'password'])->middleware('throttle:10,1,account-password');
         Route::post('push-test', [WorkspaceController::class, 'testPush'])->middleware('throttle:3,1');

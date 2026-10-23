@@ -1,46 +1,27 @@
-# Entrega MotoCare - 22/10/2026
+# Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
-## Fontes e histórico
+## Código e histórico
 
-Repositório público: [guibirlem/motocare](https://github.com/guibirlem/motocare). Branch de entrega: `master`. Atualização desta edição com a mensagem solicitada pelo usuário: **update task1 e task2 funcionando**. O SHA e os arquivos são verificáveis no [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).
+[Repositório](https://github.com/guibirlem/motocare), [branch T3](https://github.com/guibirlem/motocare/tree/feature/t3-financeiro) e [histórico da branch](https://github.com/guibirlem/motocare/commits/feature/t3-financeiro/). Commit desta integração identificado pela mensagem `feat: integra financeiro T3 e relatorios`. Não fazer merge automático em master; histórico T1/T2 preservado, base 5cdce58. A mensagem anterior `update task1 e task2 funcionando` e seu commit 5d554ed permanecem no histórico.
 
-Código funcional de referência confirmado: [5d554ed](https://github.com/guibirlem/motocare/commit/5d554ed7b5ee68c903c86a2bc6b6d062d7e58def). O PDF consolidado após a publicação fixa esse commit, acrescenta a ata de publicação e detalha segurança/continuidade; as alterações desta consolidação são documentais.
+## Entrega integrada
 
-A base remota anterior era `7f5b9cb` de 08/10/2026. A edição atual incorpora fontes integrados de 19/10 e revisão/aceites de 22/10, preservando o histórico e sem force push. O conector GitHub retornou HTTP 403 na tentativa de gravação; publicação pelo Git instalado, com autenticação de escrita disponível. O registro histórico desse bloqueio não representa o estado desta edição.
+T1/T2 mantidos e T3 integrada: CRUD de combustível/reparos, filtros/totais, relatórios por período/moto, meses vazios, CSV pt-BR e impressão/Salvar PDF. FEATURE_FINANCEIRO=true por padrão; GET autenticado /api/features sincroniza menu/rotas, e false mantém financeiro 404 sem afetar T1/T2. Nenhuma migration nova, sem alteração de chaves/.env ou dados da conta do usuário.
+
+Validação: 54 testes backend / 486 verificações e 34 frontend/build; Pint alterados/Composer validate; Chrome isolado desktop/móvel e HTTP/MySQL com duas contas próprias, CSV/PDF, CSRF 419, isolamento 404 e logout 401. Fixtures/sessões removidas. Detalhes e limites em [VALIDACAO_T3.md](VALIDACAO_T3.md); aceite novo no Safari/iPhone físico ainda complementar.
 
 ## Arquivo único da Parte 2
 
-[MotoCare - Arquivo único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), edição atual de nove páginas:
+[PDF consolidado](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf), edição de 23/10 com dez páginas: código/histórico, arquitetura, DER, backlog T1/T2/T3, atas retrospectivas, regras, segurança e evidências da integração T3. As atas derivam dos registros; não inventam reuniões ou participantes. A nova edição substitui o PDF de 22/10, que tratava T3 como adiada.
 
-1. Código-fonte e links clicáveis do repositório/histórico.
-2. Arquitetura da solução Vue/PWA, API Laravel, MySQL, scheduler e Web Push.
-3. DER atualizado, incluindo alertas.km_base e financeiro preservado/desativado.
-4. Sprint Backlog de T1/T2, suporte e planejamento futuro da T3.
-5. Atas retrospectivas dos ciclos: realizado, decisões, bloqueios e encaminhamentos.
-6. Regras atuais, evidências e limites das validações.
+## Instalar e continuar
 
-Todas as nove páginas foram renderizadas e conferidas; extração de texto, quatro links e marcadores verificados. Esta edição substitui os PDFs anteriores de seis e oito páginas. As atas são consolidações dos registros de trabalho, sem inventar reuniões, participantes ou datas.
+Seguir [README.md](README.md). Restaurar dependências com composer install/npm ci, conferir migrations e preservar APP_KEY/VAPID/.env existentes. Se herdou FEATURE_FINANCEIRO=false, habilitar no ambiente pretendido e limpar cache/reiniciar se necessário. O cadastro de manutenção não cria despesa automática: lançar cada serviço uma vez.
 
-## Escopo e evidências
+Ler [CONTINUACAO](CONTINUACAO.md), [TASKS](TASKS.md), [SPEC](SPEC.md), [MEMORY](MEMORY.md), depois [continuidade da T3](RETOMADA_T3.md). Túnel temporário e execução do scheduler são operações separadas; para notificações, manter scheduler ativo com contato VAPID válido.
 
-T1: alertas reais, Web Push com VAPID local, scheduler por minuto e ausência de repetição. T2: histórico de óleo, relação, pneus e freios; manutenção concluída eleva o odômetro somente se maior, em transação. Alertas usam 90% do intervalo entre referência e próximo limite. Conclusão/reprogramação de alerta permanece explícita.
+## Cópia local e segurança de entrega
 
-Aceites do usuário em 22/10: notificações no computador e iPhone em segundo plano, inclusive scheduler real; app instalado, telas/formulários, offline/reconexão e modo noturno. A revisão posterior de negócio/segurança validou 45 testes backend/391 verificações e 28 frontend/build, smoke HTTP/MySQL/HTTPS, dependências sem avisos conhecidos e fontes/build sem segredos privados encontrados. Esses aceites manuais não foram repetidos durante a preparação do PDF/publicação. Pint global acusa somente formatação legada de quatro migrations. Evidências e limites em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md).
+Pacote auxiliar `entrega/MotoCare-T1-T2-T3-2026-10-23.zip`, manifesto `entrega/fontes-t1-t2-t3-2026-10-23.json` e checksum `entrega/SHA256SUMS-T1-T2-T3-2026-10-23.txt`. Conferir com Get-FileHash -Algorithm SHA256. Pacotes anteriores são históricos; não sobrescrever fontes atuais com eles.
 
-Financeiro/T3 e relatórios continuam adiados, com `FEATURE_FINANCEIRO=false`; código/schema preservados, menu/rotas de interface retirados e API financeira 404 por padrão. Esta entrega não reativa T3 nem inicia scheduler contínuo.
-
-## Atualizar ou instalar
-
-Seguir [README.md](README.md). Em clone existente, conferir alterações locais e atualizar a branch preservando o trabalho do colega. Restaurar dependências por `composer install` e `npm ci`, executar `php artisan migrate` (inclui km_base) e validar antes de operar. Nunca usar `migrate:fresh` no banco com dados. Preservar `.env`, APP_KEY e chaves VAPID existentes; não transferi-los por Git ou pacote. Em instalação nova, seguir a geração local de chaves no README.
-
-O Git inclui fontes, exemplos de configuração, lockfiles, documentação e PDF; exclui dependências instaladas, builds, logs, caches, credenciais e chaves privadas. Os quatro legados remotos retirados são FcmService.php, config/firebase.php, FcmServiceTest.php e frontend/src/data/demo.js, substituídos pela integração real/Web Push.
-
-Scheduler: `php artisan schedule:work` em terminal no backend, com contato VAPID válido. Safari/iPhone exige contato externo válido, também no processo do scheduler. Túnel temporário não é hospedagem de produção.
-
-## Continuidade e cópia local
-
-Antes de retomar, ler [CONTINUACAO.md](CONTINUACAO.md), [TASKS.md](TASKS.md), [SPEC.md](SPEC.md) e [MEMORY.md](MEMORY.md); depois [RETOMADA_T3.md](RETOMADA_T3.md). Criar `feature/t3-financeiro` a partir da base atual e executar o checklist futuro.
-
-Cópia auxiliar local: `entrega/MotoCare-Retomada-T3-2026-10-22.zip`, manifesto `entrega/fontes-retomada-t3-2026-10-22.json` e `entrega/SHA256SUMS-Retomada-T3-2026-10-22.txt`. O diretório entrega é ignorado no Git porque duplica os fontes; no GitHub usar o clone ou Download ZIP. A cópia local inclui os mesmos fontes/documentos/PDF atuais. O pacote de 19/10 é histórico.
-
-Conferir o checksum local com `Get-FileHash entrega/MotoCare-Retomada-T3-2026-10-22.zip -Algorithm SHA256`. A preparação documental não alterou aplicação, schema, chaves ou configuração privada e não executou novamente as suítes funcionais.
+Git/pacote incluem fontes, documentação, exemplos, lockfiles e PDF. Não incluem .env, chaves privadas, dependências instaladas, build, logs, caches, binários auxiliares ou dados de teste. Diretório entrega é ignorado no Git por duplicar os fontes; usar clone/Download ZIP da branch para transferência pelo GitHub.

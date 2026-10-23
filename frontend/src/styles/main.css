@@ -266,6 +266,9 @@ button:disabled { opacity: .5; cursor: wait; }
 .wrap-text { overflow-wrap: anywhere; max-width: 360px; white-space: normal; }
 .report-content { display: flex; flex-direction: column; gap: 22px; }
 .report-content h2 { font-size: 20px; }
+.expense-table, .report-entries { min-width: 800px; }
+.report-monthly { min-width: 660px; }
+.report-entries .wrap-text { min-width: 160px; }
 
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -308,6 +311,8 @@ button:disabled { opacity: .5; cursor: wait; }
   html, body, #app, .app-shell, .app-body, .app-main { display: block; height: auto; overflow: visible; background: white; padding: 0; }
   .table-scroll { overflow: visible; }
   .data-table { font-size: 10px; }
+  .expense-table, .report-entries, .report-monthly { min-width: 0; }
+  .report-entries .wrap-text { min-width: 0; }
   .data-table td, .data-table th { padding: 6px; }
   thead { display: table-header-group; }
   tr, .metric-card { break-inside: avoid; }

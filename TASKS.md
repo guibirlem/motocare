@@ -1,4 +1,32 @@
-# Tarefas - T1/T2 e retomada futura da T3
+# Tarefas - T1/T2/T3
+
+## Acesso móvel da T3 - 23/10/2026
+
+Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
+
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite manual novo da T3 solicitado ao usuário e ainda não registrado.
+
+## T3 integrada - 23/10/2026
+
+Solicitação de iniciar T3 substitui o adiamento anterior. Escopo adotado: gastos, abastecimentos, relatórios, CSV e impressão/Salvar PDF. Registros de 22/10 abaixo são históricos.
+
+- [x] T3.0: base reexecutada 45 testes backend / 391 verificações e 28 frontend; todas as migrations aplicadas. Branch `feature/t3-financeiro` a partir de 5cdce58; sem mudança de schema.
+- [x] T3.1: API de despesas/regras financeiras revisada; regressões de arredondamento/tolerância, limites, opcionais, trocas de tipo, propriedade, filtros e CSRF. Relatório rejeita motocicleta_id=0, negativos e frações em vez de interpretar zero como todas as motos.
+- [x] T3.2: menu/rotas Gastos e Relatórios integrados. Gastos com filtro de mês/tipo, histórico completo, formulário, cálculo automático, CRUD real e totais do filtro. Limpar resultados antigos antes de nova consulta; moto selecionada isola registros.
+- [x] T3.3: relatórios por período inclusivo e moto/todas; meses vazios, totais por combustível/reparos/manutenções concluídas, CSV pt-BR protegido contra fórmulas e impressão/PDF. Filtros alterados invalidam relatório anterior; controles bloqueados durante consulta.
+- [x] T3.4: FEATURE_FINANCEIRO=true como padrão e no exemplo. GET autenticado /api/features sincroniza navegação com API; false mantém financeiro 404 e menu/rotas indisponíveis sem quebrar T1/T2. Configuração carregada antes de expor usuário no cliente e limpa ao sair.
+- [x] T3.5: 54 testes backend / 486 verificações e 34 frontend aprovados; build, Pint alterados e Composer validate. Chrome headless isolado + HTTP/MySQL aprovou CRUD, duas motos/contas, CSRF 419, isolamento 404, validação 422, logout 401, CSV e impressão. Telas1440px/390px, formulários/tabelas e tema conferidos; fixtures e sessões próprias removidas.
+- [x] T3.6: documentação/retomada/contratos atualizados, PDF acadêmico de dez páginas renderizado e conferido, manifesto/pacote/checksum e varredura sem segredos; entrega em `feature/t3-financeiro`, preservando master.
+- [ ] Aceite complementar do usuário da T3 no iPhone/Safari real. A revisão de 390px é Chromium; aceites anteriores do iPhone e push de 22/10 continuam válidos para a versão conferida naquela data, sem alegar novo envio/aceite em 23/10.
+
+Evidências e reprodução em [VALIDACAO_T3.md](VALIDACAO_T3.md). Sem novos dados estruturais/migrations, sem mudanças em .env/APP_KEY/VAPID e sem disparar notificações.
+
+## Acesso móvel reaberto - 22/10/2026
+
+- [x] Novo túnel autorizado pelo usuário e validado: https://own-deeper-just-photo.trycloudflare.com.
+- [x] Página/assets/PWA e CSRF 200; cookies Secure/HttpOnly/no-store; acesso anônimo privado 401 e caminhos de segredos 404. Servidores locais8000/5173 preservados.
+- [x] Estado local/roteiro móvel atualizados; apenas processos móveis reiniciados, com novo APP_URL/WEBPUSH_SUBJECT. Sem alteração de código/schema/.env/chaves, sem scheduler contínuo/push adicional ou novo aceite manual. A instalação antiga do iPhone usa a origem anterior; abrir/adicionar o novo endereço para testar notificações nesta origem.
+
 
 ## PDF consolidado após a publicação - 22/10/2026
 
@@ -13,7 +41,7 @@
 - [x] Mensagem solicitada pelo usuário: `update task1 e task2 funcionando`; histórico anterior preservado, sem force push. O SHA desta edição deve ser consultado no [histórico](https://github.com/guibirlem/motocare/commits/master/).
 - [x] PDF atualizado para nove páginas, renderizadas e conferidas; texto, links e marcadores verificados. Inclui arquitetura, DER com km_base, backlog, atas e evidências atuais.
 - [x] Auditoria dos arquivos elegíveis sem credenciais/chaves privadas; dependências, caches, logs e builds excluídos. Pacote local e checksum recompostos.
-- Esta etapa publica resultados já validados: 45 testes backend/391 verificações e 28 frontend/build. Não houve mudança de aplicação, schema, configuração privada ou novo envio push nesta publicação. T3 continua desativada.
+- Esta etapa publica resultados já validados: 45 testes backend / 391 verificações e 28 frontend/build. Não houve mudança de aplicação, schema, configuração privada ou novo envio push nesta publicação. T3 continua desativada.
 
 ## Revisão de negócio e segurança - 22/10/2026
 
@@ -22,7 +50,7 @@
 - [x] Regra escolhida: 90% do intervalo entre referência e próximo limite; campo km_base, migration aditiva aplicada, DER/SPEC, formulário/progresso/scheduler e backfill conservador dos alertas antigos atualizados. Fronteira 71.278/71.279 e ausência de repetição testadas; zero referências pendentes inválidas no banco.
 - [x] Corrigir respostas tardias de sessão/garagem, senhas truncadas/NUL, formato de senha atual, normalização de placa, exposição de erros e limitação de tentativas em perfil/senha. Opcionais do financeiro preservado ajustados sem ativá-lo.
 - [x] Atualizar Vite/plugin/transitivas, auditar dependências (npm/Composer sem avisos conhecidos), bloquear caminhos privados e aplicar cabeçalhos de segurança; checar fontes/build sem APP_KEY/chave privada VAPID ou padrões de credenciais.
-- [x] 45 testes backend/391 verificações, 28 frontend, build, Pint alterados e Composer validate; smoke HTTP/MySQL e HTTPS, limpeza das fixtures e relatório [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Pint global: apenas formatação legada de quatro migrations não alteradas.
+- [x] 45 testes backend / 391 verificações, 28 frontend, build, Pint alterados e Composer validate; smoke HTTP/MySQL e HTTPS, limpeza das fixtures e relatório [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Pint global: apenas formatação legada de quatro migrations não alteradas.
 - [x] Atualizar continuidade/memória/contratos/DER/manifesto e pacote/checksum. Sem novo envio push/scheduler contínuo, sem rotação de chaves ou publicação remota. T3 segue desativada.
 
 ## Preparação de continuidade - 22/10/2026

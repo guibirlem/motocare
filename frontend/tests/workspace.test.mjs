@@ -85,6 +85,33 @@ function sessionWorkspace(get) {
 }
 function deferred(){let resolve;const promise=new Promise(done=>resolve=done);return {promise,resolve}}
 
+test('financial configuration is loaded before exposing the authenticated workspace',async()=>{
+ const features=deferred()
+ const s=sessionWorkspace(async path=>path==='/features'?features.promise:{data:path==='/user'?{id:1,nome:'Pilot'}:[]})
+ const loading=s.startSession()
+ await Promise.resolve();await Promise.resolve()
+ assert.equal(s.workspace.user,null)
+ assert.equal(s.workspace.features.financeiro,false)
+ features.resolve({data:{financeiro:true}})
+ await loading
+ assert.equal(s.workspace.user.id,1)
+ assert.equal(s.workspace.features.financeiro,true)
+ s.clearSession()
+ assert.equal(s.workspace.features.financeiro,false)
+})
+
+test('a late financial configuration cannot enable routes for a later account',async()=>{
+ const features=deferred()
+ const s=sessionWorkspace(async path=>path==='/features'?features.promise:{data:{id:1,nome:'Previous'}})
+ const loading=s.startSession()
+ await Promise.resolve();await Promise.resolve()
+ s.clearSession();s.workspace.user={id:2}
+ features.resolve({data:{financeiro:true}})
+ await loading
+ assert.equal(s.workspace.user.id,2)
+ assert.equal(s.workspace.features.financeiro,false)
+})
+
 test('late private responses cannot restore a signed out session or its motorcycles',async()=>{
  const user=deferred(), s=sessionWorkspace(()=>user.promise)
  const loading=s.startSession();await Promise.resolve();await Promise.resolve()

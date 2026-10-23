@@ -93,3 +93,5 @@ Todos os registros do domínio têm timestamps. FKs do domínio têm exclusão e
 Escopo vigente em 23/10/2026: T1/T2/T3 ativos, incluindo despesas e relatórios. A T3 reutiliza despesas e descricao já existentes; nenhuma migration nova, rollback ou exclusão de dados nesta retomada. FEATURE_FINANCEIRO=true por padrão; false permite desativação funcional sem mudar o schema. O adiamento de 19/10 foi superado pelo usuário.
 
 19/10/2026: Web Push substitui Firebase. Migration aditiva inclui push_subscription e push_endpoint_hash em usuarios. O campo fcm_token é legado sem uso; não há migração possível de token FCM para inscrição Push API e o usuário precisa ativar o navegador novamente.
+
+23/10/2026 - lembretes: tipo_alerta string passa a aceitar abastecimento, seguro, ipva e licenciamento; os tres ultimos exigem data_limite sem KM. Campos/tabelas/FKs permanecem intactos; nenhuma migration nova. Contrato e evidencia em [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md).

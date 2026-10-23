@@ -13,6 +13,9 @@ trait BrowserSubscription
         $details = openssl_pkey_get_details($key);
         $encode = fn (string $value) => rtrim(strtr(base64_encode($value), '+/', '-_'), '=');
 
-        return ['endpoint' => 'https://updates.push.services.mozilla.com/wpush/v2/'.$suffix, 'keys' => ['p256dh' => $encode("\x04".$details['ec']['x'].$details['ec']['y']), 'auth' => $encode(random_bytes(16))]];
+        // OpenSSL pode omitir zeros iniciais; cada coordenada P-256 precisa ter 32 bytes.
+        $publicKey = "\x04".str_pad($details['ec']['x'], 32, "\x00", STR_PAD_LEFT).str_pad($details['ec']['y'], 32, "\x00", STR_PAD_LEFT);
+
+        return ['endpoint' => 'https://updates.push.services.mozilla.com/wpush/v2/'.$suffix, 'keys' => ['p256dh' => $encode($publicKey), 'auth' => $encode(random_bytes(16))]];
     }
 }

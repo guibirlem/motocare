@@ -9,7 +9,7 @@
     "preview": "node scripts/local.mjs preview",
     "start": "node scripts/local.mjs start",
     "mobile": "node scripts/mobile.mjs",
-    "test": "node --test tests/workspace.test.mjs tests/push.test.mjs tests/finance.test.mjs tests/insights.test.mjs tests/presentation.test.mjs tests/passwordRecovery.test.mjs"
+    "test": "node --test tests/workspace.test.mjs tests/push.test.mjs tests/finance.test.mjs tests/insights.test.mjs tests/presentation.test.mjs tests/passwordRecovery.test.mjs tests/reminders.test.mjs"
   },
   "dependencies": {
     "axios": "^1.11.0",

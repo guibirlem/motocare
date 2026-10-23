@@ -272,7 +272,17 @@ class WorkspaceController extends Controller
 
     private function alertData(Request $request, $motorcycle, ?Alerta $existing = null): array
     {
-        $data = $request->validate(['tipo_alerta' => ['required', Rule::in(array_keys(MotorcycleServices::alerts()))], 'km_limite' => ['nullable', 'required_without:data_limite', 'integer', 'between:1,4294967295'], 'km_base' => ['nullable', 'integer', 'between:0,4294967295'], 'data_limite' => ['nullable', 'required_without:km_limite', 'date_format:Y-m-d']]);
+        $dateOnly = in_array($request->input('tipo_alerta'), MotorcycleServices::DATE_ALERTS, true);
+        $data = $request->validate([
+            'tipo_alerta' => ['required', Rule::in(array_keys(MotorcycleServices::alerts()))],
+            'km_limite' => $dateOnly ? ['prohibited'] : ['nullable', 'required_without:data_limite', 'integer', 'between:1,4294967295'],
+            'km_base' => $dateOnly ? ['prohibited'] : ['nullable', 'integer', 'between:0,4294967295'],
+            'data_limite' => [$dateOnly ? 'required' : 'nullable', 'required_without:km_limite', 'date_format:Y-m-d'],
+        ], [
+            'data_limite.required' => 'Informe a data de vencimento deste lembrete.',
+            'km_limite.prohibited' => 'Seguro, IPVA e licenciamento usam vencimento por data.',
+            'km_base.prohibited' => 'Este lembrete não utiliza quilometragem de referência.',
+        ]);
         $base = null;
         if (! empty($data['km_limite'])) {
             $currentKm = (int) $motorcycle->refresh()->km_atual;

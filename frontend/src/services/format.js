@@ -7,7 +7,7 @@ export const today = (date = new Date()) => {
 }
 export const decimal = value => String(value ?? '').replace(',', '.')
 export const serviceTypes = { troca_oleo: 'Troca de óleo', kit_relacao: 'Kit relação', pneus: 'Pneus', freios: 'Freios', lubrificacao_corrente: 'Lubrificação da corrente', ajuste_corrente: 'Ajuste de tensão da corrente', freio_dianteiro: 'Pastilhas/lonas dianteiras', freio_traseiro: 'Pastilhas/lonas traseiras', pneu_dianteiro: 'Pneu dianteiro', pneu_traseiro: 'Pneu traseiro', filtro_oleo: 'Filtro de óleo', fluido_suspensao: 'Fluido da suspensão (bengala)', liquido_arrefecimento: 'Líquido de arrefecimento', cabo_embreagem: 'Cabo de embreagem', cabo_acelerador: 'Cabo de acelerador', vela: 'Vela' }
-export const alertTypes = { ...serviceTypes, revisao: 'Revisão' }
+export const alertTypes = { ...serviceTypes, revisao: 'Revisão', abastecimento: 'Próximo abastecimento', seguro: 'Seguro', ipva: 'Impostos (IPVA)', licenciamento: 'Licenciamento' }
 export const fuelTypes = { gasolina: 'Gasolina', gasolina_aditivada: 'Gasolina aditivada', etanol: 'Etanol', diesel: 'Diesel' }
 export const expenseTypes = { combustivel: 'Combustível', reparo: 'Reparo', documentacao: 'Documentação', impostos: 'Impostos', outros: 'Outros' }
 export function alertThresholdKm(alert) {

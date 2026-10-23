@@ -1,5 +1,7 @@
 # MotoCare
 
+Novo painel **Lembretes** no Dashboard: prazos reais, sugestões e Configurar integrado a Alertas. Inclui abastecimento, seguro, IPVA e licenciamento, sem migration nova. [Validação](VALIDACAO_LEMBRETES.md):81backend/867 verificações,49frontend/build e Chrome/SQLite. Versão atual em [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes); pacote local `entrega/MotoCare-Lembretes-2026-10-23.zip`. SMTP Gmail ainda exige senha de app local. Etapas/PDF anteriores descritos abaixo são históricos.
+
 Recuperação de senha integrada ao login: solicitação por e-mail, link temporário de uso único e nova senha. **Envio externo aguarda configuração SMTP**; usuário ainda não possui provedor e pediu preparar a integração. [Configuração e validação](RECUPERACAO_SENHA.md):77 testes backend/771 verificações,43 frontend/build e Chrome com SMTP/SQLite isolados. Sem nova migration ou alteração de dados/configuração privada. Fontes atuais em [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), preservando as branches anteriores. Pacote local `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`; PDF acadêmico anterior histórico.
 
 Landing gratuita integrada: visitantes veem a apresentação na raiz; `/apresentacao` permite conferi-la também com a conta conectada. `/dashboard` mantém login/painel e `?cadastro=1` abre o cadastro existente. Sem mudanças no backend/banco. [Validação da landing](VALIDACAO_LANDING.md); fontes em [feature/landing-page](https://github.com/guibirlem/motocare/tree/feature/landing-page), preservando as entregas anteriores.
@@ -10,7 +12,8 @@ PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: 
 
 ## Entrega e histórico
 
-- Versão atual: [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), incluindo landing e todos os complementos anteriores. Usar esta branch para continuar o projeto.
+- Versão atual: [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes), incluindo recuperação, landing e todos os complementos anteriores. Usar esta branch para continuar o projeto.
+- Etapa anterior de recuperação: [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), preservada como referência histórica.
 - Entrega anterior de complementos: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), com [validação](VALIDACAO_COMPLEMENTOS.md), preservada como referência histórica.
 
 - [Repositório e fontes](https://github.com/guibirlem/motocare) e [histórico de commits](https://github.com/guibirlem/motocare/commits/master/).

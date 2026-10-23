@@ -1,5 +1,9 @@
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
+## Complemento mais recente: lembretes
+
+Fontes atuais em [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes), sobre89cffc1, preservando branches anteriores. Painel/Sugeridos/Configurar integrado às APIs reais; abastecimento/seguro/IPVA/licenciamento, sem schema novo. [Evidências](VALIDACAO_LEMBRETES.md):81backend/867 verificações,49frontend/build e Chrome/SQLite. Pacote `entrega/MotoCare-Lembretes-2026-10-23.zip`, manifesto/checksum próprios. SMTP Gmail pendente de senha de app local. Etapas/PDF seguintes permanecem históricos.
+
 ## Complemento atual: recuperação de senha
 
 Fontes atuais na branch [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), sobre a landing80b7b7f, preservando master/T3/complementos/landing. Integração de recuperação com SMTP, páginas públicas e links temporários, sem schema ou dados privados modificados.77 testes backend/771 verificações,43 frontend/build e fluxo Chrome/SMTP local isolado aprovados. **Entrega externa de e-mail pendente de provedor SMTP**, conforme escolha do usuário. [Instruções e evidências](RECUPERACAO_SENHA.md).

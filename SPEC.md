@@ -1,5 +1,11 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Lembretes no dashboard — 23/10/2026
+
+- Acrescenta `abastecimento`, `seguro`, `ipva` e `licenciamento` ao tipo_alerta string, separados dos serviços de manutenção, sem migration nova. Seguro/IPVA/licenciamento exigem data_limite válida e proíbem km_limite/km_base preenchidos (null/vazio como ausência); abastecimento mantém KM/data e90% do intervalo ou data. Usuário informa os vencimentos; sem renovação automática ou dedução de prazo oficial.
+- Dashboard mostra ativos/prazos/restante e Sugeridos/Configurar. Sugestões excluem tipos ativos, voltam após concluir/excluir e reconhecem pneus genéricos legados. Atalhos abrem formulário existente; tipo ativo reutiliza pendente ou aponta notificado sem reativar. CRUD/novo alerta manual/filtro de concluídos preservados.
+- Scheduler/Web Push incluem os tipos novos com locks/retries/aceite/não repetição atuais. Concluir não altera odômetro nem cria serviço/despesa/abastecimento/pagamento/novo vencimento. Erro de carga não se apresenta como lista vazia; offline preservado. [Validação e uso](VALIDACAO_LEMBRETES.md).
+
 ## Recuperação de senha — 23/10/2026
 
 - Páginas públicas `/esqueci-senha` e `/redefinir-senha`; link somente no modo Entrar do AccountGate. Login/cadastro/landing/rotas privadas atuais preservados.

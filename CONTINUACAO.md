@@ -1,5 +1,11 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Painel de lembretes — 23/10/2026
+
+Dashboard com Lembretes/ativos/prazos e Sugeridos/Configurar; sugestões também em Alertas, reutilizando formulário/CRUD/CSRF. Tipos novos abastecimento, seguro, IPVA e licenciamento; últimos três apenas por data. Sem schema/migration/dependências novas nem registros automáticos de pagamento/manutenção/abastecimento/novo ciclo. T1/scheduler/90%/push e demais recursos preservados. Ler [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md) e SPEC.
+
+81backend/867 verificações,49frontend/build, Pint e Chrome320–1440px/temas com SQLite isolado aprovados; CRUD/persistência/links/foco/sugestões/503/offline/botões conferidos. Helper P-256 de testes corrigido para zeros iniciais, sem mudar produção. Fixtures removidas e QA8010/5190 encerrado ao concluir; sem dados reais/.env/chaves/push/e-mails alterados. Local8000/5173/MySQL3306 disponíveis na última checagem. Sem novo túnel/iPhone físico. Branch atual `feature/lembretes` sobre89cffc1, pacote próprio; PDF anterior histórico. Pendência SMTP Gmail separada.
+
 ## Recuperação de senha integrada — 23/10/2026
 
 Preparação Gmail posterior: usuário forneceu o remetente; host587/SMTP/usuário/remetente preparados somente no `.env` privado. MAIL_PASSWORD continua vazio e MAIL_MAILER=log até o usuário gerar e inserir localmente uma senha de app do Google e ativar smtp. Nenhum envio externo feito. Não publicar o endereço pessoal nem pedir a senha pelo chat. Instruções em RECUPERACAO_SENHA; depois conferir config/reiniciar API e testar recebimento real.

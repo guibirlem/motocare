@@ -1,5 +1,12 @@
 # Tarefas - T1/T2/T3
 
+## Lembretes inspirados na referência — 23/10/2026
+
+- [x] Painel responsivo de lembretes/ativos/prazos/status e Sugeridos/Configurar no Dashboard, com temas/identidade existentes.
+- [x] Atalhos para formulário/CRUD e foco por registro; sugestões reconhecem categorias ativas e voltam após conclusão, sem renovação automática.
+- [x] Abastecimento/seguro/IPVA/licenciamento no contrato de alertas; últimos três por data, scheduler existente e nenhum schema/registro financeiro automático.
+- [x]81backend/867 verificações,49frontend/build, Pint e Chrome/SQLite320–1440px/temas/CRUD/persistência/503/offline/botões aprovados. [Evidências](VALIDACAO_LEMBRETES.md). Sem push real/SMTP externo/novo aceite Safari físico.
+
 ## Recuperação de senha — 23/10/2026
 
 - [x] Preparar SMTP Gmail/587 e remetente no `.env` local por indicação do usuário, preservando senhas/chaves e mantendo envio desativado até credencial válida.

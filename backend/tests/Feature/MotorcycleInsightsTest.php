@@ -107,6 +107,22 @@ class MotorcycleInsightsTest extends TestCase
         $this->assertEquals(30, app(MotorcycleInsights::class)->fuel($moto)['consumo_medio']);
     }
 
+    public function test_cycles_identify_the_exact_closing_fuel_record_even_on_the_same_day(): void
+    {
+        $user = $this->pilot();
+        $moto = $this->moto($user);
+        $this->signed($user);
+        $path = '/api/motocicletas/'.$moto->id.'/despesas';
+        $this->postJson($path, $this->fuel())->assertCreated();
+        $second = $this->postJson($path, $this->fuel(['km_abastecimento' => 1100, 'litros' => '5.00', 'valor' => '30.00']))->assertCreated()->json('id');
+        $third = $this->postJson($path, $this->fuel(['km_abastecimento' => 1300, 'litros' => '8.00', 'valor' => '48.00']))->assertCreated()->json('id');
+        $this->getJson('/api/motocicletas/'.$moto->id.'/painel')->assertOk()->assertJsonCount(2, 'ciclos')
+            ->assertJsonPath('ciclos.0.abastecimento_id', $second)->assertJsonPath('ciclos.0.km_l', 20)
+            ->assertJsonPath('ciclos.1.abastecimento_id', $third)->assertJsonPath('ciclos.1.km_l', 25);
+        $this->getJson('/api/relatorios?inicio=2026-10-01&fim=2026-10-31&motocicleta_id='.$moto->id)
+            ->assertOk()->assertJsonPath('estatisticas.0.ciclos.0.abastecimento_id', $second);
+    }
+
     public function test_chain_counts_completed_adjustments_since_latest_kit_and_rain_is_idempotent_and_due(): void
     {
         $user = $this->pilot();

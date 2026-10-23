@@ -3,12 +3,13 @@ import { computed, onMounted, ref, watch } from 'vue'
 import MetricCard from './MetricCard.vue'
 import TaskStatus from './TaskStatus.vue'
 import FinanceCharts from './FinanceCharts.vue'
+import HistoryTimeline from './HistoryTimeline.vue'
 import { api } from '../services/api'
 import { workspace as s } from '../services/workspace'
 import { useTask } from '../composables/useTask'
 import { feedEntries } from '../services/insights'
 import { formatCurrency, formatDate, formatKm, serviceTypes, expenseTypes, today } from '../services/format'
-const props = defineProps({ records: { type: Array, default: () => [] } })
+const props = defineProps({ records: { type: Array, default: () => [] }, recordsUnavailable: Boolean, recordsLoading: Boolean })
 const emit = defineEmits(['refresh', 'busy'])
 const { busy, error, notice, run } = useTask()
 watch(busy, value => emit('busy', value))
@@ -53,8 +54,7 @@ onMounted(() => run(load))
       </div>
       <div class="dashboard-analysis-grid">
         <section class="panel timeline-panel"><h3>Linha do tempo</h3><div class="toolbar"><label class="field">Categoria do histórico<select v-model="category"><option value="">Todas</option><option value="manutencao">Manutenção</option><option v-if="s.features.financeiro" value="combustivel">Abastecimento</option><option v-if="s.features.financeiro" value="despesa">Despesas</option></select></label><label class="field">Período do histórico<input v-model="month" type="month" /></label><button class="button button-ghost" @click="month = ''">Todos os períodos</button></div>
-          <ol class="record-feed"><li v-for="row in feed.slice(0, limit)" :key="row.key"><div><time>{{ formatDate(row.data) }}</time><strong>{{ row.category === 'manutencao' ? serviceTypes[row.tipo_servico] : expenseTypes[row.tipo_despesa] }}</strong><p>{{ row.descricao || row.posto || 'Sem descrição' }}</p><span v-if="row.category === 'manutencao'">{{ row.status === 'concluido' ? 'Feito' : 'Pendente' }} · {{ row.km_servico == null ? 'KM não informado' : formatKm(row.km_servico) + ' km' }}</span><span v-else-if="row.km_abastecimento != null">{{ formatKm(row.km_abastecimento) }} km · {{ row.tanque_cheio ? 'Tanque cheio' : 'Parcial' }}</span></div><strong>{{ formatCurrency(row.valor) }}</strong></li></ol>
-          <p v-if="!feed.length">Nenhum registro neste filtro.</p><button v-if="feed.length > limit" class="button button-ghost" @click="limit += 20">Mostrar mais registros</button>
+          <HistoryTimeline :rows="feed" :cycles="data.ciclos" :limit="limit" :loading="busy || recordsLoading" :unavailable="recordsUnavailable"/><button v-if="!busy && !recordsLoading && !recordsUnavailable && feed.length > limit" class="button button-ghost" @click="limit += 20">Mostrar mais registros</button>
         </section>
         <FinanceCharts v-if="s.features.financeiro" :statistics="[{ motocicleta_id: Number(s.motoId), ciclos: data.ciclos }]" :prices="data.precos_mensais" :categories="data.categorias" :motorcycles="s.motos" />
       </div>

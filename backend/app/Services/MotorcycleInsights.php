@@ -33,7 +33,7 @@ class MotorcycleInsights
             if ($row->tanque_cheio) {
                 if ($anchor !== null && $km > $anchor->km_abastecimento && $volume > 0) {
                     $distance = $km - $anchor->km_abastecimento;
-                    $cycles[] = ['data' => $row->data->toDateString(), 'km' => $distance, 'litros' => Money::decimal($volume), 'km_l' => round($distance * 100 / $volume, 2)];
+                    $cycles[] = ['data' => $row->data->toDateString(), 'km' => $distance, 'litros' => Money::decimal($volume), 'km_l' => round($distance * 100 / $volume, 2), 'abastecimento_id' => $row->id];
                 }
                 $anchor = $row;
                 $volume = 0;

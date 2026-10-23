@@ -1,5 +1,12 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Histórico visual e identidade dos ciclos — 23/10/2026
+
+- Dashboard/Gastos/Manutenções usam linha do tempo com resumos mensais; tabela anterior continua disponível nas telas de registros. Filtros/CRUD/formulários/rotas/validações e cálculos preservados.
+- `ciclos` do painel/relatórios acrescenta `abastecimento_id`: ID do registro que encerra o ciclo. Campo aditivo, sem alteração de schema ou de cálculo. Frontend usa ID/data para associar consumo a um item, incluindo vários no mesmo dia. Sem ciclo completo válido não mostra consumo. Gastos consulta o painel autenticado existente, com falha de estatística tratada separadamente dos registros.
+- Resumos somam centavos dos itens no filtro, excluindo manutenções pendentes e mostrando-as à parte; média ponderada por distâncias/litros dos ciclos válidos ligados aos itens. Comparação percentual só contra o mês imediatamente anterior com dados válidos no mesmo filtro. Limite de exibição não trunca totais do mês completo no filtro.
+- Dashboard espera fontes completas antes do resumo; erro de histórico não representa lista vazia/total parcial. Offline/cache/ownership atuais preservados. [Validação](VALIDACAO_HISTORICO.md).
+
 ## Lembretes no dashboard — 23/10/2026
 
 - Acrescenta `abastecimento`, `seguro`, `ipva` e `licenciamento` ao tipo_alerta string, separados dos serviços de manutenção, sem migration nova. Seguro/IPVA/licenciamento exigem data_limite válida e proíbem km_limite/km_base preenchidos (null/vazio como ausência); abastecimento mantém KM/data e90% do intervalo ou data. Usuário informa os vencimentos; sem renovação automática ou dedução de prazo oficial.

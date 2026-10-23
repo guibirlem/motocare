@@ -1,5 +1,12 @@
 # Tarefas - T1/T2/T3
 
+## Histórico em linha do tempo — 23/10/2026
+
+- [x] Trilha/ícones/valores/datas/detalhes e resumos por mês no Dashboard, Gastos e Manutenções, com temas/mobile.
+- [x] Preservar tabela por alternância, filtros, edição/exclusão, formulários/favoritos e regras; foco ao editar pelo histórico.
+- [x] Associar consumo pelo ID do abastecimento final, sem médias falsas; totais em centavos/pendentes separados/média ponderada/comparação válida/Mostrar mais sem truncar totais.
+- [x]82backend/878 verificações,55frontend/build, Pint e Chrome/SQLite320–1440px/temas/CRUD/carga lenta/503/offline aprovados. [Evidências](VALIDACAO_HISTORICO.md). Sem schema/dados reais/configuração privada/push/SMTP alterados ou novo aceite Safari físico.
+
 ## Lembretes inspirados na referência — 23/10/2026
 
 - [x] Painel responsivo de lembretes/ativos/prazos/status e Sugeridos/Configurar no Dashboard, com temas/identidade existentes.

@@ -1,5 +1,9 @@
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
+## Complemento mais recente: histórico em linha do tempo
+
+Fontes atuais [feature/historico-timeline](https://github.com/guibirlem/motocare/tree/feature/historico-timeline), sobre728fd50, mantendo anteriores. [Evidências](VALIDACAO_HISTORICO.md):82backend/878 verificações,55frontend/build e Chrome/SQLite. Histórico visual integrado ao Dashboard/Gastos/Manutenções, com tabela e regras preservadas; sem schema novo. Pacote `entrega/MotoCare-Historico-2026-10-23.zip` e manifesto/checksum próprios. Etapas/PDF seguintes permanecem históricos; Gmail sem mudança nesta tarefa.
+
 ## Complemento mais recente: lembretes
 
 Fontes atuais em [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes), sobre89cffc1, preservando branches anteriores. Painel/Sugeridos/Configurar integrado às APIs reais; abastecimento/seguro/IPVA/licenciamento, sem schema novo. [Evidências](VALIDACAO_LEMBRETES.md):81backend/867 verificações,49frontend/build e Chrome/SQLite. Pacote `entrega/MotoCare-Lembretes-2026-10-23.zip`, manifesto/checksum próprios. SMTP Gmail pendente de senha de app local. Etapas/PDF seguintes permanecem históricos.

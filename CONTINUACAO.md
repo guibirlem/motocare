@@ -1,5 +1,11 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Histórico no estilo da referência — 23/10/2026
+
+HistoryTimeline reutilizável no Dashboard/Gastos/Manutenções, com trilha/ícones/valores/datas, detalhes reais e resumos mensais. Tabela anterior acessível por botão; filtros/CRUD/favoritos/formulários/rotas preservados. Consumo por ciclo existente, associado ao novo campo opcional `ciclos[].abastecimento_id`; sem schema/migration/dependências novas. Pendentes fora do total, média ponderada, comparação só com mês anterior válido e totais completos mesmo com Mostrar mais. Ler [VALIDACAO_HISTORICO.md](VALIDACAO_HISTORICO.md) e SPEC.
+
+82backend/878 verificações,55frontend/build, Pint e Chrome/SQLite320–1440px/temas/CRUD/tabela/filtros/mesmo dia/carga lenta/503/offline aprovados. Dashboard não mostra resumo parcial antes das fontes completas; falha de estatística em Gastos preserva registros sem inventar média. Fixtures removidas e QA8010/5190 encerrado; local de uso preservado, sem dados reais/.env/chaves/push/Gmail alterados. Branch atual `feature/historico-timeline` sobre728fd50, pacote próprio, branches/PDF anteriores históricos. SMTP continua pendente de senha de app local.
+
 ## Painel de lembretes — 23/10/2026
 
 Dashboard com Lembretes/ativos/prazos e Sugeridos/Configurar; sugestões também em Alertas, reutilizando formulário/CRUD/CSRF. Tipos novos abastecimento, seguro, IPVA e licenciamento; últimos três apenas por data. Sem schema/migration/dependências novas nem registros automáticos de pagamento/manutenção/abastecimento/novo ciclo. T1/scheduler/90%/push e demais recursos preservados. Ler [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md) e SPEC.

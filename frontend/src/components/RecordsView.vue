@@ -1,36 +1,48 @@
 <script setup>
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import SectionTitle from './SectionTitle.vue'
 import MetricCard from './MetricCard.vue'
 import TaskStatus from './TaskStatus.vue'
+import HistoryTimeline from './HistoryTimeline.vue'
 import { api } from '../services/api'
 import { workspace as s, syncMaintenanceMileage, refreshMotos } from '../services/workspace'
 import { useTask } from '../composables/useTask'
 import { decimal, formatCurrency, formatDate, formatKm, fuelTotal, serviceTypes, today, fuelTypes, expenseTypes } from '../services/format'
-import { fuelPriceFromTotal } from '../services/insights'
+import { feedEntries, fuelPriceFromTotal } from '../services/insights'
 import { expensePayload } from '../services/finance'
 
 const props = defineProps({ kind: { type: String, required: true } })
 const isExpense = props.kind === 'despesas'
 const route = useRoute(), stations = ref([]), stationName = ref(''), calculationHint = ref(''), calculationMode = ref('price')
 const rows = ref([]), form = ref(null), editId = ref(null), filter = ref(''), month = ref(today().slice(0, 7))
+const display = ref('timeline'), cycles = ref([]), metricsUnavailable = ref(false), loadFailed = ref(false), formElement = ref(null), formHeading = ref(null)
 const { busy, error, notice, run } = useTask()
 const path = '/motocicletas/' + s.motoId + '/' + props.kind
 const visible = computed(() => rows.value.filter(row => !filter.value || (isExpense ? row.tipo_despesa : row.status) === filter.value))
+const timelineRows = computed(() => isExpense ? feedEntries([], visible.value) : feedEntries(visible.value, []))
 const total = computed(() => (isExpense ? visible.value : rows.value.filter(row => row.status === 'concluido')).reduce((sum, row) => sum + Math.round(Number(row.valor) * 100), 0) / 100)
 
 async function load() {
   rows.value = []
+  cycles.value = []; metricsUnavailable.value = false; loadFailed.value = false
   const params = isExpense && month.value ? { mes: month.value } : {}
-  rows.value = (await api.get(path, { params })).data
-  if (isExpense) stations.value = (await api.get('/postos')).data
+  try { rows.value = (await api.get(path, { params })).data }
+  catch (error) { loadFailed.value = true; throw error }
+  if (isExpense) {
+    const [favorites, insights] = await Promise.allSettled([api.get('/postos'), api.get('/motocicletas/' + s.motoId + '/painel')])
+    if (insights.status === 'fulfilled') cycles.value = insights.value.data.ciclos || []
+    else metricsUnavailable.value = true
+    if (favorites.status === 'rejected') throw favorites.reason
+    stations.value = favorites.value.data
+  }
 }
 function open(row = null) {
   editId.value = row?.id || null
   form.value = row ? { ...row } : { data: today(), valor: '', descricao: '', ...(isExpense ? { tipo_despesa: 'combustivel', litros: '', preco_litro: '', posto: '', posto_id: '', combustivel: 'gasolina', km_abastecimento: '', tanque_cheio: false } : { tipo_servico: 'troca_oleo', status: 'concluido', km_servico: '', natureza: 'preventiva' }) }
   calculationHint.value = ''; calculationMode.value = 'price'
   error.value = ''; notice.value = ''
+  nextTick(() => { formElement.value?.scrollIntoView({ block: 'start', behavior: 'auto' }); formHeading.value?.focus({ preventScroll: true }) })
 }
 function calculate(source = 'liters') {
   if (form.value?.tipo_despesa !== 'combustivel') return
@@ -121,8 +133,8 @@ onMounted(() => { if (s.motoId) { run(load); quickOpen() } })
         <label class="field">Filtro<select v-model="filter" :disabled="busy"><option value="">Todos</option><template v-if="isExpense"><option v-for="(name, key) in expenseTypes" :key="key" :value="key">{{ key === 'reparo' ? 'Reparos' : name }}</option></template><template v-else><option value="concluido">Feito</option><option value="pendente">Pendente</option></template></select></label>
         <button class="button button-ghost" :disabled="busy" @click="run(load)">Atualizar</button>
       </div>
-      <form v-if="form" class="demo-form" @submit.prevent="save">
-        <h3>{{ editId ? 'Editar' : 'Novo' }} registro</h3>
+      <form v-if="form" ref="formElement" class="demo-form record-edit-form" @submit.prevent="save">
+        <h3 ref="formHeading" tabindex="-1">{{ editId ? 'Editar' : 'Novo' }} registro</h3>
         <fieldset :disabled="busy">
           <div class="form-grid">
             <label class="field">Data<input v-model="form.data" type="date" :max="!isExpense && form.status === 'concluido' ? today() : undefined" required /></label>
@@ -154,7 +166,11 @@ onMounted(() => { if (s.motoId) { run(load); quickOpen() } })
         </fieldset>
       </form>
       <p v-if="isExpense" class="field-hint">Registre cada gasto uma única vez: custos de manutenção já entram no total combinado dos relatórios. Para um serviço registrado em Manutenções, não crie outro lançamento em Reparos.</p>
-      <div class="table-scroll">
+      <div class="record-view-switch" role="group" aria-label="Visualização do histórico"><button class="button button-ghost" :aria-pressed="display==='timeline'" @click="display='timeline'">Linha do tempo</button><button class="button button-ghost" :aria-pressed="display==='table'" @click="display='table'">Tabela</button></div>
+      <section v-if="display==='timeline'" class="records-timeline-panel" aria-label="Histórico em linha do tempo">
+        <HistoryTimeline :rows="timelineRows" :cycles="cycles" :loading="busy" :unavailable="loadFailed" :metrics-unavailable="metricsUnavailable"><template #actions="{row}"><button class="button button-small button-ghost" :disabled="busy" @click="open(rows.find(item=>item.id===row.id))">Editar</button><button class="button button-small button-danger" :disabled="busy" @click="remove(row)">Excluir</button></template></HistoryTimeline>
+      </section>
+      <div v-show="display==='table'" class="table-scroll">
         <table class="data-table" :class="{ 'expense-table': isExpense }">
           <caption class="sr-only">Registros da moto selecionada</caption>
           <thead><tr><th>Data</th><th>Tipo</th><th>Descrição</th><th>Valor</th><th>{{ isExpense ? 'Abastecimento' : 'Quilometragem / status' }}</th><th>Ações</th></tr></thead>
@@ -172,3 +188,10 @@ onMounted(() => { if (s.motoId) { run(load); quickOpen() } })
     </template>
   </div>
 </template>
+
+<style scoped>
+.record-edit-form{scroll-margin-top:110px}
+.record-view-switch{display:flex;gap:8px;flex-wrap:wrap}.record-view-switch .button{min-height:44px}.record-view-switch [aria-pressed=true]{background:var(--lime-pale);border-color:var(--lime-dark);box-shadow:inset 0 -2px var(--lime-dark)}
+.records-timeline-panel{padding:24px;background:var(--surface);border:1px solid var(--gray-200);border-radius:18px;min-width:0}
+@media(max-width:600px){.records-timeline-panel{padding:18px 14px}.record-view-switch .button{flex:1 1 120px}}
+</style>

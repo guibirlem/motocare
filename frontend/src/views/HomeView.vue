@@ -12,6 +12,7 @@ import { formatCurrency, formatDate, serviceTypes, alertTypes, alertThresholdKm,
 import { useTask } from '../composables/useTask'
 const { busy, error, notice, run } = useTask()
 const records = ref([]), alerts = ref([])
+const historyLoadFailed = ref(false)
 const insights = ref(null)
 const insightsBusy = ref(false)
 const router = useRouter(), alertLoadFailed = ref(false)
@@ -26,6 +27,7 @@ async function load() {
   const path = '/motocicletas/' + s.motoId
   const results = await Promise.allSettled([api.get(path + '/manutencoes'), api.get(path + '/alertas')])
   records.value = results[0].status === 'fulfilled' ? results[0].value.data : []
+  historyLoadFailed.value = results[0].status === 'rejected'
   alerts.value = results[1].status === 'fulfilled' ? results[1].value.data : []
   alertLoadFailed.value = results[1].status === 'rejected'
   const failure = results.find(result => result.status === 'rejected')
@@ -46,7 +48,7 @@ async function refresh() {
     <TaskStatus :error="error" :notice="notice" />
     <section v-if="!s.motos.length" class="panel garage-empty"><h3>Sua próxima viagem começa na garagem</h3><p>Cadastre sua primeira moto para acompanhar os gastos e organizar a manutenção.</p><RouterLink to="/garagem" class="button button-lime">Cadastrar primeira moto</RouterLink></section>
     <template v-else>
-      <DashboardInsights ref="insights" :records="records" @refresh="run(load)" @busy="insightsBusy = $event">
+      <DashboardInsights ref="insights" :records="records" :records-unavailable="historyLoadFailed" :records-loading="busy" @refresh="run(load)" @busy="insightsBusy = $event">
       <template #after-metrics><RemindersPanel :alerts="alerts" :current-km="selectedKm" :loading="busy" :unavailable="alertLoadFailed" @configure="configureReminder"/></template>
       </DashboardInsights>
       <div class="metrics-grid metrics-four">

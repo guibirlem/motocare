@@ -1,5 +1,7 @@
 # MotoCare
 
+Histórico agora em **linha do tempo** no Dashboard, Gastos e Manutenções, com ícones, valores/datas, consumo real e resumos mensais. Tabela/filtros/CRUD preservados. [Validação](VALIDACAO_HISTORICO.md):82backend/878 verificações,55frontend/build e Chrome/SQLite. Versão atual [feature/historico-timeline](https://github.com/guibirlem/motocare/tree/feature/historico-timeline), pacote local `entrega/MotoCare-Historico-2026-10-23.zip`; etapas/PDF abaixo históricos. Sem migration nova ou mudança de credenciais/Gmail.
+
 Novo painel **Lembretes** no Dashboard: prazos reais, sugestões e Configurar integrado a Alertas. Inclui abastecimento, seguro, IPVA e licenciamento, sem migration nova. [Validação](VALIDACAO_LEMBRETES.md):81backend/867 verificações,49frontend/build e Chrome/SQLite. Versão atual em [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes); pacote local `entrega/MotoCare-Lembretes-2026-10-23.zip`. SMTP Gmail ainda exige senha de app local. Etapas/PDF anteriores descritos abaixo são históricos.
 
 Recuperação de senha integrada ao login: solicitação por e-mail, link temporário de uso único e nova senha. **Envio externo aguarda configuração SMTP**; usuário ainda não possui provedor e pediu preparar a integração. [Configuração e validação](RECUPERACAO_SENHA.md):77 testes backend/771 verificações,43 frontend/build e Chrome com SMTP/SQLite isolados. Sem nova migration ou alteração de dados/configuração privada. Fontes atuais em [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), preservando as branches anteriores. Pacote local `entrega/MotoCare-Recuperacao-Senha-2026-10-23.zip`; PDF acadêmico anterior histórico.
@@ -12,7 +14,8 @@ PWA Vue 3/Vite com API JSON Laravel 12/PHP 8.2+ e MySQL do XAMPP. Escopo atual: 
 
 ## Entrega e histórico
 
-- Versão atual: [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes), incluindo recuperação, landing e todos os complementos anteriores. Usar esta branch para continuar o projeto.
+- Versão atual: [feature/historico-timeline](https://github.com/guibirlem/motocare/tree/feature/historico-timeline), incluindo lembretes, recuperação, landing e todos os complementos anteriores. Usar esta branch para continuar o projeto.
+- Etapa anterior de lembretes: [feature/lembretes](https://github.com/guibirlem/motocare/tree/feature/lembretes), preservada como referência histórica.
 - Etapa anterior de recuperação: [feature/recuperacao-senha](https://github.com/guibirlem/motocare/tree/feature/recuperacao-senha), preservada como referência histórica.
 - Entrega anterior de complementos: [feature/complementos-motocicletas](https://github.com/guibirlem/motocare/tree/feature/complementos-motocicletas), com [validação](VALIDACAO_COMPLEMENTOS.md), preservada como referência histórica.
 

@@ -6,6 +6,15 @@ Integração aditiva à base da landing/T1/T2/T3. O login contém **Esqueci minh
 
 O usuário informou que ainda não possui SMTP e pediu para preparar a integração. O ambiente de uso continua com `MAIL_MAILER=log`, sem credenciais de envio. **E-mails externos ainda não são enviados.** A solicitação retorna 503 enquanto a entrega não estiver configurada, sem criar token nem registrar links nos logs. O restante do sistema continua disponível.
 
+Atualização: usuário escolheu Gmail e informou seu remetente. Host `smtp.gmail.com`, porta587, esquema smtp e endereço foram preparados somente no `.env` privado, preservando os demais valores. Ainda falta a senha de app: MAIL_PASSWORD vazio, MAIL_MAILER=log e nenhum envio externo. O endereço pessoal não é incluído nestes documentos ou no Git.
+
+## Concluir com Gmail
+
+1. Entrar na Conta Google que será remetente e ativar a verificação em duas etapas.
+2. Abrir [Senhas de app](https://myaccount.google.com/apppasswords), criar uma para MotoCare e copiar o valor. A opção pode não estar disponível em contas com certas restrições; consultar [ajuda oficial](https://support.google.com/accounts/answer/185833?hl=pt-BR).
+3. Colar o valor **somente em `MAIL_PASSWORD` do `backend/.env` local** e definir `MAIL_MAILER=smtp`. Não usar a senha normal do Gmail nem enviar a senha de app ao chat. Usuário e remetente devem corresponder à conta autorizada.
+4. Conferir FRONTEND_URL, executar `php artisan config:clear`, reiniciar a API e testar com uma conta própria. O envio/recebimento Gmail real ainda está pendente, sem alterar o aceite dos testes isolados anteriores.
+
 ## Configurar quando houver um provedor
 
 Preencher **apenas no `backend/.env` local**, usando os dados fornecidos pelo serviço de e-mail. Não enviar credenciais pelo chat e não versioná-las:

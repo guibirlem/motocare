@@ -2,6 +2,9 @@
 
 ## Recuperação de senha — 23/10/2026
 
+- [x] Preparar SMTP Gmail/587 e remetente no `.env` local por indicação do usuário, preservando senhas/chaves e mantendo envio desativado até credencial válida.
+- [ ] Usuário ativar verificação em duas etapas, gerar senha de app, inserir somente no `.env` e trocar MAIL_MAILER para smtp; reiniciar API e validar recebimento. Não solicitar segredo pelo chat.
+
 - [x] Esqueci minha senha no login, solicitação e nova senha com identidade/temas/mobile existentes.
 - [x] API JSON/CSRF, resposta genérica, limites por IP/e-mail, SMTP seguro e origem confiável do link; log mailer bloqueado.
 - [x] Token hash/60min/uso único, transação e bloqueio, revogação de sessões/push, invalidação por troca de senha/e-mail e cadastro de endereço reutilizado.

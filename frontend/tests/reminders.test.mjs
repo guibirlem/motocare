@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { activeReminders, reminderDraft, reminderPayload, reminderState, suggestedReminders } from '../src/services/reminders.js'
+import { activeReminders, reminderDraft, reminderPayload, reminderState, reminderSuggestions, suggestedReminders } from '../src/services/reminders.js'
 import { alertTypes, serviceTypes } from '../src/services/format.js'
 
 test('reminders show remaining mileage and calendar days independently, including today and overdue', () => {
@@ -37,12 +37,23 @@ test('active reminders prioritize due items, preserve notified reminders and nev
   assert.deepEqual(rows, before)
 })
 
-test('suggestions exclude active categories, recognize legacy tires and return after explicit completion', () => {
+test('suggestions exclude saved categories including completed reminders and recognize legacy tires', () => {
   const rows = [{ tipo_alerta: 'seguro', status: 'notificado' }, { tipo_alerta: 'pneus', status: 'pendente' }, { tipo_alerta: 'ipva', status: 'concluido' }]
   const keys = suggestedReminders(rows).map(item => item.type)
   assert.equal(keys.includes('seguro'), false); assert.equal(keys.includes('pneu_dianteiro'), false); assert.equal(keys.includes('pneu_traseiro'), false)
-  assert.equal(keys.includes('ipva'), true)
-  assert.equal(suggestedReminders([{ tipo_alerta: 'seguro', status: 'concluido' }]).some(item => item.type === 'seguro'), true)
+  assert.equal(keys.includes('ipva'), false)
+  assert.equal(suggestedReminders([{ tipo_alerta: 'seguro', status: 'concluido' }]).some(item => item.type === 'seguro'), false)
+  assert.equal(suggestedReminders([{ tipo_alerta: 'pneus', status: 'concluido' }]).some(item => item.type.startsWith('pneu_')), false)
+})
+
+test('all saved categories remove suggestions without hiding active reminders or leaking to another motorcycle', () => {
+  const rows = reminderSuggestions.map((item, index) => ({ id: index + 1, tipo_alerta: item.type, status: index < 2 ? 'pendente' : 'concluido' }))
+  const before = structuredClone(rows)
+  assert.deepEqual(suggestedReminders(rows), [])
+  assert.deepEqual(activeReminders(rows, 1000).map(row => row.tipo_alerta), ['abastecimento', 'troca_oleo'])
+  assert.equal(suggestedReminders([]).length, 8)
+  assert.deepEqual(rows, before)
+  assert.equal(suggestedReminders(rows.filter(row => row.tipo_alerta !== 'seguro')).some(item => item.type === 'seguro'), true)
 })
 
 test('calendar drafts never send leftover mileage and new types remain separate from maintenance services', () => {

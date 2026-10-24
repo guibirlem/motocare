@@ -1,5 +1,11 @@
 # Painel de lembretes — 23/10/2026
 
+## Sugestões ocultas após configuração — regra posterior
+
+Por novo pedido do usuário, a sugestão permanece oculta enquanto existir qualquer lembrete salvo daquele tipo para a moto, incluindo concluídos. Esta regra substitui as referências anteriores abaixo a voltar às sugestões após concluir. Excluir o último registro do tipo permite sugeri-lo novamente. Todos configurados ocultam a seção inteira; Novo alerta continua disponível para novos vencimentos. Textos e estado vazio ajustados; não exibe sugestões antigas durante carregamento. Sem migration, mudança de API/dados ou armazenamento de preferências no navegador.
+
+Duas regressões falharam com o helper anterior;56 testes frontend e build aprovados após a alteração. Chrome/SQLite isolado: cancelar e erro422 mantêm a sugestão; salvar Seguro oculta; recarregar/concluir continuam ocultando e conclusão segue no histórico; outra moto mantém oito sugestões; configurar os outros sete tipos pela interface oculta a seção no Dashboard e Alertas mesmo após recarga; sete ativos preservados e Novo alerta abre formulário. Sem exceção JavaScript. Conta/sessões descartáveis removidas e servidores QA encerrados; sem dados reais/push/e-mail alterados. Evidência tmp/configured-reminders-results.json; sem novo teste físico Safari. Preview5173 e pacote/publicação incrementais atualizados.
+
 Preferência posterior do usuário: botões Configurar verdes preenchidos e com cantos retos, reutilizando button/button-lime do site, mantendo44px e disposição responsiva. Build aprovado; Chrome isolado em5173 com API simulada320/390/768/1440px/dois temas conferiu cores iguais ao botão padrão, raio0, altura/sem corte e abertura do formulário de Seguro. Capturas tmp/reminder-green-*.png inspecionadas. Mudança só visual, sem escrita na API/dados reais ou repetição das suítes anteriores; validações abaixo descrevem também as etapas históricas.
 
 ## Complemento visual e acesso em Alertas

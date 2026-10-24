@@ -1,5 +1,10 @@
 # Tarefas - T1/T2/T3
 
+## Ocultar sugestões já configuradas — 23/10/2026
+
+- [x] Tipo salvo sai dos sugeridos da moto e permanece oculto após recarga ou conclusão; considera todo o histórico retornado pela API. Remover o último registro do tipo permite sugeri-lo novamente. Todos configurados ocultam a seção Sugeridos; Novo alerta preservado para novos vencimentos. Não usa estado local compartilhado nem muda registros/status no banco.
+- [x] Corrigir orientação de estados vazios e evitar sugestões antigas durante carregamento.56 testes frontend/build aprovados; regressões falharam antes da correção. Chrome/SQLite real isolado conferiu cancelar/falhar sem ocultar, salvar/recarregar/concluir ocultando, isolamento entre duas motos, oito tipos configurados sem seção no Dashboard/Alertas e sete ativos preservados. Fixtures removidas/QA encerrado; sem backend/schema/dados reais/segredos/push/e-mail alterados. [Evidências](VALIDACAO_LEMBRETES.md).
+
 ## Botões verdes no padrão do site — 23/10/2026
 
 - [x] Configurar reutiliza button/button-lime, verde preenchido e cantos retos, preservando tamanho mínimo44px e adaptação mobile. Build aprovado; Chrome isolado/API simulada320/390/768/1440px, claro/escuro: cores iguais ao botão padrão, raio0, sem cortes e abertura da configuração de Seguro confirmados. Sem escrita na API/dados ou nova execução das suítes; demais aceites anteriores permanecem históricos.

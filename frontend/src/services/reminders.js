@@ -38,7 +38,8 @@ export function activeReminders(rows, currentKm, reference = today()) {
 }
 
 export function suggestedReminders(rows) {
-  const configured = new Set(rows.filter(row => row.status !== 'concluido').map(row => row.tipo_alerta))
+  // Um tipo salvo continua configurado mesmo após a conclusão do lembrete.
+  const configured = new Set(rows.map(row => row.tipo_alerta))
   return reminderSuggestions.filter(item => !configured.has(item.type) && !(item.type.startsWith('pneu_') && configured.has('pneus')))
 }
 

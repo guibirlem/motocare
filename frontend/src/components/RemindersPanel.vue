@@ -31,18 +31,18 @@ const iconClass = type => type === 'abastecimento' ? 'reminder-fuel' : isDateRem
             <div class="reminder-bottom"><span class="reminder-status">{{ alert.state.label }}</span><RouterLink :to="{ path: '/alertas', hash: '#lembrete-' + alert.id }" :aria-label="'Ver lembrete: ' + (alertTypes[alert.tipo_alerta] || alert.tipo_alerta)">Ver lembrete <span aria-hidden="true">→</span></RouterLink></div>
           </article>
         </div>
-        <p v-else class="reminders-empty">Nenhum lembrete ativo. Escolha um cuidado abaixo para começar.</p>
+        <p v-else class="reminders-empty">{{ suggestions.length ? 'Nenhum lembrete ativo. Escolha um cuidado abaixo para começar.' : 'Nenhum lembrete ativo. Programe o próximo vencimento em Alertas.' }}</p>
       </div>
-      <div v-if="suggestions.length" class="reminders-suggestions">
-        <div class="reminders-label"><h3>Sugeridos</h3><span>Configure uma vez por vencimento</span></div>
+      <div v-if="suggestions.length && !loading" class="reminders-suggestions">
+        <div class="reminders-label"><h3>Sugeridos</h3><span>Escolha um lembrete para configurar</span></div>
         <div class="reminder-suggestion-list"><article v-for="item in suggestions" :key="item.type" class="reminder-suggestion">
           <span class="reminder-icon" :class="iconClass(item.type)"><AppIcon :name="item.icon"/></span>
           <div class="reminder-suggestion-copy"><h4>{{ item.label }}</h4><p>{{ item.hint }}</p></div>
           <button class="button button-lime reminder-configure" :disabled="loading" :aria-label="'Configurar ' + item.label" @click="$emit('configure', item.type)">Configurar</button>
         </article></div>
       </div>
-      <p v-else-if="suggestionsOnly" class="reminders-empty">Todos os lembretes sugeridos já estão configurados. Use Novo alerta para outros cuidados.</p>
-      <p class="reminders-footnote">Seguro, IPVA e licenciamento usam a data que você informar. O lembrete não registra serviços ou pagamentos nem renova automaticamente.</p>
+      <p v-else-if="suggestionsOnly && !loading" class="reminders-empty">Todos os lembretes sugeridos já estão configurados. Use Novo alerta para outros cuidados.</p>
+      <p class="reminders-footnote">Seguro, IPVA e licenciamento usam a data que você informar. O lembrete não registra serviços ou pagamentos nem renova automaticamente. Para repetir um cuidado já configurado, use Novo alerta.</p>
     </template>
   </section>
 </template>

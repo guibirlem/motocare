@@ -1,5 +1,9 @@
 # Tarefas - T1/T2/T3
 
+## Reabrir túnel — 23/10/2026
+
+- [x] Novo pedido atendido em https://internet-fingers-robinson-leo.trycloudflare.com, com serviços móveis8001/5180 separados do local. HTML/build/recursos200, CSRF200/cookiesseguros/no-store, privados401/segredos404 e local5173 preservado. [Acesso e estado](ACESSO_CELULAR.md). Sem alteração de `.env`/chaves/schema/dados, novo smoke autenticado/push/e-mail ou scheduler iniciado; validações funcionais anteriores preservadas.
+
 ## Ocultar sugestões já configuradas — 23/10/2026
 
 - [x] Tipo salvo sai dos sugeridos da moto e permanece oculto após recarga ou conclusão; considera todo o histórico retornado pela API. Remover o último registro do tipo permite sugeri-lo novamente. Todos configurados ocultam a seção Sugeridos; Novo alerta preservado para novos vencimentos. Não usa estado local compartilhado nem muda registros/status no banco.

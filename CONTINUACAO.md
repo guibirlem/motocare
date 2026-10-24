@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Túnel atual — 23/10/2026
+
+Usuário pediu abrir após conferência indicar nenhum cloudflared ativo. Novo HTTPS https://internet-fingers-robinson-leo.trycloudflare.com, túnel17644/API14420/preview1452, portas8001/5180; estado tmp/mobile-access.json. APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT corretos no processo móvel, debugfalse/cookiesseguros, sem alterar `.env`/chaves/dados ou parar outros processos. Build público atual e recursos200/CSRF200/no-store/HttpOnly-Secure, privados401/segredos404/local5173 preservado conferidos. Sem login autenticado novo/push/e-mail/scheduler/Safari físico. [Acesso](ACESSO_CELULAR.md); origem nova exige abrir novo link e, para PWA/push, instalação/permissão nessa origem. Documentação operacional não substitui as validações funcionais abaixo.
+
 ## Sugeridos desaparecem após configurar — 23/10/2026
 
 Pedido posterior do usuário substitui o retorno automático das sugestões após conclusão: suggestedReminders agora considera todos os tipos salvos da moto, incluindo concluídos. Oculta cada item e a seção quando não resta sugestão, mantendo ativos/CRUD/Novo alerta. Apenas excluir o último registro de um tipo o libera novamente. Sem localStorage, migration ou mudança da API/banco. Texto de orientação e estado vazio ajustados; sugestões antigas não aparecem durante carregamento.56 testes frontend/build e Chrome/SQLite isolado/cancelar/erro422/salvar/recarga/concluir/troca entre duas motos/oito tipos/configurar novamente pelo Novo alerta aprovados; fixtures removidas e QA8010/5190 encerrado. Preview5173 atualizado. [Evidências](VALIDACAO_LEMBRETES.md); commit/pacote incrementais em feature/correcao-acesso. Sem dados reais/configuração privada/push/SMTP alterados.

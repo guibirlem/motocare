@@ -1,5 +1,13 @@
 # Acesso temporário pelo celular - preparado em 22/10/2026
 
+## Túnel atual reaberto — 23/10/2026
+
+**Acesso atual: https://internet-fingers-robinson-leo.trycloudflare.com**. Este endereço substitui os links históricos abaixo. Aberto por novo pedido explícito do usuário; cloudflared17644, API móvel14420/8001 e preview1452/5180, registrados em tmp/mobile-access.json. Serviços locais5173/8000 e MySQL preservados. Nenhum processo antigo foi encerrado para abrir este acesso.
+
+APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT apontam para a nova origem somente no processo móvel; debug desligado, cookies Secure/HttpOnly e financeiro habilitado. Sem mudança de `.env`, chaves ou dados do domínio. HTML público idêntico ao build atual; JS/CSS/manifest/workers/favicon/precache200, CSRF200/no-store, APIs privadas anônimas401 e caminhos de segredos404 conferidos por HTTPS. Sem novo login autenticado, aceite físico iPhone, e-mail/push ou scheduler contínuo nesta reabertura. Recuperação por e-mail continua dependendo do SMTP.
+
+No iPhone, abrir o novo link no Safari. Instalação e permissão push são vinculadas à origem: para usar a nova origem como PWA, adicionar à Tela de Início e ativar notificações nela. O link depende do computador, MySQL e serviços/túnel ligados. Ao iniciar manualmente o scheduler para testes no iPhone, usar o WEBPUSH_SUBJECT HTTPS atual no processo, conforme instruções anteriores.
+
 ## Recuperação de senha — complemento de23/10
 
 Link no login e telas responsivas de recuperação integrados. E-mail externo ainda depende de SMTP que o usuário informou não possuir; [configuração](RECUPERACAO_SENHA.md). Ao preparar uma API móvel/túnel, definir também `FRONTEND_URL=https://hostname-atual` no processo, junto de APP_URL, para o link abrir na origem correta do iPhone. Não usar localhost no e-mail de acesso externo. Este complemento não reabre nem confirma os túneis históricos abaixo e não altera `.env`/chaves. Reset bem-sucedido encerra sessões e desliga a inscrição push antiga da conta; entrar e reativar notificações. Sem novo aceite Safari físico.

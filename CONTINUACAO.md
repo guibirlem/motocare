@@ -1,5 +1,11 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Hospedagem Oracle iniciada — 23/10/2026
+
+Novo pedido do usuário: iniciar hospedagem Always Free. Ler [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md). Preparados sete arquivos novos: roteiro, ambiente exemplo, Nginx bootstrap/HTTPS, service/timer scheduler e verificador CLI somente leitura. Não alterar stack/rotas/regras/schema/APP_KEY/VAPID ou dados existentes. Preservar chaves e backup privado ao importar; conta/VM/DNS/SSH e transferência ainda não confirmados. Pergunta sobre etapa da conta enviada ao usuário; nenhuma resposta recebida ao preparar esta entrega. Inventário CUA sem navegadores/apps; OCI CLI/config ausentes. Nenhum recurso cloud foi criado ou pago.
+
+PHP lint/Pint do verificador aprovados; execução local sinalizou corretamente as diferenças de desenvolvimento, com exit1 esperado, sem imprimir segredos/migrar/enviar push. Nginx/systemd/HTTPS só poderão ser validados na VM; não afirmar implantação pronta. Suítes funcionais anteriores não repetidas porque aplicação não foi alterada. Túnel e serviços locais preservados. Fontes de preparação em feature/hospedagem-oracle sobre30d455d, pacote próprio, anteriores preservadas. Próxima etapa: confirmar conta/VM e obter acesso, criar somente recursos gratuitos após conferir cota/estimativa; usuário conclui cartão/termos diretamente na Oracle.
+
 ## Túnel atual — 23/10/2026
 
 Usuário pediu abrir após conferência indicar nenhum cloudflared ativo. Novo HTTPS https://internet-fingers-robinson-leo.trycloudflare.com, túnel17644/API14420/preview1452, portas8001/5180; estado tmp/mobile-access.json. APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT corretos no processo móvel, debugfalse/cookiesseguros, sem alterar `.env`/chaves/dados ou parar outros processos. Build público atual e recursos200/CSRF200/no-store/HttpOnly-Secure, privados401/segredos404/local5173 preservado conferidos. Sem login autenticado novo/push/e-mail/scheduler/Safari físico. [Acesso](ACESSO_CELULAR.md); origem nova exige abrir novo link e, para PWA/push, instalação/permissão nessa origem. Documentação operacional não substitui as validações funcionais abaixo.

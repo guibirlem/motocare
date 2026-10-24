@@ -1,5 +1,13 @@
 # Tarefas - T1/T2/T3
 
+## Oracle Cloud Always Free — preparação iniciada em23/10/2026
+
+- [x] Conferir limites e documentação oficial; propor VM Ubuntu24.04/A1 dentro da cota Always Free, com MySQL8.0, PHP-FPM/Nginx, mesma origem HTTPS e scheduler.
+- [x] Preparar [roteiro](HOSPEDAGEM_ORACLE.md), modelos de ambiente privado/Nginx bootstrap e HTTPS/service+timer e verificador CLI de leitura. Preservar APP_KEY/VAPID/histórico ao migrar, sem modificar o ambiente atual. Verificador passa lint/Pint; execução local detecta corretamente configuração de desenvolvimento e termina com pendências, sem mutações/segredos impressos.
+- [ ] Confirmar etapa da conta/VM com o usuário e obter acesso autorizado. Não há navegador conectado, CLI OCI ou configuração OCI disponível nesta sessão; nenhuma VM/rede criada ou cobrança autorizada.
+- [ ] Definir domínio/subdomínio/DNS, instalar e validar modelos em Linux (nginx -t e systemd-analyze verify), copiar configuração/chaves/backup por canal privado, conferir importação e validar HTTPS/autenticação/app.
+- [ ] Conferir transição e ativar scheduler, backup/restauração e aceite no aparelho. Não ativar envio real de alertas antes de conferir origem/dados; SMTP permanece separado. Nenhum deploy, transferência de dados, serviço remoto ou suíte funcional nova foi executado nesta preparação.
+
 ## Reabrir túnel — 23/10/2026
 
 - [x] Novo pedido atendido em https://internet-fingers-robinson-leo.trycloudflare.com, com serviços móveis8001/5180 separados do local. HTML/build/recursos200, CSRF200/cookiesseguros/no-store, privados401/segredos404 e local5173 preservado. [Acesso e estado](ACESSO_CELULAR.md). Sem alteração de `.env`/chaves/schema/dados, novo smoke autenticado/push/e-mail ou scheduler iniciado; validações funcionais anteriores preservadas.

@@ -1,0 +1,17 @@
+# Somente para emitir o certificado antes de ativar nginx-https.conf.example.
+# Substituir o dominio e confirmar DNS/portas80 e443 no servidor e na OCI.
+server {
+    listen 80;
+    listen [::]:80;
+    server_name motocare.example.com;
+    server_tokens off;
+
+    location ^~ /.well-known/acme-challenge/ {
+        root /var/www/letsencrypt;
+        try_files $uri =404;
+    }
+
+    location / {
+        return 503;
+    }
+}

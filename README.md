@@ -1,8 +1,12 @@
 # MotoCare
 
+## Preparação para Oracle Cloud Always Free — 23/10/2026
+
+Processo iniciado em [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md), com modelos de ambiente/Nginx/HTTPS/scheduler e verificador de leitura em deploy/oracle. Ainda depende da confirmação da conta/VM e de acesso autorizado: **não está implantado na Oracle**. Fontes desta preparação em [feature/hospedagem-oracle](https://github.com/guibirlem/motocare/tree/feature/hospedagem-oracle), sobre30d455d, preservando as entregas anteriores e o ambiente atual.
+
 ## Correção de acesso — 23/10/2026
 
-Bot?o Entrar da apresentação na raiz corrigido; `/dashboard` mantém login/cadastro e painel. Fontes atuais [feature/correcao-acesso](https://github.com/guibirlem/motocare/tree/feature/correcao-acesso), sobre427aada. [Valida??es e detalhes](VALIDACAO_ACESSO.md).
+Botão Entrar da apresentação na raiz corrigido; `/dashboard` mantém login/cadastro e painel. Fontes dessa correção em [feature/correcao-acesso](https://github.com/guibirlem/motocare/tree/feature/correcao-acesso), sobre427aada. [Validações e detalhes](VALIDACAO_ACESSO.md).
 
 Histórico agora em **linha do tempo** no Dashboard, Gastos e Manutenções, com ícones, valores/datas, consumo real e resumos mensais. Tabela/filtros/CRUD preservados. [Validação](VALIDACAO_HISTORICO.md):82backend/878 verificações,55frontend/build e Chrome/SQLite. Versão atual [feature/historico-timeline](https://github.com/guibirlem/motocare/tree/feature/historico-timeline), pacote local `entrega/MotoCare-Historico-2026-10-23.zip`; etapas/PDF abaixo históricos. Sem migration nova ou mudança de credenciais/Gmail.
 

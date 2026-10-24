@@ -1,5 +1,9 @@
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
+## Preparação adicional: Oracle Cloud Always Free
+
+Processo iniciado, **sem implantação remota ainda**. [Roteiro e pendências](HOSPEDAGEM_ORACLE.md), modelos de Nginx/ambiente/HTTPS/scheduler e verificador CLI de leitura em deploy/oracle. PHP lint/Pint aprovados e diferenças esperadas do ambiente local detectadas; Nginx/systemd, conta/VM/DNS/SSH, transferência privada e validação remota ainda pendentes. Nenhum código funcional/schema/dado/configuração privada alterado ou novo recurso cloud criado. Fontes [feature/hospedagem-oracle](https://github.com/guibirlem/motocare/tree/feature/hospedagem-oracle), sobre30d455d; pacote próprio `entrega/MotoCare-Oracle-Preparacao-2026-10-23.zip`. PDF e entregas anteriores preservados.
+
 ## Correção atual: acesso pela página inicial
 
 Entrar em `/` abre o formul?rio em `/dashboard`, preservando login/cadastro, painel autenticado e menu. Fontes [feature/correcao-acesso](https://github.com/guibirlem/motocare/tree/feature/correcao-acesso), sobre427aada. 55 testes frontend/build e regressão Chrome local/SQLite aprovados; [evidências](VALIDACAO_ACESSO.md). Pacote `entrega/MotoCare-Correcao-Acesso-2026-10-23.zip`, manifesto/checksum pr?prios. Backend/dados/segredos e PDF anterior preservados.

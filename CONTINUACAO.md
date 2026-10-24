@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Região Oracle informada — 24/10/2026
+
+Usuário respondeu Brasil Vinhedo à pergunta sobre região principal. Identificador oficial sa-vinhedo-1 (Brazil Southeast/Vinhedo); orientar criação nessa região e conferir marcador Home region/cota/Always Free no console. Mantida proposta Ubuntu24.04LTS sem Pro, A1.Flex2OCPU/6GB/boot50GB e rede pública, SSH com a .pub já preparada. Nenhuma VM criada, nenhum IP/acesso remoto recebido e nenhuma alteração de código, dados, chaves ou serviços nesta confirmação. Próximo retorno necessário: resultado da criação e IP público; se houver custo ou falta de capacidade, analisar o aviso sem selecionar recurso pago. Ver HOSPEDAGEM_ORACLE e preservar tmp/oracle-ssh.
+
 ## Conta Oracle confirmada e SSH preparado — 23/10/2026
 
 Usuário respondeu que já tem conta e ainda não criou servidor. Pergunta seguinte: qual região principal/Home region da conta; resposta pendente ao registrar. CUA continua sem navegadores/apps. Par RSA4096 exclusivo preparado em tmp/oracle-ssh/motocare-oracle (+.pub), correspondência conferida; privado com ACL somente usuário/SYSTEM/Administrators e pasta restrita, sem passphrase, não enviado nem incluído em Git/ZIP. Usar somente .pub em Add SSH keys. Preservar e guardar cópia privada segura antes de limpar tmp; não sobrescrever se retomar. Estado/fingerprint em tmp/oracle-ssh/state.json. APP_KEY/VAPID/banco/local/túnel intactos. Nenhuma VM criada ou acesso remoto efetuado. Próximo passo no console: Compute > Instances > Create instance, na região principal, conferindo Always Free e cota antes de criar; configuração proposta em HOSPEDAGEM_ORACLE. A confirmação da conta substitui a pendência dessa informação na entrada anterior.

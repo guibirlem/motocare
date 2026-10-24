@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## Conta Oracle confirmada e SSH preparado — 23/10/2026
+
+Usuário respondeu que já tem conta e ainda não criou servidor. Pergunta seguinte: qual região principal/Home region da conta; resposta pendente ao registrar. CUA continua sem navegadores/apps. Par RSA4096 exclusivo preparado em tmp/oracle-ssh/motocare-oracle (+.pub), correspondência conferida; privado com ACL somente usuário/SYSTEM/Administrators e pasta restrita, sem passphrase, não enviado nem incluído em Git/ZIP. Usar somente .pub em Add SSH keys. Preservar e guardar cópia privada segura antes de limpar tmp; não sobrescrever se retomar. Estado/fingerprint em tmp/oracle-ssh/state.json. APP_KEY/VAPID/banco/local/túnel intactos. Nenhuma VM criada ou acesso remoto efetuado. Próximo passo no console: Compute > Instances > Create instance, na região principal, conferindo Always Free e cota antes de criar; configuração proposta em HOSPEDAGEM_ORACLE. A confirmação da conta substitui a pendência dessa informação na entrada anterior.
+
 ## Hospedagem Oracle iniciada — 23/10/2026
 
 Novo pedido do usuário: iniciar hospedagem Always Free. Ler [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md). Preparados sete arquivos novos: roteiro, ambiente exemplo, Nginx bootstrap/HTTPS, service/timer scheduler e verificador CLI somente leitura. Não alterar stack/rotas/regras/schema/APP_KEY/VAPID ou dados existentes. Preservar chaves e backup privado ao importar; conta/VM/DNS/SSH e transferência ainda não confirmados. Pergunta sobre etapa da conta enviada ao usuário; nenhuma resposta recebida ao preparar esta entrega. Inventário CUA sem navegadores/apps; OCI CLI/config ausentes. Nenhum recurso cloud foi criado ou pago.

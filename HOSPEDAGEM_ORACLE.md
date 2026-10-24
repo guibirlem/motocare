@@ -2,7 +2,9 @@
 
 ## Estado real
 
-Preparação iniciada. Nenhum recurso OCI foi criado, nenhum dado foi transferido e nenhum serviço local/túnel foi interrompido. Não há CLI/configuração OCI ou navegador conectado nesta sessão. A etapa seguinte depende da conta Oracle do usuário e de acesso autorizado à VM. Não enviar senha, cartão, código MFA ou chave privada pelo chat.
+Preparação iniciada. Usuário confirmou que já tem conta Oracle e ainda não criou servidor. Nenhum recurso OCI foi criado, nenhum dado foi transferido e nenhum serviço local/túnel foi interrompido. Não há CLI/configuração OCI ou navegador conectado nesta sessão. A etapa seguinte depende de confirmar a região principal e criar a VM na conta existente. Não enviar senha, cartão, código MFA ou chave privada pelo chat.
+
+Foi preparado um par SSH RSA4096 exclusivo em `tmp/oracle-ssh/motocare-oracle` e `tmp/oracle-ssh/motocare-oracle.pub`. Somente o arquivo público `.pub` deve ser inserido em Add SSH keys no formulário da instância. Paridade criptográfica e ACL Windows conferidas: arquivo privado restrito ao usuário atual, SYSTEM e Administrators, com pasta local restrita. Sem senha de chave; sua proteção em repouso depende da ACL local. Ambos estão sob tmp ignorado pelo Git e excluídos dos pacotes. Guardar uma cópia privada segura antes de limpar tmp. Nenhuma chave SSH foi registrada na Oracle ainda; nenhuma APP_KEY/VAPID existente foi alterada.
 
 Os arquivos em [deploy/oracle](deploy/oracle) são modelos revisáveis, ainda não instalados em Linux. Preservam Vue/Vite, API Laravel12, MySQL8.0/InnoDB e Web Push VAPID. Não alteram rotas, telas, schema ou regras. A instalação e a validação real de Nginx/PHP-FPM/systemd/HTTPS ainda precisam acontecer na VM.
 

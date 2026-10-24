@@ -4,7 +4,8 @@
 
 - [x] Conferir limites e documentação oficial; propor VM Ubuntu24.04/A1 dentro da cota Always Free, com MySQL8.0, PHP-FPM/Nginx, mesma origem HTTPS e scheduler.
 - [x] Preparar [roteiro](HOSPEDAGEM_ORACLE.md), modelos de ambiente privado/Nginx bootstrap e HTTPS/service+timer e verificador CLI de leitura. Preservar APP_KEY/VAPID/histórico ao migrar, sem modificar o ambiente atual. Verificador passa lint/Pint; execução local detecta corretamente configuração de desenvolvimento e termina com pendências, sem mutações/segredos impressos.
-- [ ] Confirmar etapa da conta/VM com o usuário e obter acesso autorizado. Não há navegador conectado, CLI OCI ou configuração OCI disponível nesta sessão; nenhuma VM/rede criada ou cobrança autorizada.
+- [x] Usuário confirmou conta já criada, sem servidor. Preparado par SSH RSA4096 exclusivo no tmp ignorado; correspondência pública/privada e ACL Windows restrita verificadas, sem expor/registrar chave privada ou alterar APP_KEY/VAPID.
+- [ ] Confirmar região principal e criar a VM, obtendo acesso autorizado. Não há navegador conectado, CLI OCI ou configuração OCI disponível nesta sessão; nenhuma VM/rede criada ou cobrança autorizada. Usar somente a chave pública .pub no formulário da Oracle.
 - [ ] Definir domínio/subdomínio/DNS, instalar e validar modelos em Linux (nginx -t e systemd-analyze verify), copiar configuração/chaves/backup por canal privado, conferir importação e validar HTTPS/autenticação/app.
 - [ ] Conferir transição e ativar scheduler, backup/restauração e aceite no aparelho. Não ativar envio real de alertas antes de conferir origem/dados; SMTP permanece separado. Nenhum deploy, transferência de dados, serviço remoto ou suíte funcional nova foi executado nesta preparação.
 

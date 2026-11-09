@@ -1,9 +1,5 @@
 # MotoCare
 
-## Preparação para Oracle Cloud Always Free — 23/10/2026
-
-Processo iniciado em [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md), com modelos de ambiente/Nginx/HTTPS/scheduler e verificador de leitura em deploy/oracle. Ainda depende da confirmação da conta/VM e de acesso autorizado: **não está implantado na Oracle**. Fontes desta preparação em [feature/hospedagem-oracle](https://github.com/guibirlem/motocare/tree/feature/hospedagem-oracle), sobre30d455d, preservando as entregas anteriores e o ambiente atual.
-
 ## Correção de acesso — 23/10/2026
 
 Botão Entrar da apresentação na raiz corrigido; `/dashboard` mantém login/cadastro e painel. Fontes dessa correção em [feature/correcao-acesso](https://github.com/guibirlem/motocare/tree/feature/correcao-acesso), sobre427aada. [Validações e detalhes](VALIDACAO_ACESSO.md).

@@ -1,19 +1,5 @@
 # Continuação do MotoCare - T1/T2/T3
 
-## Região Oracle informada — 24/10/2026
-
-Usuário respondeu Brasil Vinhedo à pergunta sobre região principal. Identificador oficial sa-vinhedo-1 (Brazil Southeast/Vinhedo); orientar criação nessa região e conferir marcador Home region/cota/Always Free no console. Mantida proposta Ubuntu24.04LTS sem Pro, A1.Flex2OCPU/6GB/boot50GB e rede pública, SSH com a .pub já preparada. Nenhuma VM criada, nenhum IP/acesso remoto recebido e nenhuma alteração de código, dados, chaves ou serviços nesta confirmação. Próximo retorno necessário: resultado da criação e IP público; se houver custo ou falta de capacidade, analisar o aviso sem selecionar recurso pago. Ver HOSPEDAGEM_ORACLE e preservar tmp/oracle-ssh.
-
-## Conta Oracle confirmada e SSH preparado — 23/10/2026
-
-Usuário respondeu que já tem conta e ainda não criou servidor. Pergunta seguinte: qual região principal/Home region da conta; resposta pendente ao registrar. CUA continua sem navegadores/apps. Par RSA4096 exclusivo preparado em tmp/oracle-ssh/motocare-oracle (+.pub), correspondência conferida; privado com ACL somente usuário/SYSTEM/Administrators e pasta restrita, sem passphrase, não enviado nem incluído em Git/ZIP. Usar somente .pub em Add SSH keys. Preservar e guardar cópia privada segura antes de limpar tmp; não sobrescrever se retomar. Estado/fingerprint em tmp/oracle-ssh/state.json. APP_KEY/VAPID/banco/local/túnel intactos. Nenhuma VM criada ou acesso remoto efetuado. Próximo passo no console: Compute > Instances > Create instance, na região principal, conferindo Always Free e cota antes de criar; configuração proposta em HOSPEDAGEM_ORACLE. A confirmação da conta substitui a pendência dessa informação na entrada anterior.
-
-## Hospedagem Oracle iniciada — 23/10/2026
-
-Novo pedido do usuário: iniciar hospedagem Always Free. Ler [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md). Preparados sete arquivos novos: roteiro, ambiente exemplo, Nginx bootstrap/HTTPS, service/timer scheduler e verificador CLI somente leitura. Não alterar stack/rotas/regras/schema/APP_KEY/VAPID ou dados existentes. Preservar chaves e backup privado ao importar; conta/VM/DNS/SSH e transferência ainda não confirmados. Pergunta sobre etapa da conta enviada ao usuário; nenhuma resposta recebida ao preparar esta entrega. Inventário CUA sem navegadores/apps; OCI CLI/config ausentes. Nenhum recurso cloud foi criado ou pago.
-
-PHP lint/Pint do verificador aprovados; execução local sinalizou corretamente as diferenças de desenvolvimento, com exit1 esperado, sem imprimir segredos/migrar/enviar push. Nginx/systemd/HTTPS só poderão ser validados na VM; não afirmar implantação pronta. Suítes funcionais anteriores não repetidas porque aplicação não foi alterada. Túnel e serviços locais preservados. Fontes de preparação em feature/hospedagem-oracle sobre30d455d, pacote próprio, anteriores preservadas. Próxima etapa: confirmar conta/VM e obter acesso, criar somente recursos gratuitos após conferir cota/estimativa; usuário conclui cartão/termos diretamente na Oracle.
-
 ## Túnel atual — 23/10/2026
 
 Usuário pediu abrir após conferência indicar nenhum cloudflared ativo. Novo HTTPS https://internet-fingers-robinson-leo.trycloudflare.com, túnel17644/API14420/preview1452, portas8001/5180; estado tmp/mobile-access.json. APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT corretos no processo móvel, debugfalse/cookiesseguros, sem alterar `.env`/chaves/dados ou parar outros processos. Build público atual e recursos200/CSRF200/no-store/HttpOnly-Secure, privados401/segredos404/local5173 preservado conferidos. Sem login autenticado novo/push/e-mail/scheduler/Safari físico. [Acesso](ACESSO_CELULAR.md); origem nova exige abrir novo link e, para PWA/push, instalação/permissão nessa origem. Documentação operacional não substitui as validações funcionais abaixo.

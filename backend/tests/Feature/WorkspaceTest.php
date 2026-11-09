@@ -193,12 +193,13 @@ class WorkspaceTest extends TestCase
         $this->travelBack();
     }
 
-    public function test_finance_is_deferred_by_default(): void
+    public function test_finance_can_be_disabled_without_breaking_maintenance_and_alerts(): void
     {
-        $this->assertFalse(config('features.financeiro'));
+        config(['features.financeiro' => false]);
         $owner = $this->pilot();
         $moto = $this->moto($owner);
         $this->signed($owner);
+        $this->getJson('/api/features')->assertOk()->assertExactJson(['financeiro' => false]);
         $path = '/api/motocicletas/'.$moto->id.'/despesas';
         $this->getJson('/api/relatorios?inicio=2026-01-01&fim=2026-12-31')->assertNotFound();
         $this->getJson($path)->assertNotFound();

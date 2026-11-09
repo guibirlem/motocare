@@ -1,0 +1,18 @@
+[Unit]
+Description=MotoCare Laravel scheduler
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/motocare/current/backend
+ExecStart=/usr/bin/php /var/www/motocare/current/backend/artisan schedule:run --no-interaction
+UMask=0027
+TimeoutStartSec=0
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/var/www/motocare/shared/storage /var/www/motocare/current/backend/bootstrap/cache

@@ -1,0 +1,103 @@
+/* Ajustes do shell e painel; impressão e identidade existentes são preservadas. */
+@media screen {
+  .app-header { height: 72px; border-bottom: 1px solid rgba(255,255,255,.12); }
+  .app-brand { gap: 12px; letter-spacing: 0; }
+  .brand-mark { width: 32px; height: 32px; flex-shrink: 0; }
+  .brand-copy { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+  .brand-copy strong { font-size: 19px; line-height: 1.2; }
+  .brand-copy small { color: #a8b2ba; font-size: 10px; font-weight: 400; white-space: nowrap; }
+  .header-search { padding-inline: 28px; }
+  .search-control { max-width: 480px; }
+  .search-control input { min-width: 0; min-height: 42px; padding-left: 38px; }
+  .search-control > svg { width: 16px; height: 16px; color: #a8b2ba; }
+  .header-user { max-width: 280px; gap: 10px; padding-inline: 20px; }
+  .user-avatar { width: 36px; height: 36px; }
+  .header-user-copy { display: flex; flex-direction: column; min-width: 0; gap: 1px; }
+  .header-user-copy small { font-size: 10px; font-weight: 400; color: #a8b2ba; }
+  .header-user-copy strong { font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+  .app-header .theme-toggle { min-height: 42px; }
+  .app-body { position: relative; }
+  .app-main { display: flex; flex-direction: column; padding: 26px 32px 24px; }
+  .main-content { width: 100%; max-width: 1520px; margin-inline: auto; flex: 1 0 auto; min-width: 0; }
+  .page-breadcrumb { margin-bottom: 16px; color: var(--gray-600); }
+  .workspace-selector { align-items: flex-end; padding: 16px 20px; margin-bottom: 24px; border: 1px solid var(--gray-200); background: var(--surface); }
+  .workspace-selector > .field { flex: 1 1 240px; max-width: 480px; }
+  .workspace-selector select, .workspace-selector > .button { height: 44px; }
+  .workspace-selector > .button { flex-shrink: 0; }
+  .page-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+  .page-heading > div { min-width: 0; }
+  .page-heading .section-title { margin-bottom: 6px; font-size: 22px; }
+  .page-description { color: var(--gray-600); font-size: 13px; }
+  .dashboard-refresh { min-height: 42px; flex-shrink: 0; background: var(--surface); }
+  .dashboard-refresh > span { font-size: 20px; line-height: 1; }
+  .home-page, .daily-dashboard { gap: 24px; }
+  .home-page > [role=status]:not(.demo-notice), .daily-dashboard > [role=status]:not(.demo-notice) { color: var(--gray-600); padding: 10px 14px; background: var(--surface); border: 1px solid var(--gray-200); }
+  .dashboard-care-section .section-title { font-size: 16px; margin-bottom: 14px; }
+  .garage-empty { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; border-top: 3px solid var(--lime); }
+  .metric-card { display: flex; flex-direction: column; gap: 6px; }
+  .metric-icon { margin-bottom: 4px; }
+  .metric-label { margin-bottom: 0; line-height: 1.5; }
+  .metric-value { line-height: 1.18; overflow-wrap: anywhere; }
+  .metric-sub { line-height: 1.5; margin-top: 0; overflow-wrap: anywhere; }
+  .metric-skeleton { min-height: 158px; padding: 24px; background: var(--surface); border: 1px solid var(--gray-200); display: flex; flex-direction: column; justify-content: center; gap: 14px; }
+  .metric-skeleton span, .metric-skeleton strong { display: block; height: 10px; width: 65%; background: var(--gray-200); }
+  .metric-skeleton strong { height: 26px; width: 85%; }
+  .dashboard-alert-copy, .panel > h3 { overflow-wrap: anywhere; }
+  .sidebar-footer { display: flex; flex-direction: column; gap: 4px; color: #a8b2ba; padding: 18px 20px; }
+  .sidebar-footer strong { color: #e2e8ed; font-size: 12px; }
+  .app-footer { width: 100%; max-width: 1520px; margin: 32px auto 0; padding: 22px 160px 22px 24px; background: var(--chrome-bg); color: var(--chrome-text); border-top: 3px solid var(--lime); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; flex-shrink: 0; }
+  .footer-brand > a { font-size: 18px; font-weight: 700; }
+  .footer-brand > a span { color: var(--lime); }
+  .footer-brand p, .app-footer small { color: #a8b2ba; font-size: 11px; margin-top: 4px; }
+  .footer-links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .footer-links a { padding-block: 8px; font-size: 12px; }
+  .footer-links a:hover { color: var(--lime); }
+  .navigation-scrim { display: none; }
+  @media (max-width: 1100px) {
+    .header-user { max-width: 210px; padding-inline: 12px; }
+    .header-search { padding-inline: 20px; }
+    .metric-value { font-size: 24px; }
+  }
+  @media (max-width: 900px) {
+    .app-main { padding: 24px; }
+    .app-brand { padding-inline: 18px; }
+    .workspace-selector > .field { max-width: none; }
+    .app-footer { padding-left: 20px; }
+  }
+  @media (max-width: 640px) {
+    .app-header { height: auto; min-height: 64px; }
+    .app-brand { height: 64px; padding-inline: 16px; }
+    .brand-copy strong { font-size: 17px; }
+    .brand-copy small { font-size: 9px; }
+    .header-user { padding-inline: 8px; }
+    .header-user .user-avatar { width: 32px; height: 32px; }
+    .header-search { padding: 0 16px 12px; }
+    .header-search input { font-size: 16px; min-height: 42px; }
+    .app-sidebar.sidebar-open { position: absolute; top: 0; bottom: 0; width: 230px; }
+    .navigation-scrim { display: block; position: absolute; inset: 0; left: 230px; border: 0; background: #0007; z-index: 14; }
+    .app-main { padding: 20px 16px 24px; }
+    .workspace-selector { padding: 14px; gap: 10px; margin-bottom: 24px; }
+    .workspace-selector > .field { flex-basis: 100%; }
+    .workspace-selector > .button { flex: 1 1 120px; padding-inline: 10px; font-size: 12px; }
+    .workspace-selector select, .field input, .field select { font-size: 16px; }
+    .page-heading { align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+    .page-heading > div { flex: 1 1 200px; }
+    .page-heading .section-title { font-size: 20px; }
+    .page-description { font-size: 12px; }
+    .dashboard-refresh { min-height: 40px; padding-inline: 12px; }
+    .home-page, .daily-dashboard { gap: 20px; }
+    .metric-value { font-size: 22px; }
+    .metric-sub { font-size: 11px; }
+    .app-footer { margin-top: 28px; padding: 20px 18px 84px; flex-direction: column; align-items: flex-start; gap: 12px; }
+    .footer-links { gap: 4px 16px; }
+  }
+  @media (max-width: 359px) {
+    .app-brand { gap: 8px; }
+    .brand-mark { width: 26px; height: 26px; }
+    .brand-copy small { display: none; }
+    .header-user { padding-inline: 4px; }
+    .mobile-menu-button { margin-right: 10px; padding-inline: 8px; }
+    .metric-card { padding: 14px; }
+    .metric-value { font-size: 20px; }
+  }
+}

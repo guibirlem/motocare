@@ -6,9 +6,12 @@ use App\Models\Motocicleta;
 use App\Models\User;
 use App\Rules\NewPassword;
 use App\Support\MotorcyclePlate;
+use App\Support\MotorcycleServices;
+use App\Support\TankConfiguration;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 
@@ -21,7 +24,13 @@ class HistoryController extends Controller
             'email' => ['required', 'email', 'max:255', 'unique:usuarios,email'],
             'password' => ['required', 'string', 'min:8', new NewPassword, 'confirmed'],
         ]);
-        $user = User::create($data);
+        $user = DB::transaction(function () use ($data) {
+            $user = User::create($data);
+            // Um endereço reutilizado não herda links de recuperação de uma conta anterior.
+            Password::broker()->deleteToken($user);
+
+            return $user;
+        });
         Auth::login($user);
         $request->session()->regenerate();
 
@@ -63,7 +72,10 @@ class HistoryController extends Controller
             'ano' => ['required', 'integer', 'between:1900,2100'],
             'placa' => ['required', 'string', 'regex:/^[A-Z]{3}[0-9][A-Z0-9][0-9]{2}$/', 'unique:motocicletas,placa'],
             'km_atual' => ['required', 'integer', 'between:0,4294967295'],
+            ...TankConfiguration::rules(),
         ]);
+
+        TankConfiguration::check($data);
 
         return response()->json($request->user()->motocicletas()->create($data), 201);
     }
@@ -76,8 +88,9 @@ class HistoryController extends Controller
     private function maintenanceData(Request $request): array
     {
         $data = $request->validate([
-            'tipo_servico' => ['required', Rule::in(['troca_oleo', 'kit_relacao', 'pneus', 'freios'])],
+            'tipo_servico' => ['required', Rule::in(array_keys(MotorcycleServices::LABELS))],
             'descricao' => ['nullable', 'string', 'max:5000'],
+            'natureza' => ['nullable', Rule::in(['preventiva', 'corretiva'])],
             'valor' => ['required', 'numeric', 'decimal:0,2', 'between:0,99999999.99'],
             'status' => ['required', Rule::in(['pendente', 'concluido'])],
             'data' => ['required', 'date_format:Y-m-d', Rule::when($request->input('status') === 'concluido', ['before_or_equal:today'])],

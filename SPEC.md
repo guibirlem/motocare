@@ -1,14 +1,68 @@
 # SPEC.md - Especificação Funcional do MotoCare
 
+## Histórico visual e identidade dos ciclos — 23/10/2026
+
+- Dashboard/Gastos/Manutenções usam linha do tempo com resumos mensais; tabela anterior continua disponível nas telas de registros. Filtros/CRUD/formulários/rotas/validações e cálculos preservados.
+- `ciclos` do painel/relatórios acrescenta `abastecimento_id`: ID do registro que encerra o ciclo. Campo aditivo, sem alteração de schema ou de cálculo. Frontend usa ID/data para associar consumo a um item, incluindo vários no mesmo dia. Sem ciclo completo válido não mostra consumo. Gastos consulta o painel autenticado existente, com falha de estatística tratada separadamente dos registros.
+- Resumos somam centavos dos itens no filtro, excluindo manutenções pendentes e mostrando-as à parte; média ponderada por distâncias/litros dos ciclos válidos ligados aos itens. Comparação percentual só contra o mês imediatamente anterior com dados válidos no mesmo filtro. Limite de exibição não trunca totais do mês completo no filtro.
+- Dashboard espera fontes completas antes do resumo; erro de histórico não representa lista vazia/total parcial. Offline/cache/ownership atuais preservados. [Validação](VALIDACAO_HISTORICO.md).
+
+## Lembretes no dashboard — 23/10/2026
+
+- Acrescenta `abastecimento`, `seguro`, `ipva` e `licenciamento` ao tipo_alerta string, separados dos serviços de manutenção, sem migration nova. Seguro/IPVA/licenciamento exigem data_limite válida e proíbem km_limite/km_base preenchidos (null/vazio como ausência); abastecimento mantém KM/data e90% do intervalo ou data. Usuário informa os vencimentos; sem renovação automática ou dedução de prazo oficial.
+- Dashboard e Alertas mostram o painel completo de ativos/prazos/restante e Sugeridos/Configurar. Após salvar, o tipo deixa as sugestões da moto e permanece oculto após recarga ou conclusão, considerando todos os registros da API, inclusive concluídos e pneus genéricos legados. Excluir o último registro do tipo libera a sugestão novamente; todos os tipos configurados ocultam a seção Sugeridos. Cancelar ou falhar ao salvar não configura o tipo. Para novos vencimentos, permanece Novo alerta. Atalhos abrem formulário existente; tipo ativo reutiliza pendente ou aponta notificado sem reativar. Ver lembrete foca os controles detalhados, inclusive por hash na própria tela Alertas; Ver todos aparece apenas no Dashboard. CRUD/novo alerta manual/filtro de concluídos preservados; sem estado de configuração local compartilhado entre motos/contas.
+- Painel segue a referência em lista vertical de sugestões e ícones por categoria; cabeçalho com acento roxo e variante noturna. Por preferência posterior do usuário, botões Configurar usam o padrão verde preenchido do site (button/button-lime), cantos retos, altura mínima44px e quebra em telas muito estreitas. Pneus dianteiro e traseiro continuam independentes, sem criar categoria de rodízio. Não inventa KM, datas, pagamentos ou periodicidade anual: os vencimentos continuam informados pelo usuário.
+- Scheduler/Web Push incluem os tipos novos com locks/retries/aceite/não repetição atuais. Concluir não altera odômetro nem cria serviço/despesa/abastecimento/pagamento/novo vencimento. Erro de carga não se apresenta como lista vazia; offline preservado. [Validação e uso](VALIDACAO_LEMBRETES.md).
+
+## Recuperação de senha — 23/10/2026
+
+- Páginas públicas `/esqueci-senha` e `/redefinir-senha`; link somente no modo Entrar do AccountGate. Login/cadastro/landing/rotas privadas atuais preservados.
+- POST `/api/forgot-password` aceita email validado e exige CSRF; 202 genérico se transporte configurado, com ou sem conta. Broker limita nova mensagem a uma por minuto; API limita cinco pedidos/minuto/IP e três/hora/e-mail, sem distinção de caixa. Não altera senha/sessões por solicitação.503 uniforme quando SMTP/origem não configurados, sem token/log de link. Erro SMTP remove token e gera apenas aviso administrativo fixo; resposta genérica preservada.
+- POST `/api/reset-password` recebe email/token/password/password_confirmation; CSRF e dez tentativas/minuto/IP e dez/hora/e-mail.200 atualiza senha e consome token,422 entrada/link inválido/expirado,429 com Retry-After. Sem login automático. Regras de senha atuais preservadas (8 caracteres,72 bytes,no NUL, confirmação).
+- Reutiliza `password_reset_tokens` existente: hash,60 minutos, uso único; nova emissão invalida anterior. Linha do usuário bloqueada em transação no envio/reset. Sucesso revoga sessões database e push da conta; autenticação por hash existente preservada. Configurações de senha/e-mail invalidam links anteriores; nome/telefone não. Cadastro remove tokens órfãos de endereço reutilizado. Não altera dados do domínio ou de terceiros.
+- FRONTEND_URL é origem administrativa confiável (HTTPS público ou HTTP loopback), independente de headers do visitante. Segredo no fragmento do e-mail, retirado da URL na abertura e mantido só na memória da tela, sem armazenamento/cache. Recarga exige reabrir/solicitar link. Offline não enfileira envios.
+- SMTP síncrono/timeout10s, sem Blade ou dependências novas; mailer log/fallback recusado, array apenas nos testes. Ambiente atual sem SMTP por opção do usuário: integração pronta, entrega por provedor externo pendente. Sem alteração estrutural/migration. [Configuração, segurança e validação](RECUPERACAO_SENHA.md).
+
+## Apresentação pública — 23/10/2026
+
+- Landing em `/apresentacao`, acessível com ou sem conta. Raiz `/` mostra apresentação para visitantes e mantém o dashboard para a sessão autenticada. `/dashboard` possui registro distinto da raiz (sem alias, para permitir a navegação Entrar), reutiliza HomeView e mantém destaque/aria-current do menu Dashboard; demais URLs preservadas; visitante em rota do sistema continua no AccountGate existente.
+- CTAs Entrar e acesso autenticado usam `/dashboard`. Começar Grátis usa `/dashboard?cadastro=1` para selecionar o cadastro no mesmo formulário atual, sem nova API ou rota de autenticação. Usuário conectado recebe destino `/dashboard` sem modo de cadastro. Link de relatórios usa `/relatorios` e conserva a autenticação/feature existentes.
+- Página apresenta funcionalidades, diferenciais de moto, relatórios e benefícios, com âncoras suaves, versão mobile e preferência de movimento reduzido. Modelo 100% gratuito, sem planos/tabelas de preços. Prévias têm dados fixos identificados como ilustrativos e não consultam dados privados.
+- Backend, schema, dados, contratos financeiros, permissões, sessão/CSRF, PWA/offline e temas preservados. Modo offline global continua anterior à apresentação; a página online independe do sucesso da API. CSS da landing é escopado e seu código é carregado sob demanda.
+
+## Complementos de uso diário — 23/10/2026
+
+Extensão aditiva de T1/T2/T3. Migration `2026_10_23_000001_add_motorcycle_insights.php` cria postos/preços e acrescenta apenas campos opcionais, sem transformar registros antigos. Serviços legados pneus/freios continuam disponíveis, junto aos separados por eixo e aos de corrente, filtros, suspensão, arrefecimento, cabos e vela. `natureza` preventiva/corretiva é opcional; históricos sem classificação são apresentados separadamente.
+
+- Postos favoritos pertencem à conta, compartilhados entre suas motos: GET/POST `/api/postos`, DELETE `/api/postos/{id}`. Preços separados por combustível (gasolina, gasolina_aditivada, etanol, diesel). Ao salvar/editar/excluir abastecimento, a memória acompanha o último registro por data/id ainda vinculado ao posto. Lançamento histórico não substitui preço mais recente; exclusão de favorito preserva seu texto nos gastos. Posto alheio retorna 404.
+- Despesas aceitam ainda documentacao, impostos e outros. Abastecimento recebe posto_id/combustivel, km_abastecimento e tanque_cheio opcionais; tanque cheio exige KM. Com KM, não aceita data futura e avança o odômetro em transação, sem diminuir. Contrato anterior e precisão de duas casas são preservados. Cálculo inverso arredonda preço e reconcilia total por litros × preço com informação na tela.
+- Consumo ponderado: soma das distâncias dividida pelos litros dos ciclos válidos entre dois tanques cheios, incluindo parciais intermediários e excluindo litros do primeiro cheio. Falta de KM/marcação ou regressão cronológica invalida trecho até nova referência cheia. Ordenação data/id; no mesmo dia cadastrar na ordem de ocorrência. Relatórios selecionam ciclos pela data do cheio final, com referência anterior ao período quando disponível. Sem dados suficientes retorna null.
+- Moto recebe capacidade_tanque/volume_reserva opcionais (litros), reserva menor que capacidade. Estimativa usa consumo ponderado dos cinco últimos ciclos, último cheio, parciais seguintes e odômetro atual; informa parcial, litros e KM até reserva/secar. É estimativa, sem medição do combustível. Sem dados suficientes orienta completar registros.
+- GET `/api/motocicletas/{id}/painel` acrescenta gasto do mês, categorias/corrente; financeiro habilitado acrescenta consumo, custo/KM, despesas e séries. Custo/KM: custos registrados desde a primeira leitura de odômetro até a atual, excluindo pendentes; distância não positiva retorna null. Relatórios preservam todas as chaves/totais anteriores e acrescentam categorias/estatísticas/preços mensais (média aritmética de preços por posto/combustível/mês).
+- Alertas aceitam os serviços adicionais mantendo 90% do intervalo ou data, locks, tentativas e conclusão explícita. POST `/api/motocicletas/{id}/chuva-lavagem` cria lembrete de lubrificação vencendo hoje, sem alterar alertas anteriores; repetição devolve lembrete ainda ativo. Dashboard destaca imediatamente; push enviado pelo scheduler existente. Não implica serviço realizado nem conclusão automática. Usuário registra o serviço e próximo ciclo (sugestão editável 500 km, conforme fabricante).
+- Contador: ajustes concluídos posteriores à última troca concluída do kit, ordenados data/KM/id. Sem troca registrada, desconhecido. Não estima limite físico/segurança do desgaste. Edição/exclusão recalcula sem reescrever históricos.
+
+Resumo mensal acrescenta `outras_despesas` (documentação, impostos e outros), preservando as chaves anteriores; essa coluna participa do total combinado. Gráficos da tela de relatórios respeitam o período selecionado; o dashboard apresenta o histórico válido completo. Nas estimativas, cada abastecimento parcial é limitado à capacidade física do tanque antes de descontar o trecho seguinte.
+
+## Contrato de integração da T3 - 23/10/2026
+
+- Gastos em /gastos e relatórios em /relatorios; GET autenticado /api/features retorna `{ "financeiro": true|false }`. Cliente carrega esse valor antes de expor usuário/menu e limpa ao logout; respostas antigas de sessão não reativam módulos. Default true e exemplo true; false mantém despesas/relatórios 404 e navegação indisponível. Dashboard continua independente dessa API.
+- CRUD de despesas segue o contrato já preservado. PUT substitui opcionais omitidos por null; troca para reparo limpa litros/preço/posto. Interface calcula combustível em centavos e transforma vírgula decimal em ponto no payload. Reparo exige descrição; o custo de um serviço deve ser cadastrado uma única vez, em despesas ou manutenção. Não existe deduplicação automática entre cadastros manuais.
+- Filtro mes=AAAA-MM inclui o mês inteiro; sem mês mostra histórico completo. Ordenação por data/id descendentes. Total da tela de Gastos acompanha os registros do filtro de tipo selecionado.
+- Relatórios com início/fim inclusivos e até dez anos. motocicleta_id opcional, inteiro positivo; zero/negativo/fração/formato inválido 422, moto inexistente/alheia 404. Sem ID, inclui somente motos da conta. Meses vazios retornam zero; manutenção pendente pode aparecer nos lançamentos, mas nunca nos totais. Somas em centavos; JSON usa strings decimais.
+- Alterar filtros de relatório descarta o resultado anterior e desabilita exportação até nova consulta. Campos ficam bloqueados durante consulta; títulos/arquivo usam o período capturado no envio. Falha de consulta não mantém dados de outro período. Troca global de moto reinicia telas vinculadas à moto, mas não descarta formulário de conta/garagem.
+- CSV: BOM UTF-8, separador ponto e vírgula, casas decimais com vírgula, campos entre aspas e aspas escapadas; neutralizar prefixos de fórmula. Inclui status para distinguir pendências. Impressão/Salvar PDF executada pelo navegador, paleta clara, sem navegação/formulários, cabeçalhos repetidos e tabelas sem rolagem; não existe API de geração PDF nem view Blade.
+- Schema/migrations já aplicados permanecem iguais. Validações e limites em VALIDACAO_T3.md; teste de 390px usa Chromium e não comprova aceite novo em Safari/iPhone físico.
+
 ## Continuidade preparada em 22/10/2026
 
 Teste móvel: preview separado na porta loopback 5180, proxy /api para 8001, hostname exato permitido; backend móvel usa debug desativado e cookies Secure/HttpOnly no processo, mantendo sessão/CSRF/autorização. Nenhum contrato de dados alterado. Túnel Cloudflare autorizado explicitamente e aberto em 22/10; HTTPS público/login/sessão/CSRF validados com fixture descartável removida. Revisão mobile/PWA concluída no iPhone: usuário confirmou abertura pelo app instalado, telas/formulários, push pelo botão, ciclo offline/reconexão e alerta do scheduler em segundo plano. Operação e URL temporária em [ACESSO_CELULAR.md](ACESSO_CELULAR.md).
 
-A solicitação atual prepara a T3 para outro momento. Não altera contratos, schema nem a ativação financeira: T1/T2 continuam ativos, `FEATURE_FINANCEIRO=false`. O código financeiro documentado abaixo é preservado para revisão e integração futuras, não uma entrega ativa. Sequência e critérios de aceite em [RETOMADA_T3.md](RETOMADA_T3.md); checklist em [TASKS.md](TASKS.md). Confirmar o alcance de relatórios/exportações ao iniciar a próxima etapa.
+Em 22/10 a continuidade preparou a T3 sem ativá-la. A retomada de 23/10 abaixo substitui esse estado; roteiro e aceite atuais em [RETOMADA_T3.md](RETOMADA_T3.md), [TASKS.md](TASKS.md) e [VALIDACAO_T3.md](VALIDACAO_T3.md).
 
-## Escopo vigente — 19/10/2026
+## Escopo vigente — 23/10/2026
 
-Por orientação mais recente do usuário, a entrega ativa cobre somente T1 e T2, com conta/garagem/configurações como suporte. Financeiro (T3) e relatórios ficam adiados: sem rotas na interface e API desativada por padrão (FEATURE_FINANCEIRO=false). A implementação anterior e o schema foram preservados para retomada futura. Dashboard consulta manutenções/alertas diretamente, sem depender da T3. Os contratos financeiros abaixo documentam o trabalho guardado e não representam funcionalidades ativas.
+Por solicitação de iniciar a T3 em 23/10, a entrega ativa cobre T1, T2 e T3, incluindo gastos, abastecimentos, relatórios, CSV e impressão/Salvar PDF. FEATURE_FINANCEIRO=true é o padrão; false permite desligar financeiro/relatórios sem afetar Dashboard/T1/T2. Menu e rotas do cliente seguem a configuração autenticada da API. O adiamento de 19/10 foi superado; contratos financeiros abaixo estão ativos, sem mudança de schema nesta retomada.
 
 ## Contexto do Produto
 MotoCare é uma plataforma para motociclistas que precisam controlar manutenção preventiva, revisões, despesas com combustível e reparos, além de receber alertas automáticos para reduzir risco mecânico e ansiedade no uso diário.
@@ -103,7 +157,7 @@ Diagrama atualizado em [DER.md](DER.md).
 - API não retorna detalhes internos nos erros mesmo com debug ligado. Respostas de validação 422 mantêm campos/erros; demais erros preservam código HTTP/Retry-After e retornam mensagem saneada. API usa no-store/private/nosniff. Preview local/móvel aplica CSP/nosniff/referrer/frame e nega caminhos privados antes do fallback.
 - Respostas do frontend são vinculadas à sessão que as iniciou e descartadas após mudança/logout; atualização fora de ordem da garagem não substitui a mais nova. Tokens CSRF atrasados não substituem o da sessão atual. Formulários não reproduzem automaticamente gravações offline.
 - Placa é normalizada também na API, sem confiar no cliente. Locks de edição/exclusão de alertas usam o ID real encontrado por propriedade, inclusive se a URL tiver zeros à esquerda, para corresponder ao scheduler.
-- Revisão/limites e evidências em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Frontend depende de Vite6.4.5/plugin Vue5.2.4 com lockfile atualizado; não reverter ao Vite5 da entrega histórica.
+- Revisão/limites e evidências em [REVISAO_LOGICA_SEGURANCA.md](REVISAO_LOGICA_SEGURANCA.md). Frontend depende de Vite 6.4.5/plugin Vue5.2.4 com lockfile atualizado; não reverter ao Vite 5 da entrega histórica.
 
 ### Tema claro e noturno - 22/10/2026
 
@@ -157,6 +211,7 @@ API em `/api`, registrada por `routes/history.php` no grupo web para usar sessã
 | POST | /register | Cria conta e autentica (nome, email, password, password_confirmation) |
 | POST | /login | Autentica por email/password |
 | GET | /user | Usuário autenticado, sem senha |
+| GET | /features | Configuração autenticada: financeiro:boolean; sem segredos |
 | POST | /logout | Invalida sessão |
 | GET / POST | /motocicletas | Consulta motos próprias / cadastra moto |
 | GET / POST | /motocicletas/{moto}/manutencoes | Lista / cria manutenção |
@@ -202,6 +257,6 @@ API em `/api`, registrada por `routes/history.php` no grupo web para usar sessã
 
 A decisão mais recente remove Firebase/FCM da implementação ativa. A T1 passa a usar Push API/Service Worker e VAPID local com minishlink/web-push. Sem SDK externo, projeto ou conta Firebase. O navegador utiliza seu serviço de push e exige permissão/contexto seguro; isso não exige credenciais de serviço do MotoCare em outro provedor.
 
-Alteração estrutural aditiva em usuarios: push_subscription TEXT nullable (cast criptografado pela APP_KEY) e push_endpoint_hash CHAR(64) nullable UNIQUE. Uma inscrição por usuário, último navegador ativado. fcm_token permanece somente como coluna legada sem uso, oculta e sem atribuição pela API. DER e migration correspondentes atualizados. Não alterar T2 nem reativar T3.
+Alteração estrutural aditiva em usuarios: push_subscription TEXT nullable (cast criptografado pela APP_KEY) e push_endpoint_hash CHAR(64) nullable UNIQUE. Uma inscrição por usuário, último navegador ativado. fcm_token permanece somente como coluna legada sem uso, oculta e sem atribuição pela API. DER e migration correspondentes atualizados. Preservar T1/T2; o adiamento da T3 vigente naquela etapa foi substituído pela retomada autorizada de 23/10.
 
 Endpoints ativos: GET /api/push-config (configured/publicKey/subscriptionRegistered), PUT/DELETE /api/push-subscription e POST /api/push-test. Inscrição contém endpoint HTTPS e keys.p256dh/auth. Só aceitar domínios oficiais de push dos navegadores, sem portas customizadas, credenciais na URL, fragmentos ou redirecionamentos; evitar SSRF. Endpoint é capacidade privada, não retornar em /user. Logout remove vínculo. Teste só aceita o endpoint inscrito na conta. Assinaturas expiradas 404/410 são removidas condicionalmente e preservam alertas pendentes para reativação. Envio aceito não equivale a confirmação de recebimento.

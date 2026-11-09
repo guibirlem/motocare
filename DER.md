@@ -6,6 +6,9 @@ O schema é definido pelas migrations em backend/database/migrations. Alteraçõ
 
 ~~~mermaid
 erDiagram
+    usuarios ||--o{ postos : favorita
+    postos ||--o{ posto_precos : memoriza
+    postos |o--o{ despesas : referencia
     usuarios ||--o{ motocicletas : possui
     motocicletas ||--o{ manutencoes : registra
     motocicletas ||--o{ despesas : registra
@@ -28,6 +31,8 @@ erDiagram
         smallint ano
         string placa UK
         integer km_atual
+        decimal capacidade_tanque "opcional"
+        decimal volume_reserva "opcional"
     }
     manutencoes {
         bigint id PK
@@ -38,6 +43,7 @@ erDiagram
         string status
         date data
         integer km_servico
+        string natureza "preventiva/corretiva opcional"
     }
     despesas {
         bigint id PK
@@ -48,6 +54,10 @@ erDiagram
         decimal litros
         decimal preco_litro
         string posto
+        bigint posto_id FK "opcional; SET NULL"
+        string combustivel "opcional"
+        integer km_abastecimento "opcional"
+        boolean tanque_cheio "opcional"
         date data
     }
     alertas {
@@ -55,15 +65,33 @@ erDiagram
         bigint motocicleta_id FK
         string tipo_alerta
         string nivel_urgencia
+        string origem "chuva_lavagem opcional"
         integer km_limite
         integer km_base "referência do intervalo"
         date data_limite
         string status
     }
+    postos {
+        bigint id PK
+        bigint usuario_id FK
+        string nome "único por conta"
+    }
+    posto_precos {
+        bigint id PK
+        bigint posto_id FK
+        string combustivel "único por posto"
+        decimal preco_litro
+    }
 ~~~
 
-Todos os registros do domínio têm timestamps. FKs do domínio têm exclusão em cascata; excluir moto apaga seus históricos/alertas. Campos opcionais e precisão decimal: consultar [SPEC.md](SPEC.md). Tabelas auxiliares de sessão, cache, jobs e recuperação de senha seguem as migrations Laravel e não representam funcionalidades de recuperação de senha implementadas na interface.
+23/10/2026 — complemento aditivo: `2026_10_23_000001_add_motorcycle_insights.php`. Todos os novos campos em tabelas existentes são opcionais, sem backfill. Postos/preços têm timestamps e unicidade composta; exclusão de usuário/posto remove preços, exclusão de favorito apenas anula a referência nos gastos, preservando seu texto e valores. Não executar rollback desta extensão em banco com novos registros.
 
-Escopo vigente após nova orientação de 19/10/2026: T1/T2 ativos; T3 adiada. A entidade despesas e a coluna descricao permanecem no schema, sem rollback ou exclusão de dados. Sua presença no DER não indica funcionalidade financeira ativa.
+Todos os registros do domínio têm timestamps. FKs do domínio têm exclusão em cascata; excluir moto apaga seus históricos/alertas. Campos opcionais e precisão decimal: consultar [SPEC.md](SPEC.md). Tabelas auxiliares de sessão, cache, jobs e recuperação de senha seguem as migrations Laravel.
+
+23/10/2026 — recuperação integrada, sem alteração estrutural: `password_reset_tokens` já existe com email (PK, sem FK), token (hash) e created_at. O broker associa o e-mail à conta, expira em60 minutos e apaga o token consumido. `sessions` existente permite revogar acessos por user_id. Mudanças de senha/e-mail e cadastro de endereço reutilizado invalidam tokens correspondentes. Nenhuma migration nova. [Contrato/configuração](RECUPERACAO_SENHA.md).
+
+Escopo vigente em 23/10/2026: T1/T2/T3 ativos, incluindo despesas e relatórios. A T3 reutiliza despesas e descricao já existentes; nenhuma migration nova, rollback ou exclusão de dados nesta retomada. FEATURE_FINANCEIRO=true por padrão; false permite desativação funcional sem mudar o schema. O adiamento de 19/10 foi superado pelo usuário.
 
 19/10/2026: Web Push substitui Firebase. Migration aditiva inclui push_subscription e push_endpoint_hash em usuarios. O campo fcm_token é legado sem uso; não há migração possível de token FCM para inscrição Push API e o usuário precisa ativar o navegador novamente.
+
+23/10/2026 - lembretes: tipo_alerta string passa a aceitar abastecimento, seguro, ipva e licenciamento; os tres ultimos exigem data_limite sem KM. Campos/tabelas/FKs permanecem intactos; nenhuma migration nova. Contrato e evidencia em [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md).

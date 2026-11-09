@@ -1,0 +1,10 @@
+[Unit]
+Description=Run MotoCare scheduler every minute
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+AccuracySec=1s
+Unit=motocare-scheduler.service
+
+[Install]
+WantedBy=timers.target

@@ -1,4 +1,125 @@
-# Continuação do MotoCare - retomada futura da T3
+# Continuação do MotoCare - T1/T2/T3
+
+## Região Oracle informada — 24/10/2026
+
+Usuário respondeu Brasil Vinhedo à pergunta sobre região principal. Identificador oficial sa-vinhedo-1 (Brazil Southeast/Vinhedo); orientar criação nessa região e conferir marcador Home region/cota/Always Free no console. Mantida proposta Ubuntu24.04LTS sem Pro, A1.Flex2OCPU/6GB/boot50GB e rede pública, SSH com a .pub já preparada. Nenhuma VM criada, nenhum IP/acesso remoto recebido e nenhuma alteração de código, dados, chaves ou serviços nesta confirmação. Próximo retorno necessário: resultado da criação e IP público; se houver custo ou falta de capacidade, analisar o aviso sem selecionar recurso pago. Ver HOSPEDAGEM_ORACLE e preservar tmp/oracle-ssh.
+
+## Conta Oracle confirmada e SSH preparado — 23/10/2026
+
+Usuário respondeu que já tem conta e ainda não criou servidor. Pergunta seguinte: qual região principal/Home region da conta; resposta pendente ao registrar. CUA continua sem navegadores/apps. Par RSA4096 exclusivo preparado em tmp/oracle-ssh/motocare-oracle (+.pub), correspondência conferida; privado com ACL somente usuário/SYSTEM/Administrators e pasta restrita, sem passphrase, não enviado nem incluído em Git/ZIP. Usar somente .pub em Add SSH keys. Preservar e guardar cópia privada segura antes de limpar tmp; não sobrescrever se retomar. Estado/fingerprint em tmp/oracle-ssh/state.json. APP_KEY/VAPID/banco/local/túnel intactos. Nenhuma VM criada ou acesso remoto efetuado. Próximo passo no console: Compute > Instances > Create instance, na região principal, conferindo Always Free e cota antes de criar; configuração proposta em HOSPEDAGEM_ORACLE. A confirmação da conta substitui a pendência dessa informação na entrada anterior.
+
+## Hospedagem Oracle iniciada — 23/10/2026
+
+Novo pedido do usuário: iniciar hospedagem Always Free. Ler [HOSPEDAGEM_ORACLE.md](HOSPEDAGEM_ORACLE.md). Preparados sete arquivos novos: roteiro, ambiente exemplo, Nginx bootstrap/HTTPS, service/timer scheduler e verificador CLI somente leitura. Não alterar stack/rotas/regras/schema/APP_KEY/VAPID ou dados existentes. Preservar chaves e backup privado ao importar; conta/VM/DNS/SSH e transferência ainda não confirmados. Pergunta sobre etapa da conta enviada ao usuário; nenhuma resposta recebida ao preparar esta entrega. Inventário CUA sem navegadores/apps; OCI CLI/config ausentes. Nenhum recurso cloud foi criado ou pago.
+
+PHP lint/Pint do verificador aprovados; execução local sinalizou corretamente as diferenças de desenvolvimento, com exit1 esperado, sem imprimir segredos/migrar/enviar push. Nginx/systemd/HTTPS só poderão ser validados na VM; não afirmar implantação pronta. Suítes funcionais anteriores não repetidas porque aplicação não foi alterada. Túnel e serviços locais preservados. Fontes de preparação em feature/hospedagem-oracle sobre30d455d, pacote próprio, anteriores preservadas. Próxima etapa: confirmar conta/VM e obter acesso, criar somente recursos gratuitos após conferir cota/estimativa; usuário conclui cartão/termos diretamente na Oracle.
+
+## Túnel atual — 23/10/2026
+
+Usuário pediu abrir após conferência indicar nenhum cloudflared ativo. Novo HTTPS https://internet-fingers-robinson-leo.trycloudflare.com, túnel17644/API14420/preview1452, portas8001/5180; estado tmp/mobile-access.json. APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT corretos no processo móvel, debugfalse/cookiesseguros, sem alterar `.env`/chaves/dados ou parar outros processos. Build público atual e recursos200/CSRF200/no-store/HttpOnly-Secure, privados401/segredos404/local5173 preservado conferidos. Sem login autenticado novo/push/e-mail/scheduler/Safari físico. [Acesso](ACESSO_CELULAR.md); origem nova exige abrir novo link e, para PWA/push, instalação/permissão nessa origem. Documentação operacional não substitui as validações funcionais abaixo.
+
+## Sugeridos desaparecem após configurar — 23/10/2026
+
+Pedido posterior do usuário substitui o retorno automático das sugestões após conclusão: suggestedReminders agora considera todos os tipos salvos da moto, incluindo concluídos. Oculta cada item e a seção quando não resta sugestão, mantendo ativos/CRUD/Novo alerta. Apenas excluir o último registro de um tipo o libera novamente. Sem localStorage, migration ou mudança da API/banco. Texto de orientação e estado vazio ajustados; sugestões antigas não aparecem durante carregamento.56 testes frontend/build e Chrome/SQLite isolado/cancelar/erro422/salvar/recarga/concluir/troca entre duas motos/oito tipos/configurar novamente pelo Novo alerta aprovados; fixtures removidas e QA8010/5190 encerrado. Preview5173 atualizado. [Evidências](VALIDACAO_LEMBRETES.md); commit/pacote incrementais em feature/correcao-acesso. Sem dados reais/configuração privada/push/SMTP alterados.
+
+## Configurar verde e quadrado — 23/10/2026
+
+Por preferência explícita do usuário, botões Configurar agora usam as classes button/button-lime existentes, preenchimento verde e raio0. Mantidos controles44px, comportamento, cards e demais elementos. Build local5173 atualizado e Chrome isolado com API simulada320/390/768/1440px/dois temas confirmou cores padrão/cantos retos/sem cortes e abertura do formulário. Sem contas/dados/API reais alterados; suítes anteriores não reexecutadas nesta mudança visual. Publicação e pacote incrementais em feature/correcao-acesso.
+
+## Lembretes completos e visual da referência — 23/10/2026
+
+Usuário informou que o painel da imagem ainda faltava. Base existente estava em grade e, em Alertas, só exibia sugestões. Complementado o mesmo componente: ativos+sugestões também em `/alertas`, lista vertical, ícones por categoria e acento roxo adaptado ao modo noturno. Dashboard preservado; pneus dianteiro/traseiro e regras reais mantidos, sem dados demonstrativos na interface. Ver lembrete foca os controles detalhados na própria tela; Ver todos aparece só no Dashboard.55 testes frontend/build e Chrome/SQLite320–1440px/temas/configuração/persistência/CRUD/foco/503/offline aprovados; capturas inspecionadas. [Detalhes](VALIDACAO_LEMBRETES.md). Sem backend/schema/dados reais/.env/chaves/push/SMTP alterados. Preview5173 atualizado; fixtures removidas/QA8010/5190 encerrado. Commit incremental e pacote correspondente na branch feature/correcao-acesso.
+
+## Barra de Gastos alinhada — 23/10/2026
+
+RecordsView recebe classe records-toolbar e CSS escopado: alinhamento pela base, controles44px, campos agrupados antes de Todo o histórico e grid responsivo (mobile com campos em linhas completas). Eventos e regras existentes preservados, sem mudança global de CSS/API/schema. Build de uso5173 atualizado;55 testes frontend e Chrome/SQLite320–1920px/claro-escuro/geometria/filtros/mês/histórico/atualizar/formulário aprovados. Tela compartilhada de Manutenções conferida em320/768/1440px. Capturas em tmp/expenses-align-*, fixtures removidas e QA8010/5190 encerrado; serviços de uso preservados. Publicação incremental em feature/correcao-acesso; pacote correspondente atualizado. Sem novo teste de backend, push, e-mail ou Safari físico.
+
+## Logo na aba — 23/10/2026
+
+`frontend/index.html` referencia a logo existente `/icons/icon-192.png` como favicon e apple-touch-icon. Sem novo asset/dependência, alteração de manifest/worker ou regras/dados. Build local5173 atualizado; Chrome isolado conferiu imagem200/192x192 na raiz e no login, com ícone já no precache. Recarregar a aba se ainda exibir o ícone antigo. Suítes anteriores não reexecutadas nesta mudança de metadados. Publicação permanece em `feature/correcao-acesso`.
+
+## Acesso pela página inicial corrigido — 23/10/2026
+
+Entrar em `/` agora abre `/dashboard`: registros distintos no Vue Router eliminam a navegação duplicada do antigo alias, preservando HomeView, URLs, AccountGate e raiz autenticada. Destaque/aria-current do menu Dashboard preservados. Build de uso5173 atualizado; aba antiga pode exigir Ctrl+F5. 55 testes frontend/build e regressão Chrome local/SQLite aprovados; [evidências](VALIDACAO_ACESSO.md). Sem backend/schema/dados reais/configuração privada alterados. QA8010/5190 encerrado após testes, fixtures removidas; serviços de uso preservados. Fontes em `feature/correcao-acesso`, sobre427aada; branches e PDF anteriores preservados.
+
+## Histórico no estilo da referência — 23/10/2026
+
+HistoryTimeline reutilizável no Dashboard/Gastos/Manutenções, com trilha/ícones/valores/datas, detalhes reais e resumos mensais. Tabela anterior acessível por botão; filtros/CRUD/favoritos/formulários/rotas preservados. Consumo por ciclo existente, associado ao novo campo opcional `ciclos[].abastecimento_id`; sem schema/migration/dependências novas. Pendentes fora do total, média ponderada, comparação só com mês anterior válido e totais completos mesmo com Mostrar mais. Ler [VALIDACAO_HISTORICO.md](VALIDACAO_HISTORICO.md) e SPEC.
+
+82backend/878 verificações,55frontend/build, Pint e Chrome/SQLite320–1440px/temas/CRUD/tabela/filtros/mesmo dia/carga lenta/503/offline aprovados. Dashboard não mostra resumo parcial antes das fontes completas; falha de estatística em Gastos preserva registros sem inventar média. Fixtures removidas e QA8010/5190 encerrado; local de uso preservado, sem dados reais/.env/chaves/push/Gmail alterados. Branch atual `feature/historico-timeline` sobre728fd50, pacote próprio, branches/PDF anteriores históricos. SMTP continua pendente de senha de app local.
+
+## Painel de lembretes — 23/10/2026
+
+Dashboard com Lembretes/ativos/prazos e Sugeridos/Configurar; sugestões também em Alertas, reutilizando formulário/CRUD/CSRF. Tipos novos abastecimento, seguro, IPVA e licenciamento; últimos três apenas por data. Sem schema/migration/dependências novas nem registros automáticos de pagamento/manutenção/abastecimento/novo ciclo. T1/scheduler/90%/push e demais recursos preservados. Ler [VALIDACAO_LEMBRETES.md](VALIDACAO_LEMBRETES.md) e SPEC.
+
+81backend/867 verificações,49frontend/build, Pint e Chrome320–1440px/temas com SQLite isolado aprovados; CRUD/persistência/links/foco/sugestões/503/offline/botões conferidos. Helper P-256 de testes corrigido para zeros iniciais, sem mudar produção. Fixtures removidas e QA8010/5190 encerrado ao concluir; sem dados reais/.env/chaves/push/e-mails alterados. Local8000/5173/MySQL3306 disponíveis na última checagem. Sem novo túnel/iPhone físico. Branch atual `feature/lembretes` sobre89cffc1, pacote próprio; PDF anterior histórico. Pendência SMTP Gmail separada.
+
+## Recuperação de senha integrada — 23/10/2026
+
+Preparação Gmail posterior: usuário forneceu o remetente; host587/SMTP/usuário/remetente preparados somente no `.env` privado. MAIL_PASSWORD continua vazio e MAIL_MAILER=log até o usuário gerar e inserir localmente uma senha de app do Google e ativar smtp. Nenhum envio externo feito. Não publicar o endereço pessoal nem pedir a senha pelo chat. Instruções em RECUPERACAO_SENHA; depois conferir config/reiniciar API e testar recebimento real.
+
+Ler [RECUPERACAO_SENHA.md](RECUPERACAO_SENHA.md). Link no login, `/esqueci-senha` e `/redefinir-senha`, APIs JSON com CSRF/rate limits e broker existente (hash, 60 minutos, uso único). Sucesso revoga sessões/push da conta; alterações de senha/e-mail e reuso de endereço invalidam links anteriores. Sem schema/migration/dependência nova; negócio/rotas/T1/T2/T3/landing preservados.
+
+77 testes backend/771 verificações,43 frontend/build, Pint/Composer e Chrome320/390/768/1440px/temas com SQLite/SMTP local isolados aprovados; fixtures removidas. Nenhum e-mail externo/push real nem dados MySQL alterados. **Pendente operacional: SMTP real**, conforme usuário informou não possuir provedor. `.env` de uso preservado em mailer log, recusado para recuperação com503 para não expor segredo. Configurar SMTP/remetente e FRONTEND_URL da origem pública quando disponível; não pedir credenciais no chat. PDF anterior histórico. Continuidade na branch `feature/recuperacao-senha`, sobre80b7b7f, preservando as anteriores.
+
+Acesso local: frontend5173 preservado e API8000 iniciada; MySQL do XAMPP ficou indisponível na checagem final, reativar para usar contas. Não iniciar scheduler automaticamente. QA8010/5190 encerrado; sem túnel novo nesta tarefa.
+
+## Landing gratuita integrada — 23/10/2026
+
+Nova apresentação pública em `/apresentacao` e raiz `/` de visitantes. Raiz autenticada continua no dashboard; `/dashboard` e demais rotas permanecem. CTAs usam o AccountGate existente: `/dashboard` para entrar, `/dashboard?cadastro=1` para abrir cadastro, `/relatorios` para relatórios. Conta conectada vai ao painel sem cadastro forçado. Ler [VALIDACAO_LANDING.md](VALIDACAO_LANDING.md) e SPEC antes de mexer nos acessos.
+
+Página responsiva preto/verde/Arial, gratuita sem planos, com navbar/âncoras/tema, hero e mockups próprios ilustrativos, funcionalidades, corrente/chuva, reserva estimada, relatórios, benefícios, CTA final e rodapé. Componentes/CSS escopados, chunk sob demanda, nenhum pacote novo. Backend/schema/dados/.env/chaves/serviços anteriores intactos; nenhuma migration necessária.
+
+40 testes frontend/build aprovados; Chrome320/390/768/1024/1440/1920px/temas, âncoras, cadastro/login reais e regressão T3 aprovados em SQLite isolado, fixtures removidas. Página online funciona mesmo com API503, offline/reconexão e movimento reduzido preservados. Sem novo teste MySQL/iPhone físico/push. Fontes na branch `feature/landing-page` sobre d27002f, preservando branches anteriores. PDF acadêmico anterior não regenerado nesta adição.
+
+## Correção visual do painel e shell — 23/10/2026
+
+Solicitação de formatação atendida: Atualizar compacto ao lado do título, métricas antes dos cuidados, seletor/botões alinhados, cabeçalho/rodapé completos e menu mobile sem altura fixa. Painel conserva indicadores ao atualizar, aguarda suas consultas completas e oferece recuperação em erro. Estilo/temas/rotas/negócio preservados, sem mudança de API/schema/configuração privada. Evidências em [REVISAO_FRONTEND.md](REVISAO_FRONTEND.md).
+
+38 testes frontend/build e Chrome1920/1440/768/390/320px aprovados, claro/noturno, geometria, espera/falha503/recuperação e rodapé/menu. Como XAMPP/servidores de uso estavam desligados, revisão final usou SQLite/portas8010/5190 isolados, sem dados reais. Para uso iniciar XAMPP/API/frontend habituais e recarregar online; nenhum novo aceite Safari/push.
+
+## Aceite visual da T3 no iPhone — 23/10/2026
+
+Em 23/10/2026, usuário respondeu “Abrem e estão normais” à pergunta sobre Gastos (incluindo Novo gasto) e Relatórios no Safari do iPhone, no acesso HTTPS da T3. Aceite visual desses fluxos registrado. A resposta não confirma novos cadastros, exportação/compartilhamento de CSV, impressão no aparelho ou os complementos de corrente, reserva e favoritos adicionados depois da pergunta. Sem nova execução de testes, envio push ou alteração de código/banco.
+
+## Complementos preservando a base — 23/10/2026
+
+Fontes desta extensão na branch dedicada `feature/complementos-motocicletas`, baseada em b3c70e9; master e feature/t3-financeiro preservadas, sem merge automático.
+
+Pedido atual implementado sobre T3 publicada em b3c70e9. Ler [VALIDACAO_COMPLEMENTOS.md](VALIDACAO_COMPLEMENTOS.md), SPEC e DER: favoritos/preços por combustível, consumo cheio/parcial, tanque/reserva, painel/feed/gráficos, FAB, serviços por eixo/corrente, contador e chuva/lavagem. Regras/rotas legadas preservadas, campos novos opcionais e históricos sem preenchimento por suposição.
+
+Migration `2026_10_23_000001_add_motorcycle_insights.php` aplicada no MySQL local. Contagens/hashes de todos os campos originais em usuários/motos/manutenções/despesas/alertas iguais antes/depois. Em outra instalação executar `php artisan migrate`, preservando .env/APP_KEY/VAPID; não usar migrate:fresh/rollback para atualizar.
+
+Backend61/647 e frontend38/build aprovados, Chrome isolado + HTTP/MySQL com contas descartáveis removidas. Cenário novo: consumo30km/L, reserva250/310km, odômetro1350, gasto353,50, contador1, memória de posto e atalho idempotente. Nenhum push real/scheduler contínuo; não usar alertas da conta para demonstração sem cenário controlado. Aceite novo no iPhone/Safari físico pendente.
+
+Atualizar online (Ctrl+F5 ou fechar completamente/reabrir PWA); cadastrar tanque/reserva na Garagem e favoritos/cheios/parciais com KM em Gastos. Média/autonomia exigem dados válidos, sem alterar históricos antigos. Registrar troca do kit/ajustes em Manutenções e programar lubrificação em Alertas. Chuva cria lembrete para hoje, não serviço realizado. Push segue dependente de scheduler/inscrição.
+
+PDF/ZIP acadêmicos anteriores abaixo não incluem esta extensão. Fontes, SPEC/DER e relatório novo são a referência; não reimplementar esses módulos na retomada.
+
+## Acesso móvel da T3 - 23/10/2026
+
+Endereço temporário verificado: **https://success-browsers-showtimes-leg.trycloudflare.com**. Túnel anterior expirou; somente processos móveis identificados reiniciados. API móvel PID 1764, preview PID 11000, túnel PID 18324; estado em tmp/mobile-access.json. APP_URL/WEBPUSH_SUBJECT e FEATURE_FINANCEIRO=true definidos no processo, com debug desligado e cookies seguros. .env e chaves preservados.
+
+HTTPS: HTML/build T3, manifest e CSRF 200; cookies Secure/HttpOnly/no-store, features anônimo 401 e .env 404. Smoke autenticado com conta descartável confirmou financeiro=true, gasto/relatório 1,52, privacidade, CSRF 419 e logout 401; conta/sessões removidas. Sem novo envio push/scheduler. No iPhone, abrir a nova origem no Safari; instalação/notificações anteriores permanecem vinculadas ao hostname antigo. Aceite visual da T3 recebido em 23/10: usuário confirmou “Abrem e estão normais” para Gastos/Novo gasto e Relatórios no iPhone/Safari. Exportações no aparelho e complementos posteriores não estão cobertos por essa resposta.
+
+## T3 integrada e validada - 23/10/2026
+
+A instrução de iniciar T3 substitui o adiamento anterior. Implementados Gastos/Abastecimentos, Relatórios, CSV e impressão/Salvar PDF; código em `feature/t3-financeiro`, baseado em 5cdce58. Não integrar automaticamente em master. Consultar [VALIDACAO_T3.md](VALIDACAO_T3.md), [RETOMADA_T3.md](RETOMADA_T3.md) e [ENTREGA.md](ENTREGA.md). Os registros de 22/10 abaixo são históricos.
+
+Ativação: config/features.php e .env.example usam FEATURE_FINANCEIRO=true. Nenhum .env privado foi editado nesta máquina; quem herdou false em outro ambiente deve habilitar explicitamente, limpar config cache se houver e reiniciar. GET autenticado /api/features retorna somente financeiro:boolean; sessão/carregamento/menu/rotas são coerentes com esse valor. false continua suportado, com APIs financeiras404 e T1/T2 ativos.
+
+Correções da retomada: motocicleta_id=0 não pode selecionar todas as motos; resultados de filtros anteriores não permanecem na tela após falha/alteração; relatório captura período/moto da consulta e desativa controles em voo. CSV usa vírgula decimal, BOM UTF-8, escape de texto e proteção contra fórmulas. Tabelas financeiras rolam em seu contêiner, sem arrastar a página inteira; impressão remove essas larguras mínimas. Garagem/Configurações não remontam por seleção de moto; primeira moto preserva confirmação de cadastro. Ícones decorativos do menu ocultos da leitura acessível.
+
+Validação atual: 54 testes backend / 486 verificações e 34 frontend/build aprovados, Pint nos arquivos alterados e Composer validate. Chrome isolado em 1440x1000/390x844 com MySQL real: cadastro, garagem, combustível87,50 e arredondamento 1,52, trocas de tipo, reparos 0,10+0,20, duas motos, manutenção 100,01 com odômetro 1100 e pendente 500 fora dos totais, relatório 187,81/2,00/189,81 por escopo. CSV baixado e PDF impresso/renderizado conferidos. Isolamento404, CSRF 419, inválidos 422 e logout 401; nenhuma exceção JS no fluxo aprovado. Duas contas/sessões descartáveis removidas por rotina limitada às fixtures; nenhum dado da conta do usuário usado.
+
+Sem nova migration: schema de despesas/descrição existente e aplicado. SPEC/DER atualizados quanto ao estado/contrato, sem alterar T1/T2, chaves, push ou banco existente. Prévia local já serve o build da T3; atualizar com Ctrl+F5 ou fechar completamente/reabrir PWA online. Aceite visual do usuário no iPhone/Safari recebido para Gastos/Novo gasto e Relatórios; não estender a confirmação a exportações ou complementos posteriores. Nenhum push adicional ou scheduler contínuo iniciado.
+
+## Acesso móvel reaberto - 22/10/2026
+
+- [x] Novo túnel autorizado pelo usuário e validado: https://own-deeper-just-photo.trycloudflare.com.
+- [x] Página/assets/PWA e CSRF 200; cookies Secure/HttpOnly/no-store; acesso anônimo privado 401 e caminhos de segredos 404. Servidores locais8000/5173 preservados.
+- [x] Estado local/roteiro móvel atualizados; apenas processos móveis reiniciados, com novo APP_URL/WEBPUSH_SUBJECT. Sem alteração de código/schema/.env/chaves, sem scheduler contínuo/push adicional ou novo aceite manual. A instalação antiga do iPhone usa a origem anterior; abrir/adicionar o novo endereço para testar notificações nesta origem.
+
 
 ## PDF final após publicação - 22/10/2026
 
@@ -11,7 +132,7 @@ Esta edição consolida os fontes em [guibirlem/motocare](https://github.com/gui
 
 O [PDF único de entrega](output/pdf/MotoCare-Arquivo-Unico-Entrega.pdf) foi substituído por edição atual de nove páginas: repositório/commits, arquitetura, DER com km_base, backlog e atas retrospectivas, incluindo os aceites reais e a revisão de negócio/segurança. Todas as páginas foram renderizadas e inspecionadas; texto/links conferidos. Pacote de continuidade local e checksum atualizados. Registros históricos abaixo mantêm o estado observado em cada etapa; menções antigas a PDF histórico/publicação pendente foram superadas por esta edição.
 
-Nenhuma regra ou configuração privada mudou nesta preparação documental/publicação. As validações funcionais vigentes são 45 testes backend/391 verificações e 28 frontend/build, com limites em REVISAO_LOGICA_SEGURANCA.md. Financeiro/T3 continua false; para retomar, clonar/puxar a versão atual e seguir RETOMADA_T3.md. Não copiar .env, APP_KEY ou VAPID de outra máquina.
+Nenhuma regra ou configuração privada mudou nesta preparação documental/publicação. As validações funcionais vigentes são 45 testes backend / 391 verificações e 28 frontend/build, com limites em REVISAO_LOGICA_SEGURANCA.md. Financeiro/T3 continua false; para retomar, clonar/puxar a versão atual e seguir RETOMADA_T3.md. Não copiar .env, APP_KEY ou VAPID de outra máquina.
 
 ## Revisão de negócio e segurança - 22/10/2026
 
@@ -21,7 +142,7 @@ Usuário também escolheu 90% do intervalo, substituindo 90% do odômetro absolu
 
 Segurança: respostas antigas descartadas após logout/troca de sessão e refresh fora de ordem; senhas novas limitadas a 72 bytes sem NUL; campos de senha atual com formato inválido tratados como 422; perfil/senha com limites separados de dez tentativas/minuto. Erros da API sanitizados mesmo com debug, com Retry-After preservado; CSRF/isolamento/criptografia push conferidos. Preview com CSP/nosniff/referrer/frame e bloqueio explícito de caminhos privados. Vite atualizado para 6.4.5/plugin Vue 5.2.4 e transitivas corrigidas; npm audit/Composer audit sem avisos conhecidos. APP_KEY/chave privada VAPID/padrões de credenciais não encontrados nos fontes elegíveis/build; .env/chaves mantidos privados, sem rotação. Chave pública VAPID é necessária ao Web Push.
 
-Validações atuais: 45 testes backend/391 verificações, 28 frontend, build, Pint dos arquivos alterados e Composer validate aprovados. HTTP/MySQL com contas descartáveis aprovou odômetro/histórico/datas/referência de alerta, isolamento, CSRF e logout; fixtures removidas. Banco atual: zero divergências manutenção/odômetro, concluídas futuras/sem KM e referências pendentes inválidas. HTTPS autorizado confirmou assets/PWA 200, acesso anônimo privado 401, caminhos de segredos 404 e cookies móveis Secure/HttpOnly. Previews substituídos pelo Vite corrigido: local PID 18208 e móvel 18524; API/túnel preservados, estado em tmp/mobile-access.json. Pint global aponta só formatação de quatro migrations antigas não alteradas; relatório explicita limite. Aceites visuais/push anteriores não foram repetidos manualmente; nenhum scheduler contínuo iniciado. Fontes consolidados na publicação descrita acima; pacote/checksum atualizados; T3 desativada.
+Validações atuais: 45 testes backend / 391 verificações, 28 frontend, build, Pint dos arquivos alterados e Composer validate aprovados. HTTP/MySQL com contas descartáveis aprovou odômetro/histórico/datas/referência de alerta, isolamento, CSRF e logout; fixtures removidas. Banco atual: zero divergências manutenção/odômetro, concluídas futuras/sem KM e referências pendentes inválidas. HTTPS autorizado confirmou assets/PWA 200, acesso anônimo privado 401, caminhos de segredos 404 e cookies móveis Secure/HttpOnly. Previews substituídos pelo Vite corrigido: local PID 18208 e móvel 18524; API/túnel preservados, estado em tmp/mobile-access.json. Pint global aponta só formatação de quatro migrations antigas não alteradas; relatório explicita limite. Aceites visuais/push anteriores não foram repetidos manualmente; nenhum scheduler contínuo iniciado. Fontes consolidados na publicação descrita acima; pacote/checksum atualizados; T3 desativada.
 
 ## Modo noturno - 22/10/2026
 

@@ -2,7 +2,7 @@ import { reactive } from 'vue'
 import { api, prepareSession } from './api'
 import { resumePush, stopPushSession, detachPushBrowser } from './push'
 let sessionVersion = 0, motorcyclesVersion = 0
-export const workspace = reactive({ user: null, motos: [], motoId: '', ready: false, sessionNotice: '', offline: !navigator.onLine })
+export const workspace = reactive({ user: null, features: { financeiro: false }, motos: [], motoId: '', ready: false, sessionNotice: '', offline: !navigator.onLine })
 export async function refreshMotos(expectedVersion = sessionVersion) {
   const ownerId = workspace.user?.id, requestVersion = ++motorcyclesVersion
   if (!ownerId || expectedVersion !== sessionVersion) return
@@ -11,7 +11,7 @@ export async function refreshMotos(expectedVersion = sessionVersion) {
   workspace.motos = data
   if (!data.some(m => m.id === Number(workspace.motoId))) workspace.motoId = data[0]?.id || ''
 }
-export function clearSession(message = '') { sessionVersion++; stopPushSession(); void detachPushBrowser().catch(() => {}); delete api.defaults.headers.common['X-CSRF-TOKEN']; workspace.sessionNotice = message; workspace.user = null; workspace.motos = []; workspace.motoId = ''; workspace.ready = true }
+export function clearSession(message = '') { sessionVersion++; stopPushSession(); void detachPushBrowser().catch(() => {}); delete api.defaults.headers.common['X-CSRF-TOKEN']; workspace.sessionNotice = message; workspace.user = null; workspace.features = { financeiro: false }; workspace.motos = []; workspace.motoId = ''; workspace.ready = true }
 async function resumeNotifications() {
   try { await resumePush(workspace.user.id) } catch {}
 }
@@ -20,9 +20,10 @@ export async function startSession() {
   try {
     await prepareSession(current)
     if (!current()) return
-    const { data } = await api.get('/user')
+    const [user, features] = await Promise.all([api.get('/user'), api.get('/features')])
     if (!current()) return
-    workspace.user = data
+    workspace.features = { financeiro: features.data.financeiro === true }
+    workspace.user = user.data
     await refreshMotos(attempt)
     if (current()) await resumeNotifications()
   }
@@ -35,10 +36,13 @@ export async function signIn(register, credentials) {
   if (!current()) return
   const { data } = await api.post(register ? '/register' : '/login', credentials)
   if (!current()) return
-  workspace.user = data
-  workspace.sessionNotice = ''
   await prepareSession(current)
   if (!current()) return
+  const features = await api.get('/features')
+  if (!current()) return
+  workspace.features = { financeiro: features.data.financeiro === true }
+  workspace.user = data
+  workspace.sessionNotice = ''
   await refreshMotos(attempt)
   if (current()) await resumeNotifications()
 }

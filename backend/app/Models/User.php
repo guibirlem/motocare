@@ -55,6 +55,11 @@ class User extends Authenticatable
         ];
     }
 
+    public function postos(): HasMany
+    {
+        return $this->hasMany(Posto::class, 'usuario_id');
+    }
+
     public function motocicletas(): HasMany
     {
         return $this->hasMany(Motocicleta::class, 'usuario_id');

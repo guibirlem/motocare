@@ -157,11 +157,13 @@ class MotorcycleInsightsTest extends TestCase
         $moto = $this->moto($user);
         $this->signed($user);
         $path = '/api/motocicletas/'.$moto->id;
+        $today = today()->toDateString();
+        $monthStart = today()->startOfMonth()->toDateString();
         $this->putJson($path, array_replace($moto->toArray(), ['volume_reserva' => '12.00']))->assertUnprocessable();
-        $this->postJson($path.'/despesas', ['tipo_despesa' => 'impostos', 'valor' => '30.00', 'data' => '2026-10-01'])->assertCreated();
-        $this->postJson($path.'/manutencoes', ['tipo_servico' => 'pneu_traseiro', 'natureza' => 'preventiva', 'valor' => '100.00', 'status' => 'concluido', 'data' => '2026-10-01', 'km_servico' => 1000])->assertCreated();
-        $this->getJson('/api/relatorios?inicio=2026-10-01&fim=2026-10-23')->assertOk()->assertJsonPath('resumo.total', '130.00')->assertJsonPath('categorias.impostos', '30.00')->assertJsonPath('categorias.preventiva', '100.00');
-        $this->postJson($path.'/alertas', ['tipo_alerta' => 'pneu_traseiro', 'km_base' => 1000, 'km_limite' => 1500, 'data_limite' => '2026-10-30'])->assertCreated();
+        $this->postJson($path.'/despesas', ['tipo_despesa' => 'impostos', 'valor' => '30.00', 'data' => $today])->assertCreated();
+        $this->postJson($path.'/manutencoes', ['tipo_servico' => 'pneu_traseiro', 'natureza' => 'preventiva', 'valor' => '100.00', 'status' => 'concluido', 'data' => $today, 'km_servico' => 1000])->assertCreated();
+        $this->getJson('/api/relatorios?inicio='.$monthStart.'&fim='.$today)->assertOk()->assertJsonPath('resumo.total', '130.00')->assertJsonPath('categorias.impostos', '30.00')->assertJsonPath('categorias.preventiva', '100.00');
+        $this->postJson($path.'/alertas', ['tipo_alerta' => 'pneu_traseiro', 'km_base' => 1000, 'km_limite' => 1500, 'data_limite' => today()->addDay()->toDateString()])->assertCreated();
         $this->getJson($path.'/painel')->assertOk()->assertJsonPath('gasto_mes', '130.00')->assertJsonPath('consumo_medio', null);
         config(['features.financeiro' => false]);
         $this->getJson('/api/postos')->assertNotFound();

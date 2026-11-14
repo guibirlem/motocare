@@ -1,5 +1,9 @@
 # Continuação do MotoCare - T1/T2/T3
 
+## README reorganizado — 14/11/2026
+
+README.md reescrito para apresentar propósito/ideia do MotoCare, funcionalidades existentes, tecnologias, estrutura e procedimento local de instalação e execução em Windows/XAMPP. Foram documentados frontend Vue, API Laravel, banco, scheduler, Web Push e dependência de SMTP para envio de recuperação de senha. Mudança exclusivamente documental; código/configuração e banco não foram alterados e nenhuma suíte foi executada. A execução segue as versões/variáveis já definidas em `.env.example`, `package.json` e scripts existentes.
+
 ## Túnel atual — 23/10/2026
 
 Usuário pediu abrir após conferência indicar nenhum cloudflared ativo. Novo HTTPS https://internet-fingers-robinson-leo.trycloudflare.com, túnel17644/API14420/preview1452, portas8001/5180; estado tmp/mobile-access.json. APP_URL/FRONTEND_URL/WEBPUSH_SUBJECT corretos no processo móvel, debugfalse/cookiesseguros, sem alterar `.env`/chaves/dados ou parar outros processos. Build público atual e recursos200/CSRF200/no-store/HttpOnly-Secure, privados401/segredos404/local5173 preservado conferidos. Sem login autenticado novo/push/e-mail/scheduler/Safari físico. [Acesso](ACESSO_CELULAR.md); origem nova exige abrir novo link e, para PWA/push, instalação/permissão nessa origem. Documentação operacional não substitui as validações funcionais abaixo.
@@ -241,3 +245,7 @@ ExpensesView.vue, ReportsView.vue, Despesa, Money, testes financeiros e a migrat
 Pacote auxiliar local atual: entrega/MotoCare-Retomada-T3-2026-10-22.zip, recomposto com os documentos e PDF atuais. Pacote de 19/10 permanece histórico. Fontes/documentos/PDF integram a atualização Git desta edição; o diretório entrega é ignorado por duplicar os fontes. A pasta original não tem .git; foi usado clone separado para preservar o histórico. O erro 403 do conector foi contornado pelo Git instalado. Quatro arquivos legados FCM/demo retirados do clone conforme [ENTREGA.md](ENTREGA.md).
 
 Não copiar .env, chaves privadas, dependências instaladas, caches, logs ou dist. Preservar o histórico de guibirlem/motocare.
+
+## Plano de testes do MVP - 13/11/2026
+
+Plano atualizado em output/pdf/PlanoDeTestes_MotoCare.pdf: 11 casos (5 unitarios, 4 integracao, 2 aceitacao), todos passaram; inclui rastreabilidade para TASKS.md e roteiros executados no navegador, incluindo isolamento entre contas. Suite backend inteira: 89 testes/898 assercoes em SQLite em memoria, PHP 8.2.12. TC09/TC10 executados em servidor local temporario com banco SQLite descartavel; CSV validado em pt-BR e com prefixo de protecao contra formula. Uma fixture de teste com datas fixas foi tornada relativa ao mes atual; producao inalterada. Testes publicados inicialmente em branch dedicada e incorporados a master em 14/11/2026. O nome de integrantes individuais nao consta nos documentos; responsavel indicado como Squad MotoCare.

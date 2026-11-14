@@ -1,5 +1,17 @@
 # Tarefas - T1/T2/T3
 
+## README reorganizado - 14/11/2026
+
+- [x] README reescrito em português com a proposta do MotoCare, público/problema, funcionalidades, stack, arquitetura, requisitos e roteiro de execução local em Windows/XAMPP.
+- [x] Incluídos primeiros passos, scheduler/Web Push, configuração pendente de SMTP, testes, estrutura do repositório e documentação relacionada. Mudança somente documental; suítes não reexecutadas.
+
+## Plano de testes do MVP - 13/11/2026
+
+- [x] Plano ampliado para TC01-TC11: 5 unitarios, 4 integracao e 2 aceitacao; todos passaram. TC09/TC10 executados no navegador com SQLite isolado. PDF: `output/pdf/PlanoDeTestes_MotoCare.pdf`.
+- [x] Suite backend completa passou: 89 testes/898 assercoes em PHP 8.2.12; ajustada fixture antiga com datas fixas para usar o mes atual. Nenhuma regra de producao alterada.
+- [x] Testes publicados inicialmente na branch `test/plano-testes-mvp` e incorporados em `master` em 14/11/2026 (commits `efcd6f9` e `aaf1507`).
+- Os documentos consultados nao nomeiam integrantes individualmente; o plano atribui os casos ao Squad MotoCare.
+
 ## Reabrir túnel — 23/10/2026
 
 - [x] Novo pedido atendido em https://internet-fingers-robinson-leo.trycloudflare.com, com serviços móveis8001/5180 separados do local. HTML/build/recursos200, CSRF200/cookiesseguros/no-store, privados401/segredos404 e local5173 preservado. [Acesso e estado](ACESSO_CELULAR.md). Sem alteração de `.env`/chaves/schema/dados, novo smoke autenticado/push/e-mail ou scheduler iniciado; validações funcionais anteriores preservadas.

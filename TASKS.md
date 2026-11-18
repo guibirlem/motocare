@@ -1,3 +1,12 @@
+# Entrega Final AS — 18/11/2026
+
+- [x] Consolidar o dossiê único `output/pdf/AS_MotoCare.pdf` com as 13 seções exigidas, índice, links, segurança e checklist.
+- [x] Criar roteiro de pitch de 10 minutos em `ROTEIRO_PITCH_MotoCare.md`.
+- [x] Registrar quatro participantes informados sem converter testes automatizados em validação de usuários.
+- [ ] Completar perfil, método, métricas e tabela de feedback dos quatro participantes.
+- [ ] Inserir contribuições reais de cada integrante e adicionar qualquer integrante ausente.
+- [ ] Criar/publicar slides e substituir o marcador no PDF por URL pública.
+
 # Tarefas - T1/T2/T3
 
 ## README reorganizado - 14/11/2026

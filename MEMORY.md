@@ -1,5 +1,11 @@
 # MEMORY.md - Diário de Bordo da IA
 
+# Entrega Final AS - 18/11/2026
+
+- Gerado `output/pdf/AS_MotoCare.pdf` com índice e as 13 seções da avaliação semestral, além de `ROTEIRO_PITCH_MotoCare.md`.
+- O dossiê registra honestamente quatro participantes informados e mantém pendentes os detalhes de feedback, contribuições individuais e slides; não trata testes automatizados como usuários reais.
+- Link de demonstração incluído: `https://speeches-sku-donated-six.trycloudflare.com/`, temporário e dependente dos serviços locais.
+
 ## README reescrito - 14/11/2026
 
 - README agora explica a ideia e o problema que o MotoCare resolve, funcionalidades já implementadas, arquitetura e stack.

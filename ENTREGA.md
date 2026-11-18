@@ -1,3 +1,10 @@
+# Entrega Final AS — 18/11/2026
+
+- Nova consolidação em [output/pdf/AS_MotoCare.pdf](output/pdf/AS_MotoCare.pdf), com índice, negócio, técnico, validação, testes, links, roteiro e checklist.
+- Roteiro auxiliar em [ROTEIRO_PITCH_MotoCare.md](ROTEIRO_PITCH_MotoCare.md).
+- O documento não inventa evidências: registra quatro participantes informados, mas deixa pendentes perfil/métricas/feedback detalhados, contribuições individuais e link dos slides.
+- Produto público usado na demonstração: https://speeches-sku-donated-six.trycloudflare.com/ (túnel temporário; abrir e testar antes da apresentação).
+
 # Entrega MotoCare - T1/T2/T3 - 23/10/2026
 
 ## Correção atual: acesso pela página inicial

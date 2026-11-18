@@ -1,3 +1,9 @@
+# Entrega Final AS — 18/11/2026
+
+O PDF acadêmico atual é [output/pdf/AS_MotoCare.pdf](output/pdf/AS_MotoCare.pdf). O roteiro de fala está em [ROTEIRO_PITCH_MotoCare.md](ROTEIRO_PITCH_MotoCare.md). O conteúdo técnico usa as validações já registradas (89 testes backend/898 asserções, build e aceites mobile), sem expor segredos.
+
+Antes do envio, completar no PDF os campos `PENDENTE` com: discovery e feedback dos quatro participantes, métricas reais, contribuições de todos os integrantes e link público dos slides. O produto do documento aponta para o Quick Tunnel temporário https://speeches-sku-donated-six.trycloudflare.com/; abrir 1–2 minutos antes e manter vídeo/prints como plano B.
+
 # Continuação do MotoCare - T1/T2/T3
 
 ## README reorganizado — 14/11/2026

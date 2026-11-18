@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>AS_MotoCare</title>
+<style>
+@page{size:A4;margin:16mm 15mm 17mm}
+*{box-sizing:border-box}body{font-family:Arial,sans-serif;color:#17221b;font-size:10.5pt;line-height:1.38;margin:0}
+h1{font-size:25pt;color:#123d25;margin:0 0 8pt}h2{font-size:16pt;color:#146b35;border-bottom:2px solid #8fcf9e;padding-bottom:4pt;margin:18pt 0 8pt}h3{font-size:12pt;color:#146b35;margin:12pt 0 4pt}
+p{margin:5pt 0}ul,ol{margin-top:4pt}li{margin:2pt 0}.cover{text-align:center;padding-top:55mm;min-height:245mm}.cover h1{font-size:32pt}.subtitle{font-size:15pt;color:#4b5c51}.meta{margin-top:35pt;line-height:1.8}
+.box{border-left:4px solid #50a866;background:#f0f8f2;padding:8pt 10pt;margin:8pt 0}.warn{border-left-color:#d98b22;background:#fff7e8}.pending{color:#8a4c00;font-weight:bold}
+table{width:100%;border-collapse:collapse;margin:6pt 0 10pt;font-size:9pt}th{background:#dcefe1;color:#123d25;text-align:left}th,td{border:1px solid #aebdb2;padding:5pt;vertical-align:top}
+.page{break-before:page}.small{font-size:8.5pt;color:#516057}.center{text-align:center}.canvas{display:grid;grid-template-columns:1fr 1fr;gap:6pt}.canvas div{border:1px solid #9db9a3;padding:6pt;min-height:38pt}.canvas strong{display:block;color:#146b35}
+a{color:#075fa8;text-decoration:none}.footer{margin-top:18pt;border-top:1px solid #ccd8ce;padding-top:4pt;font-size:8pt;color:#607066}
+</style>
+</head>
+<body>
+<section class="cover">
+<h1>MotoCare</h1>
+<div class="subtitle">Entrega Final – Avaliação Semestral (AS)</div>
+<p class="meta"><strong>Disciplina:</strong> Projeto de Desenvolvimento de Negócios – ADS – 2026/2<br>
+<strong>Squad:</strong> MotoCare<br><strong>Data da apresentação:</strong> 24/11/2026<br><strong>Entrega:</strong> 03/12/2026</p>
+<div class="box">Plataforma PWA para manutenção preventiva, lembretes, histórico e controle financeiro de motocicletas.</div>
+<p class="small">Documento consolidado. Nenhuma senha, chave privada, arquivo .env ou credencial é incluído.</p>
+</section>
+
+<section class="page"><h2>Índice</h2>
+<ol>
+<li>Problema, persona e discovery</li><li>Lean Canvas / Business Model Canvas</li>
+<li>Backlog priorizado, protótipo e casos de uso</li><li>Hipótese, métricas e validação</li>
+<li>Arquitetura, stack e DER</li><li>Backend e contrato da API</li>
+<li>Sprint backlog e atas</li><li>Plano de testes e resultados</li>
+<li>Repositório GitHub e produto publicado</li><li>Slides do pitch</li>
+<li>Contribuição dos integrantes</li><li>Conclusão e próximos passos</li>
+</ol>
+<div class="box warn"><strong>Pendências de fechamento:</strong> o link dos slides ainda será criado; as contribuições individuais e a tabela detalhada de feedback precisam ser completadas pela equipe antes do envio acadêmico.</div>
+</section>
+
+<section class="page"><h2>1. Problema, persona e discovery</h2>
+<h3>Problema</h3><p>Motociclistas que dependem da moto para trabalhar e estudar controlam revisões, abastecimentos e despesas por memória, papéis ou registros dispersos. Isso aumenta o risco de manutenção atrasada e impede compreender o custo real de uso.</p>
+<h3>Persona</h3><p><strong>Lucas “Luke” Almeida</strong>, 21 anos, estudante de TI e estagiário, usa uma moto de baixa cilindrada diariamente e tem baixa tolerância a falhas mecânicas inesperadas.</p>
+<ul><li>Dores: esquecer revisões, medo de ficar parado e falta de visão dos gastos.</li><li>Necessidades: lembretes confiáveis, histórico simples e controle financeiro por moto.</li><li>Proposta de valor: mais tranquilidade, segurança e economia com acompanhamento de quilometragem e despesas.</li></ul>
+<h3>Principais achados</h3><p>Os artefatos do projeto convergem para três necessidades: centralizar registros, transformar quilometragem/data em lembretes acionáveis e apresentar gastos/consumo em uma visão compreensível.</p>
+<div class="box warn"><strong>PENDENTE:</strong> anexar roteiro, data e síntese das entrevistas/discovery se a disciplina exigir evidência de entrevistas além da persona documentada.</div>
+</section>
+
+<section class="page"><h2>2. Lean Canvas / Business Model Canvas</h2>
+<div class="canvas">
+<div><strong>Problema</strong>Esquecimento de revisões; despesas dispersas; ansiedade com falhas.</div>
+<div><strong>Segmentos</strong>Motociclistas urbanos, entregadores e proprietários de motos de uso diário.</div>
+<div><strong>Proposta única</strong>Tranquilidade e controle da moto em um só lugar.</div>
+<div><strong>Solução</strong>Garagem, manutenção, alertas, abastecimentos, despesas, relatórios e PWA.</div>
+<div><strong>Canais</strong>Aplicação web/PWA, indicação e apresentação acadêmica.</div>
+<div><strong>Receitas</strong>Produto MVP gratuito; monetização futura ainda não definida.</div>
+<div><strong>Custos</strong>Desenvolvimento, domínio/hospedagem e operação de notificações.</div>
+<div><strong>Métricas</strong>Contas criadas, motos cadastradas, registros, alertas concluídos e retenção.</div>
+<div><strong>Vantagem</strong>Integra manutenção, consumo, custo/km, lembretes e uso móvel.</div>
+<div><strong>Alternativas</strong>Memória, planilhas, papel, aplicativos genéricos e etiquetas.</div>
+</div>
+<div class="box warn"><strong>PENDENTE:</strong> validar com a equipe se o modelo de negócio continuará gratuito e quais hipóteses comerciais serão apresentadas.</div>
+</section>
+
+<section class="page"><h2>3. Backlog, protótipo e casos de uso</h2>
+<table><tr><th>Prioridade</th><th>Entrega</th><th>Evidência</th></tr>
+<tr><td>P0</td><td>Conta, sessão, garagem e seleção de moto</td><td>Workspace real/API protegida</td></tr>
+<tr><td>P0</td><td>Manutenções, histórico e alertas por data/km</td><td>Fluxos integrados e scheduler</td></tr>
+<tr><td>P0</td><td>Despesas, abastecimentos e relatórios</td><td>T3, CSV e impressão/PDF</td></tr>
+<tr><td>P1</td><td>Consumo, reserva, postos, serviços e painel</td><td>Complementos documentados em SPEC/DER</td></tr>
+<tr><td>P1</td><td>PWA, tema, offline e Web Push</td><td>Validações desktop/mobile/iPhone</td></tr>
+<tr><td>P2</td><td>Recuperação por e-mail SMTP real</td><td>Integração pronta; provedor externo pendente</td></tr></table>
+<h3>Casos de uso principais</h3><p>Ator: usuário autenticado. Casos: criar conta/entrar; cadastrar moto; registrar manutenção; configurar/concluir alerta; registrar abastecimento ou despesa; consultar histórico/relatório; exportar CSV; ativar notificações; recuperar senha.</p>
+<p class="small">Protótipo funcional: <a href="https://speeches-sku-donated-six.trycloudflare.com/">acesso público temporário</a>. A URL pode expirar; manter uma gravação/prints como plano B.</p>
+</section>
+
+<section class="page"><h2>4. Hipótese, métricas e validação</h2>
+<h3>Hipótese</h3><p>Se motociclistas puderem registrar a moto, seus serviços, gastos e limites de manutenção em um fluxo simples, então terão maior clareza do cuidado necessário e do custo de uso.</p>
+<h3>Validação registrada</h3><p>Foram informadas <strong>4 pessoas</strong> como participantes da validação. Os artefatos técnicos registram aceites de uso no navegador e no iPhone para telas, gastos, relatórios, PWA, offline/reconexão e notificações.</p>
+<table><tr><th>Indicador</th><th>Resultado documentado</th><tr><td>Participantes informados</td><td>4 pessoas</td></tr><tr><td>Testes backend</td><td>89 testes / 898 asserções</td></tr><tr><td>Testes frontend</td><td>Suítes de módulos, build e regressões aprovados</td></tr><tr><td>Aceite mobile</td><td>Dashboard, manutenção, garagem, alertas, configurações, gastos e relatórios conferidos</td></tr></table>
+<div class="box warn"><strong>PENDENTE:</strong> preencher antes da entrega: perfil dos quatro participantes, data/método, métrica de sucesso, tabela de feedback (feedback → ajuste antes/depois) e frases autorizadas. Não transformar testes automatizados em “usuários reais”.</div>
+</section>
+
+<section class="page"><h2>5. Arquitetura, stack e DER</h2>
+<p>Frontend Vue 3/Vite, Axios, Service Worker e PWA; backend Laravel 12/PHP 8.2+ como API RESTful JSON; MySQL 8/InnoDB; Web Push com VAPID local; execução local com XAMPP.</p>
+<p>Fluxo: navegador/PWA → frontend Vite → proxy <code>/api</code> → API Laravel → MySQL. Scheduler Laravel verifica alertas e aciona Web Push. Não há views Blade de negócio.</p>
+<h3>Entidades principais</h3><p>usuarios 1:N motocicletas; motocicletas 1:N manutencoes, despesas e alertas; usuarios 1:N postos; postos 1:N posto_precos; despesas podem referenciar posto. O DER completo está em <a href="DER.md">DER.md</a>.</p>
+<p class="small">Schema atualizado por migrations aditivas; integridade referencial e exclusão em cascata do domínio preservadas.</p>
+</section>
+
+<section class="page"><h2>6. Backend e contrato da API</h2>
+<p>Decisão: backend dedicado em Laravel, separado do frontend, com autenticação por sessão, CSRF, autorização por propriedade e respostas JSON.</p>
+<table><tr><th>Grupo</th><th>Exemplos</th><th>Contrato</th></tr>
+<tr><td>Sessão</td><td><code>/api/csrf</code>, login, logout, user</td><td>CSRF; anônimo 401 nas rotas privadas</td></tr>
+<tr><td>Domínio</td><td>motocicletas, manutenções, alertas</td><td>CRUD, validação 422, propriedade 404</td></tr>
+<tr><td>Financeiro</td><td>despesas, painel, relatórios</td><td>centavos, filtros inclusivos, CSV seguro</td></tr>
+<tr><td>Push</td><td>inscrição, teste, scheduler</td><td>VAPID; inscrição criptografada</td></tr></table>
+<p>Contratos e regras detalhadas: <a href="SPEC.md">SPEC.md</a>, <a href="backend/ALERTAS.md">backend/ALERTAS.md</a> e migrations.</p>
+</section>
+
+<section class="page"><h2>7. Sprint backlog e atas</h2>
+<table><tr><th>Ciclo</th><th>Foco</th><th>Resultado</th></tr>
+<tr><td>T1</td><td>Conta, garagem, manutenção e alertas</td><td>MVP funcional e API protegida</td></tr>
+<tr><td>T2</td><td>Histórico, PWA, mobile, Web Push e refinamentos</td><td>Uso móvel, offline e notificações</td></tr>
+<tr><td>T3</td><td>Gastos, abastecimentos, relatórios e exportação</td><td>Financeiro integrado e validado</td></tr>
+<tr><td>Complementos</td><td>Consumo, reserva, postos, lembretes e landing</td><td>Uso diário ampliado</td></tr></table>
+<p>As atas retrospectivas e o histórico de tarefas estão em <a href="TASKS.md">TASKS.md</a>, <a href="CONTINUACAO.md">CONTINUACAO.md</a> e <a href="ENTREGA.md">ENTREGA.md</a>.</p>
+</section>
+
+<section class="page"><h2>8. Plano de testes e resultados</h2>
+<p>O plano consolidado contém 11 casos: 5 unitários, 4 de integração e 2 de aceitação. A suíte backend final registrada passou com 89 testes e 898 asserções em SQLite isolado. O frontend teve testes de módulos, build Vite e regressões em Chromium.</p>
+<ul><li>Segurança: CSRF 419, autorização 404, logout 401, validações 422, caminhos privados 404.</li><li>Financeiro: arredondamento, filtros, meses vazios, CSV com BOM/escape e impressão.</li><li>Mobile: viewport responsivo, PWA, tema, offline/reconexão e aceite no iPhone.</li><li>Integridade: isolamento entre contas/motos e preservação de dados existentes.</li></ul>
+<p>Documento detalhado: <a href="output/pdf/PlanoDeTestes_MotoCare.pdf">PlanoDeTestes_MotoCare.pdf</a>.</p>
+</section>
+
+<section class="page"><h2>9. Repositório e produto publicado</h2>
+<p><strong>GitHub:</strong> <a href="https://github.com/guibirlem/motocare">https://github.com/guibirlem/motocare</a></p>
+<p><strong>Produto:</strong> <a href="https://speeches-sku-donated-six.trycloudflare.com/">https://speeches-sku-donated-six.trycloudflare.com/</a></p>
+<div class="box warn"><strong>Atenção:</strong> o produto está em túnel temporário para demonstração; ele exige PC, API, frontend, MySQL e túnel ligados. Para a apresentação, abrir e testar antes e manter vídeo/prints como plano B.</div>
+<p>O repositório contém <a href="AGENTS.md">AGENTS.md</a>, <a href="TASKS.md">TASKS.md</a>, histórico de commits, lockfiles e documentação. Segredos, .env, chaves privadas, dependências e builds não devem ser publicados.</p>
+</section>
+
+<section class="page"><h2>10. Slides do pitch</h2>
+<div class="box warn"><strong>PENDENTE — a criar:</strong> publicar slides em uma URL acessível sem login e substituir este marcador pelo link definitivo antes do envio.</div>
+<p>Estrutura recomendada: gancho; problema/persona; solução; demo; validação; modelo de negócio; aprendizados; encerramento.</p>
+<h3>Roteiro de 10 minutos</h3><ol><li>0:00–1:00 — Gancho: “Quem usa a moto todos os dias não pode depender da memória para evitar uma pane.”</li><li>1:00–2:00 — Problema e persona.</li><li>2:00–3:00 — Solução e diferencial.</li><li>3:00–6:30 — Demo: cadastro/login → Garagem → manutenção → alerta → gasto → relatório.</li><li>6:30–7:45 — Validação e métricas.</li><li>7:45–8:45 — Modelo de negócio.</li><li>8:45–9:30 — Aprendizados.</li><li>9:30–10:00 — CTA e encerramento.</li></ol>
+</section>
+
+<section class="page"><h2>11. Contribuição dos integrantes</h2>
+<table><tr><th>Integrante</th><th>Contribuição</th></tr>
+<tr><td>Kailan de Scena Pacheco</td><td class="pending">PENDENTE: preencher 2–3 linhas com a contribuição real.</td></tr>
+<tr><td>Guilherme Birlem</td><td class="pending">PENDENTE: preencher 2–3 linhas com a contribuição real.</td></tr>
+</table>
+<div class="box warn">A equipe informou dois nomes. Se houver outros integrantes, adicionar todos antes da entrega única.</div>
+</section>
+
+<section class="page"><h2>12. Conclusão e próximos passos</h2>
+<p>O MotoCare evoluiu de uma ideia de lembretes para um produto funcional que reúne manutenção, histórico, alertas, despesas, consumo, relatórios e experiência PWA. A separação frontend/API, as migrations aditivas, os testes de segurança e a validação móvel sustentam uma entrega incremental e rastreável.</p>
+<h3>Aprendizados</h3><ul><li>Regras de domínio precisam ser explicitadas antes de automatizar alertas e cálculos.</li><li>Dados financeiros exigem precisão, filtros claros e proteção contra exportações perigosas.</li><li>Offline deve informar limites; não deve simular gravações que ainda não foram sincronizadas.</li><li>Testes automatizados e aceite de uso são evidências diferentes e devem ser apresentados separadamente.</li></ul>
+<h3>Próximos passos</h3><ul><li>Completar discovery/feedback quantitativo e publicar slides.</li><li>Configurar SMTP real para recuperação de senha.</li><li>Trocar o túnel temporário por hospedagem/túnel nomeado estável.</li><li>Adicionar métricas de uso e acompanhar retenção após a apresentação.</li></ul>
+</section>
+
+<section class="page"><h2>Checklist final antes do envio</h2>
+<ul><li class="pending">[ ] Substituir pendências por dados reais de discovery, feedback e contribuições.</li><li class="pending">[ ] Criar/publicar slides e inserir URL pública.</li><li>[ ] Abrir GitHub, produto e slides em aba anônima.</li><li>[ ] Confirmar que nenhum segredo aparece no PDF, GitHub ou slides.</li><li>[ ] Testar demo e preparar vídeo/prints como plano B.</li><li>[ ] Renomear o arquivo para <code>AS_MotoCare.pdf</code>.</li></ul>
+<div class="footer">MotoCare — Entrega Final AS — 2026/2</div>
+</section>
+</body>
+</html>
